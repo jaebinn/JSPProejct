@@ -41,7 +41,7 @@
 		else{
 	%>
 		<p><%=loginid%>님 환영합니다</p>
-		<a href="">로그아웃</a>
+		<a href="logout.jsp">로그아웃</a>
 	<%
 		}
 	%>
