@@ -25,7 +25,7 @@
 				}
 			}
 		}
-		
+		ㅏ
 		xhr.onerror = function(){
 			console.log("에러입니다...");
 		}
