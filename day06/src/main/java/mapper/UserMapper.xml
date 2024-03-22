@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="User">
+	<!-- 1. HashMap 이용 -->
+	<!-- <insert id="insert" parameterType="hashmap">
+		insert into user values(#{a},#{b},#{c})
+	</insert> -->
+	
+	<!-- 2. 객체 이용 -->
+	<insert id="insert" parameterType="userdto">
+		insert into user values(#{userid},#{userpw},#{username})
+	</insert>
+	<!-- ps.setString(1,user.getUserid()) -->
+	
+	<!-- 3. 문자열(단일변수)인 경우 -->
+	<select id="select" parameterType="string" resultType="userdto">
+		select * from user where userid = #{userid}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
