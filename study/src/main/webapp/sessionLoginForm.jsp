@@ -7,30 +7,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<%
-	//사용자 컴퓨터의 쿠키 저장소로부터 쿠키값을 읽어드림(몇개인지 모름)
-	//-> 배열을 이용하여 쿠키를 저장
-	Cookie []  cookies = request.getCookies(); // 쿠키를 읽어 배열에 저장
-	String id = "";
-	//쿠키값이 없을 경우를 위해 null처리 
-	if(cookies != null){
-		for(int i = 0; i< cookies.length; i ++){
-			if(cookies[i].getName().equals("id")){
-				id = cookies[i].getValue();
-				break; //원하는 데이터를 찾았기에 반복문 탈출
-			}
-		}
-	}
-	
-%>
 <center>
-<h2>쿠키 로그인</h2>
-	<form action ="cookieLoginProc.jsp" method="post">
+<h2>세션 로그인</h2>
+	<form action ="sessionLoginProc.jsp" method="post">
 		<table width="400" border ="1">
 			<tr height = "50">
 				<td width="150">아이디</td>
-				<td width="250"><input type="text" name="id" value ="<%=id %>"></td>
+				<td width="250"><input type="text" name="id" ></td>
 			</tr>
 			<tr height="50">
 				<td width="150">패스워드</td>
@@ -45,6 +28,5 @@
 		</table>
 	</form>
 </center>
-
 </body>
 </html>
