@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>day07</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+  	<!-- B 라는 이름의 서블릿은 com.kh.servlet.B 라는 클래스입니다! -->
+  	<servlet-name>B</servlet-name>
+  	<servlet-class>com.kh.servlet.B</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>B</servlet-name>
+  	<url-pattern>/b</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>FC1</servlet-name>
+  	<servlet-class>com.kh.servlet.FC1</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>FC1</servlet-name>
+  	<url-pattern>*.ts</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>FC2</servlet-name>
+  	<servlet-class>com.kh.servlet.FC2</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>FC2</servlet-name>
+  	<url-pattern>/test/*</url-pattern>
+  </servlet-mapping>
+  
+</web-app>
+
+
