@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.action.Transfer;
+import com.mysql.cj.Session;
 
 public class BoardFrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -33,10 +34,39 @@ public class BoardFrontController extends HttpServlet {
 
 		Transfer transfer = null;
 		switch(command) {
-		case "boardlist.bo":
+		case "/boardlist.bo":
+			try {
+				transfer = new BoardListOkAction().execute(req,resp);
+			} catch (Exception e) {
+				System.out.println("/boardlist.bo : "+e);
+			}
 			break;
 //		case "boardlistok.bo":
-			
+		case "/boardwrite.bo":
+			transfer = new Transfer();
+			transfer.setRedirect(false);
+			transfer.setPath("/app/board/write.jsp");
+			break;
+		case "/boardwriteok.bo":
+			try {
+				transfer = new BoardWriteOkAction().execute(req,resp);
+			} catch (Exception e) {
+				System.out.println("/boardwriteok.bo : "+e);
+			}
+			break;
+		case "/boardview.bo":
+			try {
+				transfer = new BoardViewOkAction().execute(req,resp);
+			} catch (Exception e) {
+				System.out.println("/boardview.bo : "+e);
+			}
+			break;
+		case "/boarddelete.bo":
+			try {
+				transfer = new BoardDeleteOkAction().execute(req,resp);
+			} catch (Exception e) {
+				System.out.println("/boarddelete.bo : "+e);
+			}
 		}
 		
 		if(transfer != null) {

@@ -63,6 +63,12 @@ public class UserFrontController extends HttpServlet {
 			} catch (Exception e) {
 				System.out.println("/checkidok : "+e);
 			}
+			break;
+		case "/userlogout.us":
+			req.getSession().invalidate();
+			transfer = new Transfer();
+			transfer.setRedirect(false);
+			transfer.setPath("/");
 		}
 		
 		if(transfer != null) {

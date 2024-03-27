@@ -22,7 +22,10 @@ create table t_board(
     userid varchar(300)
 );
 
+insert into t_board (boardtitle, boardcontents, userid) values('샘플 데이터 1','샘플 데이터 게시글 내용입니다','apple');
+insert into t_board (boardtitle, boardcontents, userid) values('샘플 데이터 2','샘플 데이터 게시글 내용입니다','banana');
+insert into t_board (boardtitle, boardcontents, userid) values('샘플 데이터 3','샘플 데이터 게시글 내용입니다','cherry');
 
-
-
-
+select * from t_board;
+select boardtitle,boardcontents,userid from t_board;
+insert into t_board (boardtitle,boardcontents,userid) (select boardtitle,boardcontents,userid from t_board);

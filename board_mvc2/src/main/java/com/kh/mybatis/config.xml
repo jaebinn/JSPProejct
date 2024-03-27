@@ -5,6 +5,7 @@
 <configuration>
   <typeAliases>
   	<typeAlias type="com.kh.model.dto.UserDTO" alias="userdto"/>
+  	<typeAlias type="com.kh.model.dto.BoardDTO" alias="boarddto"/>
   </typeAliases>
   <environments default="development">
     <environment id="development">
@@ -13,12 +14,13 @@
         <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/gb"/>
         <property name="username" value="root"/>
-        <property name="password" value="1234"/>
+        <property name="password" value="rootroot"/>
       </dataSource>
     </environment>
   </environments>
   <mappers>
     <mapper resource="com/kh/mapper/UserMapper.xml"/>
+    <mapper resource="com/kh/mapper/BoardMapper.xml"/>
   </mappers>
 </configuration>
 
