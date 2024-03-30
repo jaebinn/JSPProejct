@@ -57,6 +57,10 @@ public class BoardDAO {
 	public long getLastNum(String userid) {
 		return ss.selectOne("Board.getLastNum",userid);
 	}
+
+	public boolean updateBoard(BoardDTO board) {
+		return ss.update("Board.update",board) == 1;
+	}
 	
 }
 

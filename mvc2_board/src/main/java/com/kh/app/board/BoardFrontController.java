@@ -67,6 +67,27 @@ public class BoardFrontController extends HttpServlet {
 			} catch (Exception e) {
 				System.out.println("/boarddelete.bo : "+e);
 			}
+			break;
+		case "/boardupdate.bo":
+			try {
+				transfer = new BoardUpdateAction().execute(req,resp);
+			} catch (Exception e) {
+				System.out.println("/boardupdate.bo : "+e);
+			}
+			break;
+		case "/boardupdateok.bo":
+			try {
+				transfer = new BoardUpdateOkAction().execute(req,resp);
+			} catch (Exception e) {
+				System.out.println("/boardupdateok.bo : "+e);
+			}
+			break;
+		case "/filedownload.bo":
+			try {
+				new FileDownloadAction().execute(req,resp);
+			} catch (Exception e) {
+				System.out.println("/filedownload.bo : "+e);
+			}
 		}
 		
 		if(transfer != null) {

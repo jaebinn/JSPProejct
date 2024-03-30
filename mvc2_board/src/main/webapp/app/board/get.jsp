@@ -200,7 +200,7 @@
 						<tr>
 							<th>첨부파일${i+1}</th>
 							<td>
-								<a href="#">${file.orgname}</a>
+								<a href="${cp}/filedownload.bo?systemname=${file.systemname}&orgname=${file.orgname}">${file.orgname}</a>
 							</td>
 						</tr>
 						<%-- items에 있는 문자열을 delims 기준으로 분할하고, 분할된 갯수만큼 반복 --%>
@@ -239,7 +239,7 @@
 				<tr align="right" valign="middle">
 					<td>
 						<c:if test="${board.userid == loginUser}">
-							<a href="#">수정</a>
+							<a href="${cp}/boardupdate.bo?boardnum=${board.boardnum}&page=${param.page}&keyword=${param.keyword}">수정</a>
 							<a href="${cp}/boarddelete.bo?boardnum=${board.boardnum}&page=${param.page}&keyword=${param.keyword}">삭제</a>
 						</c:if>
 						<a href="${cp}/boardlist.bo?page=${param.page}&keyword=${param.keyword}">목록</a>

@@ -2,6 +2,7 @@ package com.kh.app.board;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 
 import javax.servlet.http.Cookie;
@@ -44,6 +45,8 @@ public class BoardWriteOkAction implements Action {
 		int len = fileNames.size();
 		//비어있는 그 name 하나 삭제
 		fileNames.remove("file"+(len-1));
+		
+		Collections.reverse(fileNames);
 		
 		String boardtitle = multi.getParameter("boardtitle");
 		String boardcontents = multi.getParameter("boardcontents");
