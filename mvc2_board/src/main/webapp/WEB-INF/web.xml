@@ -9,10 +9,14 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  <!-- 서블릿 등록 -->
   <servlet>
   	<servlet-name>UserFrontController</servlet-name>
   	<servlet-class>com.kh.app.user.UserFrontController</servlet-class>
   </servlet>
+  
+  <!-- 경로 매핑  -->
   <servlet-mapping>
   	<servlet-name>UserFrontController</servlet-name>
   	<url-pattern>*.us</url-pattern>
