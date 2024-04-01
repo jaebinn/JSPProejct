@@ -22,10 +22,12 @@ public class BoardUpdateOkAction implements Action{
 	public Transfer execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		String saveFolder = req.getServletContext().getRealPath("file");
 		int size = (int)(1024*1024*1024*1.5);
+		
 		MultipartRequest multi = new MultipartRequest(req,saveFolder,size,"UTF-8",
 				new DefaultFileRenamePolicy());
 		//삭제해야 할 파일명들
 		String updateCnt = multi.getParameter("updateCnt");
+		System.out.println("updateCnt:"+updateCnt);
 		String page = multi.getParameter("page");
 		String keyword = multi.getParameter("keyword");
 		long boardnum = Long.parseLong(multi.getParameter("boardnum"));

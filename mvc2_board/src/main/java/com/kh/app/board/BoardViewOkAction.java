@@ -7,6 +7,7 @@ import com.kh.action.Action;
 import com.kh.action.Transfer;
 import com.kh.model.dao.BoardDAO;
 import com.kh.model.dao.FileDAO;
+import com.kh.model.dao.ReplyDAO;
 import com.kh.model.dto.BoardDTO;
 
 public class BoardViewOkAction implements Action{
@@ -23,9 +24,11 @@ public class BoardViewOkAction implements Action{
 			board.setReadcount(board.getReadcount()+1);
 		}
 		FileDAO fdao = new FileDAO();
+		ReplyDAO rdao = new ReplyDAO();
 		
 		req.setAttribute("board", board);
 		req.setAttribute("files", fdao.getFiles(boardnum));
+		req.setAttribute("replies", rdao.getReplies(boardnum));
 		
 		Transfer transfer = new Transfer();
 		transfer.setRedirect(false);

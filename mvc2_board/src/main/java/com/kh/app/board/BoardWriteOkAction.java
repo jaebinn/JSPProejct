@@ -30,13 +30,12 @@ public class BoardWriteOkAction implements Action {
 		//저장될 파일의 최대 크기(1.5GB)
 		int size = (int)(1024*1024*1024*1.5);
 		
-		//cos 이용 / DefaultFileRenamePolicy()는 똑같은 파일명이 올라 간다면 
-		//파일명뒤에 숫자 붙히는 것.
+		//cos 이용
 		MultipartRequest multi = new MultipartRequest(req, saveFolder, size,
 				"UTF-8", new DefaultFileRenamePolicy());
 		
 		//						input[type=file]의 name 속성값들
-		Enumeration<?> temp = multi.getFileNames(); //multi.getFileNames()가 타입이 Enumeration(열거형)이기 때문에
+		Enumeration<?> temp = multi.getFileNames();
 		ArrayList<String> fileNames = new ArrayList<String>();
 		while(temp.hasMoreElements()) {
 			fileNames.add((String)temp.nextElement());
@@ -49,7 +48,6 @@ public class BoardWriteOkAction implements Action {
 		
 		Collections.reverse(fileNames);
 		
-		//req객체가 multi객체에 속해버렸기 때문에 multi를 사용한 순간부터 multi로 변경 
 		String boardtitle = multi.getParameter("boardtitle");
 		String boardcontents = multi.getParameter("boardcontents");
 		String userid = multi.getParameter("userid");

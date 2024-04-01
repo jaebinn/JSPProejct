@@ -102,6 +102,10 @@
 	.reply_line table tbody tr td:first-child{
 		width:150px; text-align: center;
 	}
+	.reply_line form:nth-child(2){
+		border-top:1px solid grey;
+		margin-top:20px;
+	}
 	.write_box{ padding-bottom: 40px;}
 	.write_box > tbody > tr > td+td{
 		position: relative;
@@ -121,20 +125,26 @@
 		top:22px; right:0;
 	}
 	.update_box{
-		border-top:1px solid grey;
-		padding-top:30px;
+		margin-top:20px;
+	}
+	.update_box tbody{
+		margin-top : 20px;
+	}
+	.update_box tr{
+		height:120px;
 	}
 	.update_box textarea{
 		width:500px; height:80px;
 	}
 	.update_box td:last-child{
-		vertical-align: top;
+		text-align:center;
+		vertical-align: middle;
 	}
 	.update_box .btns a{
 		display: inline-block;
 		width:70px; height:30px; line-height: 30px;
 		text-align: center; vertical-align: middle;
-		margin-top:20px;
+		margin-top:15px;
 	}
 	
 </style>
@@ -248,28 +258,98 @@
 			</tbody>
 		</table>
 		<div class="reply_line">
-			<form name="replyForm" method="post" action="#">
+			<form name="replyForm" method="post" action="${cp}/replywrite.rp">
+				<input type="hidden" name="boardnum" value="${board.boardnum}">
+				<input type="hidden" name="page" value="${param.page}">
+				<input type="hidden" name="keyword" value="${param.keyword}">
 				<table class="write_box">
 					<tbody>
 						<tr>
 							<td>댓글</td>
 							<td>
 								<textarea name="replycontents"></textarea>
-								<a href="#">등록</a>
+								<a href="javascript:document.replyForm.submit();">등록</a>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			</form>
-			<table class="update_box">
-				<tbody>
-				
-				</tbody>
-			</table>
+			<form name="updateForm" method="post">
+				<input type="hidden" name="boardnum" value="${board.boardnum}">
+				<input type="hidden" name="page" value="${param.page}">
+				<input type="hidden" name="keyword" value="${param.keyword}">
+				<input type="hidden" name="replynum" value="">
+				<input type="hidden" name="i" value="">
+				<table class="update_box">
+					<tbody>
+						<c:if test="${replies.size()>0}">
+							<c:forEach var="i" begin="0" end="${replies.size()-1}">
+								<c:set var="reply" value="${replies[i]}"/>
+								<tr>
+									<td>${reply.userid}</td>
+									<td>
+										<textarea readonly name="reply${i}" id="reply${i}" class="replycontents">${reply.replycontents}</textarea>
+									</td>
+									<td>
+										${reply.regdate}<c:if test="${reply.updatechk == 'o'}">(수정됨)</c:if>
+										<c:if test="${reply.userid == loginUser}">
+											<div class="btns">
+												<a href="javascript:updateReply(${i})" id="start${i}">수정</a>
+												<a href="javascript:updateReplyOk(${i},${reply.replynum})" style="display:none;" id="end${i}">수정완료</a>
+												<a href="javascript:deleteReply(${reply.replynum})">삭제</a>
+											</div>
+										</c:if>
+									</td>
+								</tr>
+							</c:forEach>
+						</c:if>
+						<c:if test="${replies.size() <= 0}">
+							<tr>
+								<td colspan="3">등록된 댓글이 없습니다</td>
+							</tr>
+						</c:if>
+					</tbody>
+				</table>
+			</form>
 		</div>
 	</div>
 </body>
+<script>
+	const updateForm = document.updateForm;
+	let flag = false;
+	function deleteReply(replynum){
+		updateForm.setAttribute("action","${cp}/replydelete.rp");
+		updateForm.replynum.value = replynum;
+		updateForm.submit();
+	}
+	function updateReply(i){
+		const start = document.getElementById("start"+i);
+		const end = document.getElementById("end"+i);
+		const reply = document.getElementById("reply"+i);
+		
+		if(!flag){
+			start.style.display = "none";
+			end.style.display = "inline-block";
+			reply.removeAttribute("readonly");
+			flag = true;
+		}
+		else{
+			alert("수정중인 댓글이 있습니다!");
+		}
+	}
+	function updateReplyOk(i,replynum){
+		updateForm.setAttribute("action","${cp}/replyupdate.rp");
+		updateForm.replynum.value = replynum;
+		updateForm.i.value = i;
+		updateForm.submit();
+	}
+</script>
 </html>
+
+
+
+
+
 
 
 

@@ -7,7 +7,7 @@
   	<typeAlias type="com.kh.model.dto.UserDTO" alias="userdto"/>
   	<typeAlias type="com.kh.model.dto.BoardDTO" alias="boarddto"/>
   	<typeAlias type="com.kh.model.dto.FileDTO" alias="filedto"/>
-  	
+  	<typeAlias type="com.kh.model.dto.ReplyDTO" alias="replydto"/>
   </typeAliases>
   <environments default="development">
     <environment id="development">
@@ -24,6 +24,7 @@
     <mapper resource="com/kh/mapper/UserMapper.xml"/>
     <mapper resource="com/kh/mapper/BoardMapper.xml"/>
     <mapper resource="com/kh/mapper/FileMapper.xml"/>
+    <mapper resource="com/kh/mapper/ReplyMapper.xml"/>
   </mappers>
 </configuration>
 

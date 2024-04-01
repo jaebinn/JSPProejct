@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Reply">
+	<insert id="insert" parameterType="replydto">
+		insert into t_reply (replycontents,userid,boardnum)
+		values(#{replycontents},#{userid},#{boardnum})
+	</insert>
+	<select id="getReplies" parameterType="long" resultType="replydto">
+		select * from t_reply where boardnum=#{boardnum}
+	</select>
+	<select id="getReplyCnt" parameterType="long" resultType="int">
+		select count(*) from t_reply where boardnum=#{boardnum}
+	</select>
+	<delete id="delete" parameterType="long">
+		delete from t_reply where replynum=#{replynum}
+	</delete>
+	<update id="update" parameterType="replydto">
+		update t_reply
+		set replycontents=#{replycontents},updatechk='o'
+		where replynum=#{replynum}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+

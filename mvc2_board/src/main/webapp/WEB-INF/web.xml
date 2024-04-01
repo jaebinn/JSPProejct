@@ -9,14 +9,10 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
-  <!-- 서블릿 등록 -->
   <servlet>
   	<servlet-name>UserFrontController</servlet-name>
   	<servlet-class>com.kh.app.user.UserFrontController</servlet-class>
   </servlet>
-  
-  <!-- 경로 매핑  -->
   <servlet-mapping>
   	<servlet-name>UserFrontController</servlet-name>
   	<url-pattern>*.us</url-pattern>
@@ -28,5 +24,13 @@
   <servlet-mapping>
   	<servlet-name>BoardFrontController</servlet-name>
   	<url-pattern>*.bo</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>ReplyFrontController</servlet-name>
+  	<servlet-class>com.kh.app.reply.ReplyFrontController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ReplyFrontController</servlet-name>
+  	<url-pattern>*.rp</url-pattern>
   </servlet-mapping>
 </web-app>

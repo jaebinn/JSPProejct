@@ -1,5 +1,6 @@
 package com.kh.app.board;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,7 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.action.Action;
 import com.kh.action.Transfer;
 import com.kh.model.dao.BoardDAO;
+import com.kh.model.dao.ReplyDAO;
 import com.kh.model.dto.BoardDTO;
+import com.kh.model.dto.ReplyDTO;
 
 public class BoardListOkAction implements Action{
 	@Override
@@ -62,6 +65,16 @@ public class BoardListOkAction implements Action{
 		req.setAttribute("endPage", endPage);
 		req.setAttribute("page", page);
 		req.setAttribute("keyword", keyword);
+		
+		ReplyDAO rdao = new ReplyDAO();
+		ArrayList<Integer> reply_cnt_list = new ArrayList<Integer>();
+		
+		for(BoardDTO board : list) {
+			reply_cnt_list.add(rdao.getReplyCnt(board.getBoardnum()));
+			
+		}
+		
+		req.setAttribute("reply_cnt_list", reply_cnt_list);
 		
 		Transfer transfer = new Transfer();
 		transfer.setRedirect(false);

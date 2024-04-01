@@ -604,7 +604,8 @@ a.write {
 							<tr>
 								<td>${board.boardnum}</td>
 								<td><sup class="hot">Hot</sup></td>
-								<td><a href="${cp}/boardview.bo?boardnum=${board.boardnum}&page=${page}&keyword=${keyword}">${board.boardtitle}<span id="reply_cnt">[0]</span></a></td>
+								<td><a href="${cp}/boardview.bo?boardnum=${board.boardnum}&page=${page}&keyword=${keyword}">${board.boardtitle}
+								<span id="reply_cnt">[${reply_cnt_list[i]}]</span></a></td>
 								<td>${board.userid }</td>
 								<td>${board.regdate }</td>
 								<td>${board.readcount }</td>
