@@ -13,6 +13,11 @@
 	<select id="getReplyCnt" parameterType="long" resultType="int">
 		select count(*) from t_reply where boardnum=#{boardnum}
 	</select>
+	<select id="getRecentReplyCnt" parameterType="long" resultType="int">
+		<![CDATA[
+			select count(*) from t_reply where boardnum=#{boardnum} and timestampdiff(HOUR,regdate,now())<1
+		]]>
+	</select>
 	<delete id="delete" parameterType="long">
 		delete from t_reply where replynum=#{replynum}
 	</delete>
