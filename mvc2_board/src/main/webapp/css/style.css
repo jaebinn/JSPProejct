@@ -23,11 +23,16 @@ a{
 .btn_area{
 	margin:0 auto;
 	display:flex;
-	justify-content: center;
 }
 .btn_area > *{
 	display: inline-block;
 	margin-left: 10px; margin-right:10px;
+}
+.btn_area a{
+	text-align: center;
+	padding:10px;
+	width:100px;
+	margin-top:20px;
 }
 
 /* join */
@@ -306,6 +311,33 @@ body.login{
 	text-decoration: none;
 }
 /* board 공통 */
+body.list, body.write, body.get, body.modify {
+	background-color: #fff;
+}
+#wrap > div:nth-child(1){
+	position:absolute;
+	top:0; left:0;
+	width:100%;
+	height:100%;
+	background: #fff;
+	z-index:200;
+	animation:listWrap 1.5s 1;
+}
+@keyframes listWrap {
+	from {
+	}
+	to {
+		opacity: 0;
+	}
+}
+.list table, .write table, .get table, .modify table{
+	border: 0px;
+	width: 900px;
+}
+.header_area tr{
+	text-align: right;
+	vertical-align: middle;	
+}
 .header_area a {
 	width: 120px;
 	padding: 10px;
@@ -314,6 +346,10 @@ body.login{
 
 .header_area span {
 	font-weight: bold;
+}
+.title tr{
+	text-align:center;
+	vertical-align: middle;
 }
 .title h3 {
 	font-size: 2em;
@@ -339,42 +375,28 @@ a.btn {
 	font-weight: bold;
 	text-decoration: none;
 }
+.btn_table{
+	text-align: right;
+	vertical-align: middle;
+}
 
 /* list */
-body.list {
-	background-color: #fff;
-}
-#wrap.list > div:nth-child(1){
-	position:absolute;
-	top:0; left:0;
-	width:100%;
-	height:100%;
-	background: #fff;
-	z-index:200;
-	animation:listWrap 1.5s 1;
-}
-@keyframes listWrap {
-	from {
-	}
-	to {
-		opacity: 0;
-	}
-}
-.list table {
-	border: 0px;
-	width: 900px;
-}
-
 table.list, .pagination, .pagination+table {
 	border-collapse: collapse;
 	border-spacing: 0;
 	width: 840px;
 }
-
+table.list > thead > tr:nth-child(1){
+	text-align: right;
+	vertical-align: middle;
+}
 table.list>thead>tr:nth-child(1)>td {
 	text-align: right;
 }
-
+table.list > thead > tr:nth-child(2){
+	text-align: center;
+	vertical-align: middle;
+}
 table.list>thead>tr>th {
 	border-top: 1px solid #384d75;
 	border-bottom: 1px solid #ccc;
@@ -454,6 +476,10 @@ table.list .new {
 
 .pagination{
 	margin-top:20px;
+}
+.pagination tr{
+	text-align: center;
+	vertical-align: middle;
 }
 .pagination a {
 	padding: 5px;
@@ -805,8 +831,143 @@ a.write {
 	margin-bottom: 70px;
 }
 
+/* write, modify */
+#boardForm tr{
+	height:30px;
+}
+#boardForm tr:nth-child(3){
+	height:300px;
+}
+#boardForm th{
+	text-align: center; vertical-align: middle;
+	width:150px;
+}
+#boardForm tr:nth-child(n+4){
+	height:50px;
+}
+#boardForm a{
+	padding:5px 10px;
+}
+.write input[type="text"],.write textarea,
+.modify input[type="text"],.modify textarea{
+	border:none;
+	padding:5px;
+	outline:none;
+}
+.write input[type="text"], .modify input[type="text"]{ width:500px; }
+.write textarea, .modify textarea{
+	resize:none;
+	width:700px; height:290px;
+}
+img.thumbnail{
+	display: block;
+	width:200px;
+	clear:both;
+}
+.write .btn_area, .modify .btn_area{
+	justify-content: flex-end;	
+}
+[class*='cont'] div:nth-child(1){
+	float:left; padding-left: 10px;
+}
+[class*='cont'] div:nth-child(2){
+	float:right; margin-right:100px;
+}
 
-
-
-
+/* get */
+.board_area{ border-collapse: collapse; }
+.board_area tr{
+	height:30px;
+}
+.board_area tr:nth-child(3) td{
+	padding-left: 5px;
+}
+.board_area tr:nth-child(4){
+	height:300px;
+}
+.board_area th{
+	text-align: center; vertical-align: middle;
+	width:150px;
+}
+.board_area tr:nth-child(n+4){
+	height:50px;
+}
+.board_area tr.no-file td{
+	text-align: center;
+}
+.board_area a{
+	background-color: transparent;
+	margin-left: 20px;
+	color:rgb(0,200,80);
+}
+.board_area a:hover{
+	transform:scale(1.1);
+	transition:all ease 0.2s;
+}
+.get .btn_area{
+	justify-content: flex-end;	
+}
+.get input[type="text"],.get textarea{
+	border:none;
+	padding:5px;
+	outline:none;
+}
+.get input[type="text"]{ width:500px; }
+.get textarea{
+	resize:none;
+	width:700px; height:290px;
+}
+.reply_line{
+	width:900px;
+	margin-top:20px;
+	border-top:1px solid grey;
+	padding-top:30px;
+}
+.reply_line table tbody tr td:first-child{
+	width:150px; text-align: center;
+}
+.reply_line form:nth-child(2){
+	border-top:1px solid grey;
+	margin-top:20px;
+}
+.write_box{ padding-bottom: 40px;}
+.write_box > tbody > tr > td+td{
+	position: relative;
+}
+.write_box textarea, .update_box textarea{
+	padding:5px 10px;
+	width:600px; height:70px;
+	resize:none; outline:none;
+	border:1px solid rgba(0,200,80,0.5); border-radius: 5px;
+}
+.write_box a{
+	display: inline-block;
+	text-align: center;
+	padding:10px;
+	width:90px;
+	position: absolute;
+	top:22px; right:0;
+}
+.update_box{
+	margin-top:20px;
+}
+.update_box tbody{
+	margin-top : 20px;
+}
+.update_box tr{
+	height:120px;
+}
+.update_box textarea{
+	width:500px; height:80px;
+}
+.update_box td:last-child{
+	text-align:center;
+	vertical-align: middle;
+}
+.update_box .btns a{
+	display: inline-block;
+	width:70px; height:30px; line-height: 30px;
+	text-align: center; vertical-align: middle;
+	margin-top:15px;
+}
 

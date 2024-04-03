@@ -11,7 +11,6 @@
 <link href="${cp}/css/style.css" rel="stylesheet">
 </head>
 <body class="list">
-	
 	<c:if test="${empty loginUser }">
 		<script>
 			alert("로그인 후 이용하세요!");
@@ -26,7 +25,7 @@
 		<!-- 로그아웃 버튼 배치할 테이블 -->
 		<table class="header_area">
 			<tbody>
-				<tr align="right" valign="middle">
+				<tr>
 					<td>
 						<span>${loginUser}님 환영합니다.</span>
 						<a class="btn" href="${cp}/userlogout.us">로그아웃</a>
@@ -37,7 +36,7 @@
 		<!-- 타이틀 띄워주는 테이블 -->
 		<table class="title">
 			<tbody>
-				<tr align="center" valign="middle">
+				<tr>
 					<td>
 						<h3>
 							<img src="${cp}/images/타이틀.png" class="tit_img">
@@ -49,10 +48,10 @@
 		<!-- 게시글 리스트 띄워주는 테이블 -->
 		<table class="list">
 			<thead>
-				<tr align="right" valign="middle">
+				<tr>
 					<td colspan="6">글 개수 : ${totalCnt}</td>
 				</tr>
-				<tr align="center" valign="middle">
+				<tr>
 					<th>번호</th>
 					<th colspan="2">제목</th>
 					<th>작성자</th>
@@ -87,7 +86,7 @@
 		<!-- 페이징 처리하는 테이블 -->
 		<table class="pagination">
 			<tbody>
-				<tr align="center" valign="middle">
+				<tr>
 					<td>
 						<c:if test="${startPage != 1}">
 							<a class="btn" href="${cp}/boardlist.bo?page=${startPage-1}&keyword=${keyword}">&lt;</a>
@@ -110,9 +109,9 @@
 			</tbody>
 		</table>
 		<!-- 글쓰기 버튼 배치하는 테이블 -->
-		<table>
+		<table class="btn_table">
 			<tbody>
-				<tr align="right" valign="middle">
+				<tr>
 					<td>
 						<a class="write btn" href="${cp}/boardwrite.bo?page=${page}&keyword=${keyword}">글쓰기</a>
 					</td>
@@ -155,8 +154,8 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
 	window.setTimeout(function(){
-		document.querySelector("#wrap.list>div:nth-child(1)").style.display="none";
-	},1200)
+		document.querySelector("#wrap>div:nth-child(1)").style.display="none";
+	},1300)
 	function search(){
 		const keyword = document.getElementById("keyword");
 		//유효성 검사
@@ -177,6 +176,9 @@
 	//채팅 구현
 	let socket = null;
 	let INDEX = 0;
+	//현재 이 클라이언트(세션)이 귓속말을 보내는 중인지 확인하기 위한 flag
+	//귓속말을 보내게 되면 이 안에는 "/userid " 형태의 문자열이 담긴다.
+	let echoFlag = "";
 	//채팅 버튼 클릭시 전체 채팅에 접속, 채팅창 열어주기
 	$("#chat-circle").click(function(){
 		$("#chat-circle").toggle('scale');
@@ -210,6 +212,11 @@
 		e.preventDefault();
 		let msg = $("#chat-input").val();
 		msg = msg.trim();
+		//하이
+		// /banana 하이
+		//귓속말을 보냈을 경우도 있으므로 msg 앞에 echoFlag를 연결하여
+		//채팅 로그를 만들 때와 서버측에서 메세지를 처리할 때 귓속말로 처리를 할 수 있도록 만들어 준다.
+		msg = echoFlag+msg;
 		if(msg == ""){
 			return false;
 		}
@@ -240,29 +247,140 @@
 		else{
 			let idx = message.indexOf("KHGB");
 			let sender = message.substring(0,idx);
+			// /banana 하이
 			let content = message.substring(idx+4);
-			generate_message(content,"user",sender);
+			
+			// /apple
+			let temp = content.split(" ")[0];
+			//띄어쓰기로 split된 것 중 맨 앞의 것의 첫 글자가 "/" 라면 귓속말이라는 뜻 
+			if(temp.substring(0,1) == "/"){
+				//그 "/" 뒤에 적힌것이 내 아이디라면 나에게 온 귓속말이라는 뜻
+				if(temp.replace("/","") == $("#userid").val()){
+					// 앞의 /userid 는 건너뛴 후의 실제 내용만 넘겨주며 채팅 로그 생성
+					generate_message(content.substring(temp.length+1),"echo",sender);
+				}
+				//나에게 온 귓속말이 아니라는 뜻
+				else{
+				}
+			}
+			//일반적인 메세지이므로
+			else{
+				//일반적인 채팅 로그로 생성
+				generate_message(content,"user",sender);
+			}
 		}
 	}
+	
+	//채팅창에 /아이디 를 쓰면 귓속말로 바뀌어야 하므로 키업 이벤트 함수로 판단해준다.
+	function sendEcho(){
+		//스페이스바를 눌렀을 때
+		if(window.event.keyCode == 32){
+			//채팅창의 첫번째 글자가 / 라면
+			if($("#chat-input").val().substring(0,1) == "/"){
+				// / 기준으로 나눈 뒤의것은 귓속말을 원하는 사람의 아이디이다.
+				//ex) "/banana " 
+				let userid = $("#chat-input").val().split("/")[1].trim();
+				checkUserId(userid);
+			}
+		}
+	}
+	//귓속말 상대가 존재하는 아이디인지 확인하는 함수
+	function checkUserId(userid){
+		if(userid == $("#userid").val()){
+			alert("자신에게는 귓속말이 불가능합니다!");
+			$("#chat-input").val("")
+			$("#chat-input").focus();
+		}
+		else{
+			const xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					if(xhr.status == 200){
+						let txt = xhr.responseText.trim();
+						if(txt == "X"){
+							//귓속말이 가능하다는 뜻이므로 echoFlag에 "/상대아이디 " 를 넣어준다
+							echoFlag = $("#chat-input").val();
+
+							//채팅창은 귓속말 상태로 디자인 변경
+							$("#chat-input").addClass("echo");
+							$(".echo-receiver").text("["+userid+"]에게 : ")
+							$(".echo-receiver").css("width","fit-content");
+							$(".echo-receiver").css("padding","0 0 0 10px");
+							//					40px							40
+							let w = 299 - Number($(".echo-receiver").css("width").replace("px",""));
+							
+							$("#chat-input").css("width",w+"px");
+							$("#chat-input").css("padding-left","0");
+							
+							//귓속말을 취소할 수 있는 이벤트 생성
+							$(".echo-receiver").click(function(e){
+								$("#chat-input").removeClass("echo");
+								$("#chat-input").attr("style","");
+								$(".echo-receiver").attr("style","");
+								$(".echo-receiver").text("");
+								echoFlag = "";
+							})
+						}
+						else{
+							alert("잘못된 아이디입니다!");
+						}
+						$("#chat-input").val("")
+						$("#chat-input").focus();
+					}
+				}
+			}
+			xhr.open("GET","${cp}/checkidok.us?userid="+userid);
+			xhr.send();
+		}
+	}
+	
+	//채팅 로그 생성하는 함수
+	//msg : 실제 내용이 될 텍스트 / type : 'self'(내가 보낸 모습으로),'user'(남이 보낸 모습으로)
 	function generate_message(msg, type, sender){
+		console.log(msg);
 		INDEX++;
 		var str = "";
 		let receiver = "";
 		let content = "";
-		content = msg;
-
-		str += "<div id='cm-msg-"+INDEX+"' class=\"chat-msg "+type+"\">";
+		// /banana 
+		if(echoFlag != ""){
+			let temp = msg.split(" ")[0];
+			console.log(temp)
+			receiver = echoFlag.substring(1).trim();
+			content = msg.substring(temp.length+1) 
+		}
+		else{
+			content = msg;
+		}
+		//										만약 내가 귓속말을 보낸 상태라면 self와 echo 클래스 둘 다 달려야 함
+		str += "<div id='cm-msg-"+INDEX+"' class=\"chat-msg "+type+(echoFlag!=""?" echo":"")+"\">";
 		str += "<span class=\"msg-avatar\">";
-		str += "<img src=\"${cp}/app/board/chat_bg2.jpeg\">";
+		str += "<img src=\"${cp}/images/chat_bg2.jpeg\">";
 		str += "<\/span>";
 		str += "<div class=\"cm-msg-text\">";
 		str += content;
 		str += "<\/div>";
+		//남이 보낸 메세지를 로그로 찍을 때
 		if(sender){
-			str += "<div class='receiver'>["+sender+"]</div>";
+			//귓속말로 날라왔을 때
+			if(type == 'echo'){
+				str += "<div class='receiver echo'>["+sender+"]의 귓속말</div>";
+			}
+			//일반 채팅으로 날라왔을 때
+			else{
+				str += "<div class='receiver'>["+sender+"]</div>";
+			}
 		}
+		//내가 보낸 메세지를 로그로 찍을 때
 		else{
-			str += "<div class='receiver'>모두에게</div>"
+			//귓속말로 보냈을 때
+			if(echoFlag != ""){
+				str += "<div class='receiver echo'>"+receiver+"에게</div>"
+			}
+			//일반 채팅으로 보냈을 때
+			else{
+				str += "<div class='receiver'>모두에게</div>"
+			}
 		}
 		str += "<\/div>";
 		$(".chat-logs").append(str);
@@ -315,8 +433,6 @@
 			arMsg[i].innerHTML = newContent.trim();
 		}
 	}
-	
-	
 </script>
 </html>
 

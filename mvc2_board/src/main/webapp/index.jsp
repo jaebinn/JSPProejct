@@ -9,13 +9,14 @@
 <title>최종 예제 게시판</title>
 <link rel="stylesheet" href="${cp}/css/style.css">
 </head>
-<body>
+<body class="login">
 	<c:if test="${not empty cookie.joinid.value}">
 		<script>
 			alert("${cookie.joinid.value}님 가입을 환영합니다~");
 			document.loginForm.userpw.focus();
 		</script>
 	</c:if>
+	
 	<div id="wrap" class="login">
 		<form action="${cp}/userloginok.us" method="post" name="loginForm">
 			<table>
@@ -44,8 +45,18 @@
 			</table>
 		</form>
 	</div>
+	<img alt="" src="${cp}/images/타이틀.png">
 </body>
 <script>
 	document.cookie = "joinid=; path=/;"
+	window.setTimeout(function(){
+		document.querySelector("#wrap.login+img").classList = "hdd";
+		document.querySelector("#wrap.login").style.display = "block";
+	},1300)
+	
+	xhr.onre = function(){
+		
+	}
+	xhr.open("GET","boardlist.bo")
 </script>
 </html>
