@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <typeAliases>
+  	<typeAlias type="com.ec.model.dto.UserDTO" alias="userdto"/>
+  	<typeAlias type="com.ec.model.dto.ExpertDTO" alias="expertdto"/>
+	
+  </typeAliases>
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/project"/>
+        <property name="username" value="root"/>
+        <property name="password" value="rootroot"/>
+      </dataSource>
+    </environment>
+  </environments>
+  <mappers>
+    <mapper resource="com/ec/mapper/ExpertMapper.xml"/>
+
+  </mappers>
+</configuration>
+
+

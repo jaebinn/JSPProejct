@@ -1,0 +1,252 @@
+#nav li:nth-child(4) a > #login_btn{
+	height: 40px;
+	color: #fff;
+	border-radius: 60px;
+	cursor: pointer;
+	font-size: 14px;
+	line-height: 40px;
+}
+#nav li:nth-child(5) a > #logout_btn{
+	height: 40px;
+	color: #fff;
+	border-radius: 60px;
+	cursor: pointer;
+	font-size: 14px;
+	line-height: 40px;
+	display: none;
+}
+#nav li:nth-child(6) a > #expert_btn{
+	height: 40px;
+	color: #fff;
+	border-radius: 60px;
+	cursor: pointer;
+	font-size: 14px;
+	line-height: 40px;
+	display: none;
+}
+
+
+#wrapper > .main > header.expert_banner {
+    background: url("/images/전문가배너.jpg");
+    background-position: center;
+    background-size:cover;
+    height: 400px;
+    color: rgba(255, 255, 255, 0.75);
+}
+main#content{
+    width: 100%;
+    max-width: 1340px;
+    min-height: 800px;
+    background-color: #FFFFFF;
+    position: relative;
+    margin: 0 auto;
+    border-left: 1px solid #DEDEDE;
+    border-right: 1px solid #DEDEDE;
+}
+main#content .search{
+    position: relative;
+    display: block; 
+    margin: 0 auto; 
+    width: 70%;
+    border: 1px solid #DEDEDE;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    margin-bottom: 20px;
+}
+main#content .text01{
+    padding: 20px 20px 20px 40px;
+    font-size: 1.1em;
+    letter-spacing: 0;
+    font-weight: 300;
+    cursor: pointer;
+}
+#content .div_list {
+    width: 100%;
+    max-width: 100%;
+    min-height: 1100px;
+    padding: 30px 15px 30px 15px;
+    box-sizing: border-box;
+    position: relative;
+    background-color: #F4F4F4;
+}
+.text01 .exam01{
+    color: #9A9A9A;
+}
+.search #area_text:after {
+    width: 35px;
+    height: 55px;
+    content: ' ';
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    background: url("/images/gps.png") 20px 25px no-repeat;
+    background-size: 15px auto;
+    opacity: 0.4;
+}
+.search #sphere_text:after {
+    width: 35px;
+    height: 55px;
+    content: ' ';
+    position: absolute;
+    left: 0;
+    top: 80px;
+    display: block;
+    background: url("/images/settings.png") 20px 25px no-repeat;
+    background-size: 15px auto;
+    opacity: 0.4;
+}
+#content .div_list .tit {
+    width: 100%; 
+    display: inline-block;
+    font-size: 1.2em;
+    text-align: center;
+    margin-bottom: 25px;
+}
+#content .div_list .tit .sort01 {
+    display: inline-block;
+}
+#content .div_list .tit .sort01 .psort {
+    font-size: 0.7em;
+    border: 1px solid #2ee4ba;
+    border-radius: 10px;
+    margin-left: 30px;
+    width: 90%;
+}
+#content .div_list .expert_list{
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    padding: 0;
+    box-sizing: border-box;
+    position: relative;
+}
+.expert_list .ul01{
+    float: left;
+    width: 49%;
+}
+.expert_list .ul01 .li01{
+    height: 300px;
+    max-width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+    margin: 0 0 20px 0;
+    border: 0;
+    border-radius: 5px;
+    line-height: 1.3em;
+    background-color: #FFFFFF;
+    text-align: left;
+}
+.expert_list .ul01 .li01 a{
+    cursor: pointer;
+    text-align: right;
+}
+.expert_list .ul01 .li01 .tab01{
+    float: left;
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+}
+.profile {
+    width: 70px; 
+    height: 70px; 
+}
+.like .heart01 {
+    display: inline-block;
+    width: 24px;
+    height: 22px;
+    background: url("/images/좋아요.png") no-repeat;
+    background-size: 23px;
+    margin: 4px 3px 4px 3px;
+    box-sizing: border-box;
+}
+.expert_list .ul01 .li01 .tab02{
+    float: left;
+    display: inline-block;
+    position: relative;
+    letter-spacing: -0.03em;
+    line-height: 1em;
+    font-size: 1em;
+}
+.expert_list .ul01 .li01 .tab02 .name{
+    width: 100%;
+    display: inline-block;
+    font-size: 1em;
+    box-sizing: border-box;
+    color: #000000;
+    font-weight: 400;
+    padding: 7px 0 0 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.expert_list .ul01 .li01 .tab02 .addr{
+    width: 100%;
+    display: inline-block;
+    font-size: 0.85em;
+    font-weight: 300;
+    box-sizing: border-box;
+    color: #797979;
+    padding: 5px 0 0 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.expert_list .ul01 .li01 .tab03{
+    width: 100%;
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    font-size: 0.75em;
+    color: #797979;
+    padding: 0 0 0 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.temperate{
+    font-weight: bold;
+    color: orange;
+}
+
+a.btn {
+	display: inline-block;
+	border-radius: 3px;
+	background-color: rgb(0, 200, 80);
+	color: #fff;
+	font-weight: bold;
+	text-decoration: none;
+}
+.btn_table{
+	text-align: right;
+	vertical-align: middle;
+}
+
+/* list */
+table.list, .pagination, .pagination+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 840px;
+}
+.list table, .write table, .get table, .modify table {
+    border: 0px;
+    width: 900px;
+}
+.pagination tr {
+    text-align: center;
+    vertical-align: middle;
+}
+.nowPage {
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 3px;
+    background-color: rgb(198, 175, 245);
+    color: #fff;
+    font-weight: bold;
+}
