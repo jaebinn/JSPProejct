@@ -11,7 +11,7 @@
   </welcome-file-list>
   <servlet>
   	<servlet-name>ExpertFrontController</servlet-name>
-  	<servlet-class>com.ec.app.user.ExpertFrontController</servlet-class>
+  	<servlet-class>com.ec.app.expert.ExpertFrontController</servlet-class>
   </servlet>
   <servlet-mapping>
   	<servlet-name>ExpertFrontController</servlet-name>

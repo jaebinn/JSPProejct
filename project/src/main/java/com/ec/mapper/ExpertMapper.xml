@@ -3,12 +3,19 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Expert">
-	<insert id="insert" parameterType="expertdto">
-		insert into expert values(#{expert_id},#{userpw},#{username},
-		#{usergender},#{zipcode},#{addr},#{addrdetail},#{addretc},#{userhobby})
-	</insert>
-	
-	<select id="select" parameterType="string" resultType="expertdto">
-		select * from t_user where userid = #{userid}
+	<select id="getExpertCnt" parameterType="long" resultType="long">
+		select count(*) from expert 
+	</select>
+	<select id="getList" parameterType="hashmap" resultType="expertdto">
+		SELECT expert.*, user.name, user.age, expert_career_list.career_name
+	      FROM expert
+	      JOIN user ON expert.user_id = user.user_id JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
+	      order by expert_idx desc limit #{startRow},#{pageSize}
+	</select>
+	<select id="getExpertById" parameterType="long" resultType="expertdto">
+		select expert.*, user.name, user.age, expert_career_list.career_name
+		from expert
+		join user on expert.user_id = user.user_id join expert_career_list on expert.expert_idx = expert_career_list.expert_idx
+		where expert.expert_idx = #{expert_idx}
 	</select>
 </mapper>

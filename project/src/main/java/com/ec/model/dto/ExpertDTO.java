@@ -10,6 +10,9 @@ public class ExpertDTO {
 	private String available_time;
 	private int cost;
 	private String account;
+	private String name;
+	private int age;
+	private String career_name;
 	
 	public long getExpert_idx() {
 		return expert_idx;
@@ -65,6 +68,23 @@ public class ExpertDTO {
 	public void setAccount(String account) {
 		this.account = account;
 	}
-	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getCareer_name() {
+		return career_name;
+	}
+	public void setCareer_name(String career_name) {
+		this.career_name = career_name;
+	}
 	
 }

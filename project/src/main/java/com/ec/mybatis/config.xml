@@ -20,6 +20,8 @@
     </environment>
   </environments>
   <mappers>
+  	
+    <mapper resource="com/ec/mapper/UserMapper.xml"/>
     <mapper resource="com/ec/mapper/ExpertMapper.xml"/>
 
   </mappers>

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ec.app.action.Transfer;
 
-public class ExperFrontController extends HttpServlet{
+public class ExpertFrontController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -37,9 +37,15 @@ public class ExperFrontController extends HttpServlet{
 			try {
 				transfer = new ExpertListOkAction().execute(req,resp);
 			} catch (Exception e) {
-				System.out.println("/boardlist.bo : "+e);
+				System.out.println("/expertlist.ep : "+e);
 			}
 			break;
+		case "/expertview.ep":
+			try {
+				transfer = new ExpertViewOkAction().execute(req, resp);
+			} catch(Exception e) {
+				System.out.println("/expertview.ep : "+e);
+			}
 		}
 		
 		if(transfer != null) {

@@ -56,8 +56,8 @@
 					<main id="content">
 						<div class="div_list">
 							<div class="search">
-								<div class="text01" id="area_text"><span class="exam01">지역을 선택하시려면 클릭해주세요.</span></div>
-								<div class="text01" id="sphere_text"><span class="exam01">분야를 선택하시려면 클릭해주세요.</span></div>
+								<div class="career_name" id="area_text"><span class="exam01">지역을 선택하시려면 클릭해주세요.</span></div>
+								<div class="career_name" id="sphere_text"><span class="exam01">분야를 선택하시려면 클릭해주세요.</span></div>
 							</div>
 							<div class="tit"><span>전문가찾기</span>
 								<span class="sort01">
@@ -68,137 +68,71 @@
 									<!-- <option value="8">보험여부</option> -->
 									<!-- <option value="3">인증수순</option> -->
 									<!--<option value="4" >응답률순</option>-->
-									<option value="5">시급낮은순</option>
-									<option value="6">시급높은순</option>
+									<option value="2">시급낮은순</option>
+									<option value="3">시급높은순</option>
 									<!--<option value="7" >좋아요순</option>-->
 								</select>
 								</span>
 							</div>
+	
 							<div class="expert_list">
-								<ul class="ul01">
-									<li class="li01">
-										<a href="#">
-											<p class="tab01">
-												<img src="/images/profile.png" class="profile">
-												<p class="like" id="follow43350" data-val="43350" data-code="MXFNd3JGL29tTlc3cnJPN0JJb1lGdz09"><span class="temperate">36.5도</span><span class="heart01 ">&nbsp;</span></p>
-												
-											</p>
-											<p class="tab02">
-												<p class="sphere"><span class="edit_date"></span></p>
-												<span class="name" style="text-align: left;"> 박OO <span class="age">만 34세</span></span>
-												
-												<p class="addr" style="text-align: center;">희망지역: 경기 용인시 수지구, 성남시 분당구, 용인시 기흥구</p>
-												<p class="cost">시급 13,000원 <span class="bar0101">&nbsp;</span> <span class="week01">10시~18시가능</span></p>
-											</p>
-											<span class="tab03">
-												<span class="text01">10년이상</span>
-												<span class="text01">유아(4~7세) 희망</span>
-												<span class="text01">kh정보교육원</span>
-												
-											</span>
-										</a>
-									</li>	
-								</ul>
-								<ul class="ul01">
-									<li class="li01">
-										<a href="#">
-											<p class="tab01">
-												<img src="/images/profile.png" class="profile">
-												<p class="like" id="follow43350" data-val="43350" data-code="MXFNd3JGL29tTlc3cnJPN0JJb1lGdz09"><span class="temperate">36.5도</span><span class="heart01 ">&nbsp;</span></p>
-												
-											</p>
-											<p class="tab02">
-												<p class="sphere"><span class="edit_date"></span></p>
-												<span class="name" style="text-align: left;"> 박OO <span class="age">만 34세</span></span>
-												
-												<p class="addr" style="text-align: center;">희망지역: 경기 용인시 수지구, 성남시 분당구, 용인시 기흥구</p>
-												<p class="cost">시급 13,000원 <span class="bar0101">&nbsp;</span> <span class="week01">10시~18시가능</span></p>
-											</p>
-											<span class="tab03">
-												<span class="text01">10년이상</span>
-												<span class="text01">유아(4~7세) 희망</span>
-												<span class="text01">kh정보교육원</span>
-												
-											</span>
-										</a>
-									</li>	
-								</ul>
-								<ul class="ul01">
-									<li class="li01">
-										<a href="#">
-											<p class="tab01">
-												<img src="/images/profile.png" class="profile">
-												<p class="like" id="follow43350" data-val="43350" data-code="MXFNd3JGL29tTlc3cnJPN0JJb1lGdz09"><span class="temperate">36.5도</span><span class="heart01 ">&nbsp;</span></p>
-												
-											</p>
-											<p class="tab02">
-												<p class="sphere"><span class="edit_date"></span></p>
-												<span class="name" style="text-align: left;"> 박OO <span class="age">만 34세</span></span>
-												
-												<p class="addr" style="text-align: center;">희망지역: 경기 용인시 수지구, 성남시 분당구, 용인시 기흥구</p>
-												<p class="cost">시급 13,000원 <span class="bar0101">&nbsp;</span> <span class="week01">10시~18시가능</span></p>
-											</p>
-											<span class="tab03">
-												<span class="text01">10년이상</span>
-												<span class="text01">유아(4~7세) 희망</span>
-												<span class="text01">kH정보교육원</span>
-											</span>
-										</a>
-									</li>	
-								</ul>
-								<ul class="ul01">
-									<li class="li01">
-										<a href="#">
-											<p class="tab01">
-												<img src="/images/profile.png" class="profile">
-												<p class="like" id="follow43350" data-val="43350" data-code="MXFNd3JGL29tTlc3cnJPN0JJb1lGdz09"><span class="temperate">36.5도</span><span class="heart01 ">&nbsp;</span></p>
-												
-											</p>
-											<p class="tab02">
-												<p class="sphere"><span class="edit_date"></span></p>
-												<span class="name" style="text-align: left;"> 박OO <span class="age">만 34세</span></span>
-												
-												<p class="addr" style="text-align: center;">희망지역: 경기 용인시 수지구, 성남시 분당구, 용인시 기흥구</p>
-												<p class="cost">시급 13,000원 <span class="bar0101">&nbsp;</span> <span class="week01">10시~18시가능</span></p>
-											</p>
-											<span class="tab03">
-												<span class="text01">10년이상</span>
-												<span class="text01">유아(4~7세) 희망</span>
-												<span class="text01">kh정보교육원</span>
-												
-											</span>
-										</a>
-									</li>	
-								</ul>
-								
+								<c:choose>
+									<c:when test="${list != null and list.size() > 0}">
+										<c:forEach var="i" begin="0" end="${list.size() - 1}">
+											<c:set var="expert" value="${list[i]}"/>
+												<ul class="ul01">
+													<li class="li01">
+														<a href="${cp}/expertview.ep?expert_idx=${expert.expert_idx}&page=${page}">
+															<p class="tab01">
+																<img src="/images/profile.png" class="profile">
+																<p class="like" id="follow43350" data-val="43350" data-code="MXFNd3JGL29tTlc3cnJPN0JJb1lGdz09"><span class="temperate">36.5도</span><span class="heart01 ">&nbsp;</span></p>
+															</p>
+															<p class="tab02">
+																<span class="name" style="text-align: left;">이름: ${expert.name} <span class="age">/ 나이: ${expert.age}</span></span>
+																<span class="bar_star"><span class="bg_star" style="width:100%;"></span><span class="star_bar01"></span></span>
+																<p class="addr" style="text-align: center;"> 가능지역: ${expert.location}</p>
+																<p class="cost">시급: ${expert.cost}<span class="bar0101">&nbsp;</span> <span class="available_time"> 가능시간: ${expert.available_time}</span></p>
+															</p>
+															<span class="tab03">
+																<span>경력 : ${expert.career_name}</span>							
+															</span>
+														</a>
+													</li>	
+												</ul>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										전문가가 없습니다.
+									</c:otherwise>
+								</c:choose>			
 							</div>
 						</div>
-
+						<table class="pagination">
+							<tbody>
+								<tr>
+									<td>
+										<c:if test="${startPage != 1}">
+											<a class="btn" href="${cp}/expertlist.ep?page=${startPage-1}">&lt;</a>
+										</c:if>
+										<c:forEach begin="${startPage}" end="${endPage}" var="i">
+										<c:choose>
+											<c:when test="${page == i}">
+												<span class="nowPage">${i}</span>
+											</c:when>
+											<c:otherwise>
+												<a class="btn" href="${cp}/expertlist.ep?page=${i}">${i}</a>
+											</c:otherwise>
+										</c:choose>
+										</c:forEach>
+										<c:if test="${endPage != totalPage}">
+											<a class="btn" href="${cp}/expertlist.ep?page=${endPage+1}">&gt;</a>
+										</c:if>
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</main>
-				<table class="pagination">
-					<tbody>
-						<tr>
-							<td>
-								<c:if test="${startPage != 1}">
-									<a class="btn" href="${cp}/boardlist.bo?page=${startPage-1}&keyword=${keyword}">&lt;</a>
-								</c:if>
-								<c:forEach begin="${startPage}" end="${endPage}" var="i">
-									<c:choose>
-										<c:when test="${page == i}">
-											<span class="nowPage">${i}</span>
-										</c:when>
-										<c:otherwise>
-											<a class="btn" href="${cp}/boardlist.bo?page=${i}&keyword=${keyword}">${i}</a>
-										</c:otherwise>
-									</c:choose>
-								</c:forEach>
-								<c:if test="${endPage != totalPage}">
-									<a class="btn" href="${cp}/boardlist.bo?page=${endPage+1}&keyword=${keyword}">&gt;</a>
-								</c:if>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+				
 				<!-- Footer -->
 					<footer id="footer">
 						<div class="inner">
