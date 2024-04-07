@@ -61,17 +61,13 @@
 							</div>
 							<div class="tit"><span>전문가찾기</span>
 								<span class="sort01">
-								<select name="psort" class="psort" id="psort">
-									<option value="1">좋아요순</option>
-						
-									<!--<option value="2" >후기순</option>-->
-									<!-- <option value="8">보험여부</option> -->
-									<!-- <option value="3">인증수순</option> -->
-									<!--<option value="4" >응답률순</option>-->
-									<option value="2">시급낮은순</option>
-									<option value="3">시급높은순</option>
-									<!--<option value="7" >좋아요순</option>-->
-								</select>
+								<form id="sortForm" action="${cp}/expertsort.ep?&page=${page}" method="post">
+								    <select name="psort" class="psort" id="psort" onchange="document.getElementById('sortForm').submit();">
+								        <option value="1" <%= session.getAttribute("psort") != null && session.getAttribute("psort").equals(1) ? "selected" : "" %>>좋아요순</option>                    
+								        <option value="2" <%= session.getAttribute("psort") != null && session.getAttribute("psort").equals(2) ? "selected" : "" %>>시급낮은순</option>
+								        <option value="3" <%= session.getAttribute("psort") != null && session.getAttribute("psort").equals(3) ? "selected" : "" %>>시급높은순</option>
+								    </select>
+								</form>
 								</span>
 							</div>
 	
@@ -88,21 +84,21 @@
 																<p class="like" id="follow43350" data-val="43350" data-code="MXFNd3JGL29tTlc3cnJPN0JJb1lGdz09"><span class="temperate">36.5도</span><span class="heart01 ">&nbsp;</span></p>
 															</p>
 															<p class="tab02">
-																<span class="name" style="text-align: left;">이름: ${expert.name} <span class="age">/ 나이: ${expert.age}</span></span>
-																<span class="bar_star"><span class="bg_star" style="width:100%;"></span><span class="star_bar01"></span></span>
-																<p class="addr" style="text-align: center;"> 가능지역: ${expert.location}</p>
-																<p class="cost">시급: ${expert.cost}<span class="bar0101">&nbsp;</span> <span class="available_time"> 가능시간: ${expert.available_time}</span></p>
+																<span class="name">이름: ${expert.name} <span class="age">/ 나이: ${expert.age}</span></span>
+																<p class="location">가능 지역: ${expert.location}</p>
+																<p class="cost">시급: ${expert.cost}원 /<span class="available_time"> 가능시간: ${expert.available_time}</span></p>
 															</p>
 															<span class="tab03">
-																<span>경력 : ${expert.career_name}</span>							
+																<span>경력 : ${expert.career_name}</span>		
+																 <span>/ 분야 : ${expert.keyword_list}</span>					
 															</span>
 														</a>
 													</li>	
 												</ul>
 										</c:forEach>
 									</c:when>
-									<c:otherwise>
-										전문가가 없습니다.
+									<c:otherwise>					
+										<p>전문가가 없습니다.</p>
 									</c:otherwise>
 								</c:choose>			
 							</div>
@@ -177,14 +173,68 @@
 			</div>
 
 		<!-- Scripts -->
-			<script src="js/jquery.min.js"></script>
-			<script src="assets/js/jquery.dropotron.min.js"></script>
-			<script src="assets/js/jquery.selectorr.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+			<script> const cp = '${cp}';</script>
+			<script src="${cp}/js/jquery.min.js"></script>
+			<script src="${cp}/js/jquery.dropotron.min.js"></script>
+			<script src="${cp}/js/jquery.selectorr.min.js"></script>
+			<script src="${cp}/js/jquery.scrollex.min.js"></script>
+			<script src="${cp}/js/jquery.scrolly.min.js"></script>
+			<script src="${cp}/js/browser.min.js"></script>
+			<script src="${cp}/js/breakpoints.min.js"></script>
+			<script src="${cp}/js/util.js"></script>
+			<script src="${cp}/js/main.js"></script>
+			<script>
+			// 전역 변수로 전체 전문가 리스트와 정렬된 전문가 리스트를 저장합니다.
+			let expertList = [];
+			let sortedExpertList = [];
+			// 페이지당 전문가 수를 설정합니다.
+			let expertsPerPage = 4;
+
+			// 페이지가 변경될 때마다 해당 페이지에 맞는 데이터를 표시합니다.
+			function displayExperts(page) {
+			    // 해당 페이지의 전문가 리스트를 가져옵니다.
+			    let startIndex = (page - 1) * expertsPerPage;
+			    let endIndex = startIndex + expertsPerPage;
+			    let currentPageExperts = sortedExpertList.slice(startIndex, endIndex);
+
+			    // currentPageExperts를 사용하여 전문가 리스트를 표시하는 코드를 작성합니다.
+			    // 예를 들어, 해당 페이지의 HTML을 동적으로 생성하거나, 템플릿을 사용하여 리스트를 업데이트할 수 있습니다.
+			}
+
+			// 전문가 리스트를 정렬하고 페이지별로 전문가를 표시합니다.
+			function sortAndDisplayExperts(selectedOption) {
+			    // 전체 전문가 리스트를 복사하여 정렬합니다.
+			    sortedExpertList = expertList.slice();
+
+			    if (selectedOption === "1") {
+			        // 좋아요순 정렬
+			        sortedExpertList.sort(function(a, b) {
+			            return b.like_cnt - a.like_cnt;
+			        });
+			    } else if (selectedOption === "2") {
+			        // 시급낮은순 정렬
+			        sortedExpertList.sort(function(a, b) {
+			            return parseFloat(a.cost) - parseFloat(b.cost);
+			        });
+			    } else if (selectedOption === "3") {
+			        // 시급높은순 정렬
+			        sortedExpertList.sort(function(a, b) {
+			            return parseFloat(b.cost) - parseFloat(a.cost);
+			        });
+			    }
+
+			    // 정렬된 전문가 리스트를 페이지별로 표시합니다.
+			    displayExperts(1); // 첫 번째 페이지를 표시합니다.
+			}
+
+			$(document).ready(function() {
+			    $('#psort').change(function() {
+			        let selectedOption = $(this).children("option:selected").val(); // 선택된 옵션번호
+
+			        // 전체 전문가 리스트를 정렬하고, 해당 정렬된 리스트를 페이지별로 표시합니다.
+			        sortAndDisplayExperts(selectedOption);
+			    });
+			});
+			</script>
 	</body>
 </html>

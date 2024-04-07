@@ -1,5 +1,6 @@
 package com.ec.app.expert;
 
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -8,6 +9,7 @@ import com.ec.app.action.Transfer;
 import com.ec.model.dao.ExpertDAO;
 import com.ec.model.dto.ExpertDTO;
 
+@WebServlet("/toggle_like_count")
 public class ExpertViewOkAction implements Action{
 	@Override
 	public Transfer execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
@@ -15,7 +17,8 @@ public class ExpertViewOkAction implements Action{
 		
 		ExpertDAO edao = new ExpertDAO();
 		ExpertDTO expert = edao.getExpertById(expert_idx);
-		
+
+        
 		req.setAttribute("expert", expert);
 		
 		Transfer transfer = new Transfer();

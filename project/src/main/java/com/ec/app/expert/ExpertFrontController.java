@@ -3,11 +3,14 @@ package com.ec.app.expert;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ec.app.action.Transfer;
+import com.ec.model.dao.ExpertDAO;
+
 
 public class ExpertFrontController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -25,8 +28,8 @@ public class ExpertFrontController extends HttpServlet{
 	
 	private void doProcess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//길 나누는 코드
-		String requestURI = req.getRequestURI();// ???/userjoin.us
-		String contextPath = req.getContextPath(); // ???
+		String requestURI = req.getRequestURI();
+		String contextPath = req.getContextPath(); 
 		String command = requestURI.substring(contextPath.length());
 		
 		System.out.println(command);
@@ -38,6 +41,13 @@ public class ExpertFrontController extends HttpServlet{
 				transfer = new ExpertListOkAction().execute(req,resp);
 			} catch (Exception e) {
 				System.out.println("/expertlist.ep : "+e);
+			}
+			break;
+		case "/expertsort.ep":
+			try {
+				transfer = new ExpertSortOkAction().execute(req,resp);
+			} catch (Exception e) {
+				System.out.println("/expertsort.ep : "+e);
 			}
 			break;
 		case "/expertview.ep":

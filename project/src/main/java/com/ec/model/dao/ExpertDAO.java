@@ -34,6 +34,31 @@ public class ExpertDAO {
 		datas.put("pageSize", pageSize);
 		return ss.selectList("Expert.getList",datas);
 	}
+
+	public boolean increaseLikeCount(Long expert_idx) {
+		return ss.update("Expert.updateLikeCnt", expert_idx) == 1;
+	}
+
+	public List<ExpertDTO> getExpertSortByLike(int startRow, int pageSize) {
+		HashMap<String, Integer> datas = new HashMap<String, Integer>();
+		datas.put("startRow", startRow);
+		datas.put("pageSize", pageSize);
+		return ss.selectList("Expert.getExpertSortByLike", datas);
+	}
+	public List<ExpertDTO> getExpertSortByLowCost(int startRow, int pageSize) {
+		HashMap<String, Integer> datas = new HashMap<String, Integer>();
+		datas.put("startRow", startRow);
+		datas.put("pageSize", pageSize);
+		return ss.selectList("Expert.getExpertSortByLowCost", datas);
+	}
+	
+	public List<ExpertDTO> getExpertSortByHighCost(int startRow, int pageSize) {
+		HashMap<String, Integer> datas = new HashMap<String, Integer>();
+		datas.put("startRow", startRow);
+		datas.put("pageSize", pageSize);
+		return ss.selectList("Expert.getExpertSortByHighCost", datas);
+	}
+	
 	
 
 }

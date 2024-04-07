@@ -10,6 +10,7 @@ public class ExpertDTO {
 	private String available_time;
 	private int cost;
 	private String account;
+	private int like_cnt;
 	private String name;
 	private int age;
 	private String career_name;
@@ -86,5 +87,13 @@ public class ExpertDTO {
 	public void setCareer_name(String career_name) {
 		this.career_name = career_name;
 	}
+	public int getLike_cnt() {
+		return like_cnt;
+	}
+	public void setLike_cnt(int like_cnt) {
+		this.like_cnt = like_cnt;
+	}
+	
+	
 	
 }

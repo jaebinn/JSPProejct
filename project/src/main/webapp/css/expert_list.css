@@ -63,7 +63,7 @@ main#content .career_name{
 #content .div_list {
     width: 100%;
     max-width: 100%;
-    min-height: 1010px;
+    min-height: 1100px;
     padding: 30px 15px 30px 15px;
     box-sizing: border-box;
     position: relative;
@@ -140,13 +140,19 @@ main#content .career_name{
 }
 .expert_list .ul01 .li01 a{
     cursor: pointer;
-    text-align: right;
+    text-align: center;
 }
+/* .expert_list .ul01 .li01 a .temperate{
+	text-align: right;
+} */
 .expert_list .ul01 .li01 .tab01{
     float: left;
     display: inline-block;
     position: relative;
     box-sizing: border-box;
+}
+p.cost{
+	text-align: center;
 }
 .profile {
     width: 70px; 
