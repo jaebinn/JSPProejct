@@ -65,7 +65,8 @@
 							</tr>
 							<tr>
 								<th>가능지역:</th>
-								<td>${expert.location}</td>
+								<td>${expert.location}<input type="button" value="지도" style="margin-left:30px"/></td>
+								
 							</tr>
 							<tr>
 								<th>시간당 요금:</th>
@@ -77,7 +78,14 @@
 							</tr>
 							<tr>
 								<th>운전여부:</th>
-								<td>${expert.is_drivable}</td>
+								<c:choose>
+								    <c:when test="${expert.is_drivable}">
+								        <td>가능</td>
+								    </c:when>
+								    <c:otherwise>
+								        <td>불가능</td>
+								    </c:otherwise>
+								</c:choose>														
 							</tr>
 							<tr>
 								<th>계좌번호:</th>
@@ -115,7 +123,7 @@
 
 					<div class="analytics">
 						<div class="data">
-							  <i class="fa-regular fa-heart toggle" onclick="toggleLike(${expert.expert_idx}, ${expert.like_cnt})"></i>
+							  <i class="fa-regular fa-heart toggle"></i>
 							<span>${expert.like_cnt}</span>					
 						</div>
 						
@@ -177,29 +185,40 @@
 			<script src="${cp}/js/util.js"></script>
 			<script src="${cp}/js/main.js"></script>
 			<script>
-				$(document).ready(function () {
-			        $('.analytics .data').click(function () {
-			            let heart = $(this).find('.toggle');
-			            heart.toggleClass('fa-regular fa-heart fa-solid fa-heart');
-			            if (heart.hasClass('fa-solid')) {
-			                heart.css('color', 'red'); 
-			            } else {
-			               heart.css('color', ''); 
+
+			$(document).ready(function () {
+			    $('.analytics .data').click(function () {
+			        let heart = $(this).find('.toggle');
+			        let like_cnt = parseInt($(this).find('span').text());
+			        let expert_idx = $(this).data('expert_idx');
+			        
+			        // 하트 클래스 토글 및 색상 변경
+			        heart.toggleClass('fa-regular fa-heart fa-solid fa-heart');
+			        if (heart.hasClass('fa-solid')) {
+			            heart.css('color', 'red');
+			            // 좋아요 숫자 증가
+			            like_cnt++;
+			        } else {
+			            heart.css('color', '');
+			            // 좋아요 숫자 감소
+			            like_cnt--;
+			        }
+
+			        $(this).find('span').text(like_cnt);
+			        
+			        $.ajax({
+			            type: "POST",
+			            url: cp+"/expertlikecnt.ep", 
+			            data: { expert_idx: expert_idx, like_cnt: like_cnt },			            
+			            success: function(response) {
+			                console.log("좋아요 숫자 업데이트 성공");
+			            },
+			            error: function(xhr, status, error) {
+			                console.error("좋아요 숫자 업데이트 실패: " + error);
 			            }
 			        });
 			    });
-				function toggleLike(expertIdx, currentLikeCount) {
-				    // AJAX를 사용하여 서버에 요청을 보냄
-				    $.ajax({
-				        url: '${cp}/expertlikecnt.ep', // 좋아요 증가 또는 감소를 처리하는 서블릿 URL
-				        method: 'POST',
-				        data: { expert_idx: expertIdx, like_cnt: currentLikeCount }, // 전달할 데이터: 전문가 인덱스와 현재 좋아요 수
-				        success: function(response) {
-				            // 서버로부터 성공적인 응답을 받으면 좋아요 수 업데이트
-				            $('#likeCount').text(response.newLikeCount); // 업데이트된 좋아요 수를 표시
-				        }
-				    });
-				}
+			});
 			</script>
 	</body>
 </html>

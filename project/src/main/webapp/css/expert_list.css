@@ -53,7 +53,9 @@ main#content .search{
     background-color: #FFFFFF;
     margin-bottom: 20px;
 }
-main#content .career_name{
+main#content .career_name,
+main#content .location
+{
     padding: 20px 20px 20px 40px;
     font-size: 1.1em;
     letter-spacing: 0;
@@ -69,7 +71,8 @@ main#content .career_name{
     position: relative;
     background-color: #F4F4F4;
 }
-.career_name .exam01{
+.career_name .exam01,
+.location .exam01{
     color: #9A9A9A;
 }
 .search #area_text:after {
@@ -124,6 +127,7 @@ main#content .career_name{
 .expert_list .ul01{
     float: left;
     width: 49%;
+    list-style: none;
 }
 .expert_list .ul01 .li01{
     height: 300px;
@@ -137,6 +141,7 @@ main#content .career_name{
     line-height: 1.3em;
     background-color: #FFFFFF;
     text-align: left;
+    list-style: none;
 }
 .expert_list .ul01 .li01 a{
     cursor: pointer;
@@ -285,3 +290,56 @@ table.list, .pagination, .pagination+table {
     color: #fff;
     font-weight: bold;
 }
+#content .div_list .search .layer0101 {
+    position: fixed;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 915px;
+    margin: 0 auto;
+    top: calc(100% / 2 - 220px);
+    border: 1px solid #DEDEDE;
+    background-color: #FFFFFF;
+    z-index: 22;
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: 3px 3px 10px 2px #797979;
+    text-align: center;
+    display: none;
+}
+#content .div_list .search .layer0101 .sphere_list .r_sphere1 {
+    position: relative;
+    background-color: #FAFAFA;
+    color: #373737;
+    border-radius: 50px;
+    /* width: calc(100% / 3 - 7px); */
+    height: 40px;
+    margin: 0 2px 15px 2px;
+    font-size: 0.9em;
+    letter-spacing: -0.05em;
+    box-sizing: border-box;
+    line-height: 40px;
+}
+#content .div_list .search .layer0101 .layer_contract .sphere01 {
+    width: 100%;
+    text-align: right;
+    border-bottom: 1px solid #EFEFEF;
+    padding: 5px 0 5px;
+    margin: 0 0 10px 0;
+    font-size: 0.8em;
+}
+#content .div_list .search .layer0101 .layer_contract .btn01 #btn_search_sphere {
+    background-color: #2c786c;
+    border: 0;
+    padding: 10px;
+    width: 100%;
+    color: #FFFFFF;
+    border-radius: 20px;
+    font-size: 1.05em;
+    line-height: 35px;
+}
+.search .layer0101 .layer_contract .sphere_list {
+    width: 100%;
+    /* display: none; */
+    position: relative;
+}
+

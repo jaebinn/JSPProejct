@@ -46,9 +46,18 @@
 		join user on expert.user_id = user.user_id join expert_career_list on expert.expert_idx = expert_career_list.expert_idx
 		where expert.expert_idx = #{expert_idx}
 	</select>
+	
+	<select id="getExpertSortByKeyword" resultType="expertdto" parameterType="list">
+	    SELECT * FROM expert
+	    WHERE keyword_list IN
+	    <foreach item="item" collection="keywords" separator="," open='(' close=')'>
+	        "#{item}"
+	    </foreach>
+	</select>
+
 	<update id="updateLikeCnt" parameterType="long">
 		update expert
-		set like_cnt = like_cnt + 1
+		set like_cnt += 1
 		where expert_idx = #{expert_idx}
 	</update>
 </mapper>

@@ -50,12 +50,27 @@ public class ExpertFrontController extends HttpServlet{
 				System.out.println("/expertsort.ep : "+e);
 			}
 			break;
+		case "/expertkeywordsort.ep":
+			try {
+				transfer = new ExpertkeywordSortOkAction().execute(req,resp);
+			} catch (Exception e) {
+				System.out.println("/expertkeywordsort.ep : "+e);
+			}
+			break;
 		case "/expertview.ep":
 			try {
 				transfer = new ExpertViewOkAction().execute(req, resp);
 			} catch(Exception e) {
 				System.out.println("/expertview.ep : "+e);
 			}
+			break;
+		case "/expertlikecnt.ep":
+			try {
+				new ExpertLikeCntOkAction().execute(req, resp);
+			} catch (Exception e) {
+				System.out.println("/expertlikecnt.ep : "+e);
+			}
+			break;
 		}
 		
 		if(transfer != null) {

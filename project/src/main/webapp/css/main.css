@@ -1,5 +1,16 @@
 @import url(fontawesome-all.min.css);
 @import url("https://fonts.googleapis.com/css?family=Lato:300,400,700,300i,400i,700i");
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+.notosanskr * { 
+ font-family: 'Noto Sans KR', sans-serif;
+}
 
 /*
 	Hypothesis by Pixelarity
@@ -71,6 +82,7 @@ input, select, textarea {
 	-ms-appearance: none;
 	appearance: none;
 }
+
 /* Basic */
 
 	@-ms-viewport {
@@ -164,7 +176,7 @@ input, select, textarea {
 	}
 
 	body, input, select, textarea {
-		font-family: "Lato", Arial, Helvetica, sans-serif;
+		font-family: 'Noto Sans KR', sans-serif;
 		font-weight: 200;
 		font-size: 1rem;
 		line-height: 1.65;
@@ -223,12 +235,14 @@ input, select, textarea {
 
 	p {
 		margin: 0 0 2rem 0;
+		font-family: 'Noto Sans KR', sans-serif;
 	}
 
 	h1, h2, h3, h4, h5, h6 {
 		font-weight: 400;
 		line-height: 1.5;
 		margin: 0 0 1rem 0;
+		font-family: 'Pretendard-Regular';
 	}
 
 		h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
@@ -317,7 +331,7 @@ input, select, textarea {
 	code {
 		border-radius: 0.5rem;
 		border: solid 1px;
-		font-family: "Courier New", monospace;
+		font-family: 'Noto Sans KR', sans-serif;
 		font-size: 0.9rem;
 		margin: 0 0.25rem;
 		padding: 0.25rem 0.65rem;
@@ -325,7 +339,7 @@ input, select, textarea {
 
 	pre {
 		-webkit-overflow-scrolling: touch;
-		font-family: "Courier New", monospace;
+		font-family: 'Noto Sans KR', sans-serif;
 		font-size: 0.9rem;
 		margin: 0 0 2rem 0;
 	}
@@ -2516,6 +2530,7 @@ input, select, textarea {
 
 /* Icons */
 
+
 	ul.icons {
 		cursor: default;
 		list-style: none;
@@ -3714,222 +3729,227 @@ input, select, textarea {
 				margin-bottom: 2rem;
 			}
 
-			
-				#wrapper > .main > header.expert_banner input, #wrapper > .main > header.expert_banner select, #wrapper > .main > header.expert_banner textarea {
+			#wrapper > .main > header.accent1{
+
+				background-color: #1bcea5;
+				color: rgba(255, 255, 255, 0.75);
+
+			}
+				#wrapper > .main > header.accent1 input, #wrapper > .main > header.accent1 select, #wrapper > .main > header.accent1 textarea {
 					color: #ffffff;
 				}
 
-				#wrapper > .main > header.expert_banner a {
+				#wrapper > .main > header.accent1 a {
 					color: #1bcea5;
 				}
 
-				#wrapper > .main > header.expert_banner strong, #wrapper > .main > header.expert_banner b {
+				#wrapper > .main > header.accent1 strong, #wrapper > .main > header.accent1 b {
 					color: #ffffff;
 				}
 
-				#wrapper > .main > header.expert_banner h1, #wrapper > .main > header.expert_banner h2, #wrapper > .main > header.expert_banner h3, #wrapper > .main > header.expert_banner h4, #wrapper > .main > header.expert_banner h5, #wrapper > .main > header.expert_banner h6 {
-					color: #3b3b3b;
-					font-weight: 300;
+				#wrapper > .main > header.accent1 h1, #wrapper > .main > header.accent1 h2, #wrapper > .main > header.accent1 h3, #wrapper > .main > header.accent1 h4, #wrapper > .main > header.accent1 h5, #wrapper > .main > header.accent1 h6 {
+					color: #ffffff;
 				}
 
-				#wrapper > .main > header.expert_banner blockquote {
+				#wrapper > .main > header.accent1 blockquote {
 					border-left-color: rgba(255, 255, 255, 0.25);
 				}
 
-				#wrapper > .main > header.expert_banner code {
+				#wrapper > .main > header.accent1 code {
 					background: rgba(255, 255, 255, 0.075);
 					border-color: rgba(255, 255, 255, 0.25);
 				}
 
-				#wrapper > .main > header.expert_banner hr {
+				#wrapper > .main > header.accent1 hr {
 					border-bottom-color: rgba(255, 255, 255, 0.25);
 				}
 
-				#wrapper > .main > header.expert_banner .box {
+				#wrapper > .main > header.accent1 .box {
 					border-color: rgba(255, 255, 255, 0.25);
 				}
 
-				#wrapper > .main > header.expert_banner input[type="submit"],
-				#wrapper > .main > header.expert_banner input[type="reset"],
-				#wrapper > .main > header.expert_banner input[type="button"],
-				#wrapper > .main > header.expert_banner button,
-				#wrapper > .main > header.expert_banner .button {
+				#wrapper > .main > header.accent1 input[type="submit"],
+				#wrapper > .main > header.accent1 input[type="reset"],
+				#wrapper > .main > header.accent1 input[type="button"],
+				#wrapper > .main > header.accent1 button,
+				#wrapper > .main > header.accent1 .button {
 					background-color: transparent;
 					box-shadow: inset 0 0 0 3px #ffffff;
 					color: #ffffff !important;
 				}
 
-					#wrapper > .main > header.expert_banner input[type="submit"]:hover,
-					#wrapper > .main > header.expert_banner input[type="reset"]:hover,
-					#wrapper > .main > header.expert_banner input[type="button"]:hover,
-					#wrapper > .main > header.expert_banner button:hover,
-					#wrapper > .main > header.expert_banner .button:hover {
+					#wrapper > .main > header.accent1 input[type="submit"]:hover,
+					#wrapper > .main > header.accent1 input[type="reset"]:hover,
+					#wrapper > .main > header.accent1 input[type="button"]:hover,
+					#wrapper > .main > header.accent1 button:hover,
+					#wrapper > .main > header.accent1 .button:hover {
 						background-color: rgba(255, 255, 255, 0.1);
 					}
 
-						#wrapper > .main > header.expert_banner input[type="submit"]:hover:active,
-						#wrapper > .main > header.expert_banner input[type="reset"]:hover:active,
-						#wrapper > .main > header.expert_banner input[type="button"]:hover:active,
-						#wrapper > .main > header.expert_banner button:hover:active,
-						#wrapper > .main > header.expert_banner .button:hover:active {
+						#wrapper > .main > header.accent1 input[type="submit"]:hover:active,
+						#wrapper > .main > header.accent1 input[type="reset"]:hover:active,
+						#wrapper > .main > header.accent1 input[type="button"]:hover:active,
+						#wrapper > .main > header.accent1 button:hover:active,
+						#wrapper > .main > header.accent1 .button:hover:active {
 							background-color: rgba(255, 255, 255, 0.25);
 						}
 
-					#wrapper > .main > header.expert_banner input[type="submit"].primary,
-					#wrapper > .main > header.expert_banner input[type="reset"].primary,
-					#wrapper > .main > header.expert_banner input[type="button"].primary,
-					#wrapper > .main > header.expert_banner button.primary,
-					#wrapper > .main > header.expert_banner .button.primary {
+					#wrapper > .main > header.accent1 input[type="submit"].primary,
+					#wrapper > .main > header.accent1 input[type="reset"].primary,
+					#wrapper > .main > header.accent1 input[type="button"].primary,
+					#wrapper > .main > header.accent1 button.primary,
+					#wrapper > .main > header.accent1 .button.primary {
 						background-color: #ffffff;
 						box-shadow: none;
 						color: #1bcea5 !important;
 					}
 
-						#wrapper > .main > header.expert_banner input[type="submit"].primary:hover,
-						#wrapper > .main > header.expert_banner input[type="reset"].primary:hover,
-						#wrapper > .main > header.expert_banner input[type="button"].primary:hover,
-						#wrapper > .main > header.expert_banner button.primary:hover,
-						#wrapper > .main > header.expert_banner .button.primary:hover {
+						#wrapper > .main > header.accent1 input[type="submit"].primary:hover,
+						#wrapper > .main > header.accent1 input[type="reset"].primary:hover,
+						#wrapper > .main > header.accent1 input[type="button"].primary:hover,
+						#wrapper > .main > header.accent1 button.primary:hover,
+						#wrapper > .main > header.accent1 .button.primary:hover {
 							background-color: rgba(255, 255, 255, 0.9);
 						}
 
-						#wrapper > .main > header.expert_banner input[type="submit"].primary:active,
-						#wrapper > .main > header.expert_banner input[type="reset"].primary:active,
-						#wrapper > .main > header.expert_banner input[type="button"].primary:active,
-						#wrapper > .main > header.expert_banner button.primary:active,
-						#wrapper > .main > header.expert_banner .button.primary:active {
+						#wrapper > .main > header.accent1 input[type="submit"].primary:active,
+						#wrapper > .main > header.accent1 input[type="reset"].primary:active,
+						#wrapper > .main > header.accent1 input[type="button"].primary:active,
+						#wrapper > .main > header.accent1 button.primary:active,
+						#wrapper > .main > header.accent1 .button.primary:active {
 							background-color: rgba(255, 255, 255, 0.75);
 						}
 
-				#wrapper > .main > header.expert_banner label {
+				#wrapper > .main > header.accent1 label {
 					color: #ffffff;
 				}
 
-				#wrapper > .main > header.expert_banner input[type="text"],
-				#wrapper > .main > header.expert_banner input[type="password"],
-				#wrapper > .main > header.expert_banner input[type="email"],
-				#wrapper > .main > header.expert_banner select,
-				#wrapper > .main > header.expert_banner textarea {
+				#wrapper > .main > header.accent1 input[type="text"],
+				#wrapper > .main > header.accent1 input[type="password"],
+				#wrapper > .main > header.accent1 input[type="email"],
+				#wrapper > .main > header.accent1 select,
+				#wrapper > .main > header.accent1 textarea {
 					border-color: rgba(255, 255, 255, 0.25);
 				}
 
-					#wrapper > .main > header.expert_banner input[type="text"]:focus,
-					#wrapper > .main > header.expert_banner input[type="password"]:focus,
-					#wrapper > .main > header.expert_banner input[type="email"]:focus,
-					#wrapper > .main > header.expert_banner select:focus,
-					#wrapper > .main > header.expert_banner textarea:focus {
+					#wrapper > .main > header.accent1 input[type="text"]:focus,
+					#wrapper > .main > header.accent1 input[type="password"]:focus,
+					#wrapper > .main > header.accent1 input[type="email"]:focus,
+					#wrapper > .main > header.accent1 select:focus,
+					#wrapper > .main > header.accent1 textarea:focus {
 						border-color: #ffffff;
 						box-shadow: inset 0 0 0 1px #ffffff;
 					}
 
-				#wrapper > .main > header.expert_banner select {
+				#wrapper > .main > header.accent1 select {
 					background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' preserveAspectRatio='none' viewBox='0 0 40 40'%3E%3Cpath d='M9.4,12.3l10.4,10.4l10.4-10.4c0.2-0.2,0.5-0.4,0.9-0.4c0.3,0,0.6,0.1,0.9,0.4l3.3,3.3c0.2,0.2,0.4,0.5,0.4,0.9 c0,0.4-0.1,0.6-0.4,0.9L20.7,31.9c-0.2,0.2-0.5,0.4-0.9,0.4c-0.3,0-0.6-0.1-0.9-0.4L4.3,17.3c-0.2-0.2-0.4-0.5-0.4-0.9 c0-0.4,0.1-0.6,0.4-0.9l3.3-3.3c0.2-0.2,0.5-0.4,0.9-0.4S9.1,12.1,9.4,12.3z' fill='rgba(255, 255, 255, 0.25)' /%3E%3C/svg%3E");
 				}
 
-					#wrapper > .main > header.expert_banner select option {
+					#wrapper > .main > header.accent1 select option {
 						color: #ffffff;
 						background: #1bcea5;
 					}
 
-				#wrapper > .main > header.expert_banner input[type="checkbox"] + label,
-				#wrapper > .main > header.expert_banner input[type="radio"] + label {
+				#wrapper > .main > header.accent1 input[type="checkbox"] + label,
+				#wrapper > .main > header.accent1 input[type="radio"] + label {
 					color: rgba(255, 255, 255, 0.75);
 				}
 
-					#wrapper > .main > header.expert_banner input[type="checkbox"] + label:before,
-					#wrapper > .main > header.expert_banner input[type="radio"] + label:before {
+					#wrapper > .main > header.accent1 input[type="checkbox"] + label:before,
+					#wrapper > .main > header.accent1 input[type="radio"] + label:before {
 						border-color: rgba(255, 255, 255, 0.25);
 					}
 
-				#wrapper > .main > header.expert_banner input[type="checkbox"]:checked + label:before,
-				#wrapper > .main > header.expert_banner input[type="radio"]:checked + label:before {
+				#wrapper > .main > header.accent1 input[type="checkbox"]:checked + label:before,
+				#wrapper > .main > header.accent1 input[type="radio"]:checked + label:before {
 					background-color: #ffffff;
 					border-color: #ffffff;
 					color: #1bcea5;
 				}
 
-				#wrapper > .main > header.expert_banner input[type="checkbox"]:focus + label:before,
-				#wrapper > .main > header.expert_banner input[type="radio"]:focus + label:before {
+				#wrapper > .main > header.accent1 input[type="checkbox"]:focus + label:before,
+				#wrapper > .main > header.accent1 input[type="radio"]:focus + label:before {
 					border-color: #ffffff;
 					box-shadow: 0 0 0 1px #ffffff;
 				}
 
-				#wrapper > .main > header.expert_banner ::-webkit-input-placeholder {
+				#wrapper > .main > header.accent1 ::-webkit-input-placeholder {
 					color: rgba(255, 255, 255, 0.5) !important;
 				}
 
-				#wrapper > .main > header.expert_banner :-moz-placeholder {
+				#wrapper > .main > header.accent1 :-moz-placeholder {
 					color: rgba(255, 255, 255, 0.5) !important;
 				}
 
-				#wrapper > .main > header.expert_banner ::-moz-placeholder {
+				#wrapper > .main > header.accent1 ::-moz-placeholder {
 					color: rgba(255, 255, 255, 0.5) !important;
 				}
 
-				#wrapper > .main > header.expert_banner :-ms-input-placeholder {
+				#wrapper > .main > header.accent1 :-ms-input-placeholder {
 					color: rgba(255, 255, 255, 0.5) !important;
 				}
 
-				#wrapper > .main > header.expert_banner .formerize-placeholder {
+				#wrapper > .main > header.accent1 .formerize-placeholder {
 					color: rgba(255, 255, 255, 0.5) !important;
 				}
 
-				#wrapper > .main > header.expert_banner .icon.major:before {
+				#wrapper > .main > header.accent1 .icon.major:before {
 					box-shadow: inset 0 0 0 3px #ffffff;
 					color: #ffffff;
 				}
 
-				#wrapper > .main > header.expert_banner ul.alt li {
+				#wrapper > .main > header.accent1 ul.alt li {
 					border-top-color: rgba(255, 255, 255, 0.25);
 				}
 
-				#wrapper > .main > header.expert_banner table tbody tr {
+				#wrapper > .main > header.accent1 table tbody tr {
 					border-color: rgba(255, 255, 255, 0.25);
 				}
 
-					#wrapper > .main > header.expert_banner table tbody tr:nth-child(2n + 1) {
+					#wrapper > .main > header.accent1 table tbody tr:nth-child(2n + 1) {
 						background-color: rgba(255, 255, 255, 0.075);
 					}
 
-				#wrapper > .main > header.expert_banner table th {
+				#wrapper > .main > header.accent1 table th {
 					color: #ffffff;
 				}
 
-				#wrapper > .main > header.expert_banner table thead {
+				#wrapper > .main > header.accent1 table thead {
 					border-bottom-color: rgba(255, 255, 255, 0.25);
 				}
 
-				#wrapper > .main > header.expert_banner table tfoot {
+				#wrapper > .main > header.accent1 table tfoot {
 					border-top-color: rgba(255, 255, 255, 0.25);
 				}
 
-				#wrapper > .main > header.expert_banner table.alt tbody tr td {
+				#wrapper > .main > header.accent1 table.alt tbody tr td {
 					border-color: rgba(255, 255, 255, 0.25);
 				}
 
-				#wrapper > .main > header.expert_banner + .inner {
+				#wrapper > .main > header.accent1 + .inner {
 					padding-top: 6rem;
 				}
 
-				#wrapper > .main > header.expert_banner + .tabs > .titles {
+				#wrapper > .main > header.accent1 + .tabs > .titles {
 					background-color: #1bcea5;
 				}
 
-					#wrapper > .main > header.expert_banner + .tabs > .titles:before {
+					#wrapper > .main > header.accent1 + .tabs > .titles:before {
 						background-color: #1bcea5;
 					}
 
-					#wrapper > .main > header.expert_banner + .tabs > .titles > .title {
+					#wrapper > .main > header.accent1 + .tabs > .titles > .title {
 						color: #ffffff;
 					}
 
-						#wrapper > .main > header.expert_banner + .tabs > .titles > .title.active {
+						#wrapper > .main > header.accent1 + .tabs > .titles > .title.active {
 							color: #1bcea5;
 							background-color: #ffffff;
 							box-shadow: none;
 						}
 
 			#wrapper > .main > header.accent2 {
+
 				background-color: #735bb9;
 				color: rgba(255, 255, 255, 0.75);
 			}
@@ -3948,6 +3968,7 @@ input, select, textarea {
 
 				#wrapper > .main > header.accent2 h1, #wrapper > .main > header.accent2 h2, #wrapper > .main > header.accent2 h3, #wrapper > .main > header.accent2 h4, #wrapper > .main > header.accent2 h5, #wrapper > .main > header.accent2 h6 {
 					color: #ffffff;
+	
 				}
 
 				#wrapper > .main > header.accent2 blockquote {
@@ -4144,7 +4165,8 @@ input, select, textarea {
 					}
 
 		#wrapper > .main > .inner {
-			padding: 0rem 0 4rem 0 ;
+			padding: 4rem 4rem 4rem 0 ;
+			text-align: center;
 		}
 
 			#wrapper > .main > .inner > .image.main:last-child {
@@ -4245,208 +4267,208 @@ input, select, textarea {
 					opacity: 1;
 				}
 
-		#wrapper > .main.expert_banner {
+		#wrapper > .main.accent1 {
 			background-color: #1bcea5;
 			color: rgba(255, 255, 255, 0.75);
 		}
 
-			#wrapper > .main.expert_banner input, #wrapper > .main.expert_banner select, #wrapper > .main.expert_banner textarea {
+			#wrapper > .main.accent1 input, #wrapper > .main.accent1 select, #wrapper > .main.accent1 textarea {
 				color: #ffffff;
 			}
 
-			#wrapper > .main.expert_banner a {
+			#wrapper > .main.accent1 a {
 				color: #1bcea5;
 			}
 
-			#wrapper > .main.expert_banner strong, #wrapper > .main.expert_banner b {
+			#wrapper > .main.accent1 strong, #wrapper > .main.accent1 b {
 				color: #ffffff;
 			}
 
-			#wrapper > .main.expert_banner h1, #wrapper > .main.expert_banner h2, #wrapper > .main.expert_banner h3, #wrapper > .main.expert_banner h4, #wrapper > .main.expert_banner h5, #wrapper > .main.expert_banner h6 {
+			#wrapper > .main.accent1 h1, #wrapper > .main.accent1 h2, #wrapper > .main.accent1 h3, #wrapper > .main.accent1 h4, #wrapper > .main.accent1 h5, #wrapper > .main.accent1 h6 {
 				color: #ffffff;
 			}
 
-			#wrapper > .main.expert_banner blockquote {
+			#wrapper > .main.accent1 blockquote {
 				border-left-color: rgba(255, 255, 255, 0.25);
 			}
 
-			#wrapper > .main.expert_banner code {
+			#wrapper > .main.accent1 code {
 				background: rgba(255, 255, 255, 0.075);
 				border-color: rgba(255, 255, 255, 0.25);
 			}
 
-			#wrapper > .main.expert_banner hr {
+			#wrapper > .main.accent1 hr {
 				border-bottom-color: rgba(255, 255, 255, 0.25);
 			}
 
-			#wrapper > .main.expert_banner .box {
+			#wrapper > .main.accent1 .box {
 				border-color: rgba(255, 255, 255, 0.25);
 			}
 
-			#wrapper > .main.expert_banner input[type="submit"],
-			#wrapper > .main.expert_banner input[type="reset"],
-			#wrapper > .main.expert_banner input[type="button"],
-			#wrapper > .main.expert_banner button,
-			#wrapper > .main.expert_banner .button {
+			#wrapper > .main.accent1 input[type="submit"],
+			#wrapper > .main.accent1 input[type="reset"],
+			#wrapper > .main.accent1 input[type="button"],
+			#wrapper > .main.accent1 button,
+			#wrapper > .main.accent1 .button {
 				background-color: transparent;
 				box-shadow: inset 0 0 0 3px #ffffff;
 				color: #ffffff !important;
 			}
 
-				#wrapper > .main.expert_banner input[type="submit"]:hover,
-				#wrapper > .main.expert_banner input[type="reset"]:hover,
-				#wrapper > .main.expert_banner input[type="button"]:hover,
-				#wrapper > .main.expert_banner button:hover,
-				#wrapper > .main.expert_banner .button:hover {
+				#wrapper > .main.accent1 input[type="submit"]:hover,
+				#wrapper > .main.accent1 input[type="reset"]:hover,
+				#wrapper > .main.accent1 input[type="button"]:hover,
+				#wrapper > .main.accent1 button:hover,
+				#wrapper > .main.accent1 .button:hover {
 					background-color: rgba(255, 255, 255, 0.1);
 				}
 
-					#wrapper > .main.expert_banner input[type="submit"]:hover:active,
-					#wrapper > .main.expert_banner input[type="reset"]:hover:active,
-					#wrapper > .main.expert_banner input[type="button"]:hover:active,
-					#wrapper > .main.expert_banner button:hover:active,
-					#wrapper > .main.expert_banner .button:hover:active {
+					#wrapper > .main.accent1 input[type="submit"]:hover:active,
+					#wrapper > .main.accent1 input[type="reset"]:hover:active,
+					#wrapper > .main.accent1 input[type="button"]:hover:active,
+					#wrapper > .main.accent1 button:hover:active,
+					#wrapper > .main.accent1 .button:hover:active {
 						background-color: rgba(255, 255, 255, 0.25);
 					}
 
-				#wrapper > .main.expert_banner input[type="submit"].primary,
-				#wrapper > .main.expert_banner input[type="reset"].primary,
-				#wrapper > .main.expert_banner input[type="button"].primary,
-				#wrapper > .main.expert_banner button.primary,
-				#wrapper > .main.expert_banner .button.primary {
+				#wrapper > .main.accent1 input[type="submit"].primary,
+				#wrapper > .main.accent1 input[type="reset"].primary,
+				#wrapper > .main.accent1 input[type="button"].primary,
+				#wrapper > .main.accent1 button.primary,
+				#wrapper > .main.accent1 .button.primary {
 					background-color: #ffffff;
 					box-shadow: none;
 					color: #1bcea5 !important;
 				}
 
-					#wrapper > .main.expert_banner input[type="submit"].primary:hover,
-					#wrapper > .main.expert_banner input[type="reset"].primary:hover,
-					#wrapper > .main.expert_banner input[type="button"].primary:hover,
-					#wrapper > .main.expert_banner button.primary:hover,
-					#wrapper > .main.expert_banner .button.primary:hover {
+					#wrapper > .main.accent1 input[type="submit"].primary:hover,
+					#wrapper > .main.accent1 input[type="reset"].primary:hover,
+					#wrapper > .main.accent1 input[type="button"].primary:hover,
+					#wrapper > .main.accent1 button.primary:hover,
+					#wrapper > .main.accent1 .button.primary:hover {
 						background-color: rgba(255, 255, 255, 0.9);
 					}
 
-					#wrapper > .main.expert_banner input[type="submit"].primary:active,
-					#wrapper > .main.expert_banner input[type="reset"].primary:active,
-					#wrapper > .main.expert_banner input[type="button"].primary:active,
-					#wrapper > .main.expert_banner button.primary:active,
-					#wrapper > .main.expert_banner .button.primary:active {
+					#wrapper > .main.accent1 input[type="submit"].primary:active,
+					#wrapper > .main.accent1 input[type="reset"].primary:active,
+					#wrapper > .main.accent1 input[type="button"].primary:active,
+					#wrapper > .main.accent1 button.primary:active,
+					#wrapper > .main.accent1 .button.primary:active {
 						background-color: rgba(255, 255, 255, 0.75);
 					}
 
-			#wrapper > .main.expert_banner label {
+			#wrapper > .main.accent1 label {
 				color: #ffffff;
 			}
 
-			#wrapper > .main.expert_banner input[type="text"],
-			#wrapper > .main.expert_banner input[type="password"],
-			#wrapper > .main.expert_banner input[type="email"],
-			#wrapper > .main.expert_banner select,
-			#wrapper > .main.expert_banner textarea {
+			#wrapper > .main.accent1 input[type="text"],
+			#wrapper > .main.accent1 input[type="password"],
+			#wrapper > .main.accent1 input[type="email"],
+			#wrapper > .main.accent1 select,
+			#wrapper > .main.accent1 textarea {
 				border-color: rgba(255, 255, 255, 0.25);
 			}
 
-				#wrapper > .main.expert_banner input[type="text"]:focus,
-				#wrapper > .main.expert_banner input[type="password"]:focus,
-				#wrapper > .main.expert_banner input[type="email"]:focus,
-				#wrapper > .main.expert_banner select:focus,
-				#wrapper > .main.expert_banner textarea:focus {
+				#wrapper > .main.accent1 input[type="text"]:focus,
+				#wrapper > .main.accent1 input[type="password"]:focus,
+				#wrapper > .main.accent1 input[type="email"]:focus,
+				#wrapper > .main.accent1 select:focus,
+				#wrapper > .main.accent1 textarea:focus {
 					border-color: #ffffff;
 					box-shadow: inset 0 0 0 1px #ffffff;
 				}
 
-			#wrapper > .main.expert_banner select {
+			#wrapper > .main.accent1 select {
 				background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' preserveAspectRatio='none' viewBox='0 0 40 40'%3E%3Cpath d='M9.4,12.3l10.4,10.4l10.4-10.4c0.2-0.2,0.5-0.4,0.9-0.4c0.3,0,0.6,0.1,0.9,0.4l3.3,3.3c0.2,0.2,0.4,0.5,0.4,0.9 c0,0.4-0.1,0.6-0.4,0.9L20.7,31.9c-0.2,0.2-0.5,0.4-0.9,0.4c-0.3,0-0.6-0.1-0.9-0.4L4.3,17.3c-0.2-0.2-0.4-0.5-0.4-0.9 c0-0.4,0.1-0.6,0.4-0.9l3.3-3.3c0.2-0.2,0.5-0.4,0.9-0.4S9.1,12.1,9.4,12.3z' fill='rgba(255, 255, 255, 0.25)' /%3E%3C/svg%3E");
 			}
 
-				#wrapper > .main.expert_banner select option {
+				#wrapper > .main.accent1 select option {
 					color: #ffffff;
 					background: #1bcea5;
 				}
 
-			#wrapper > .main.expert_banner input[type="checkbox"] + label,
-			#wrapper > .main.expert_banner input[type="radio"] + label {
+			#wrapper > .main.accent1 input[type="checkbox"] + label,
+			#wrapper > .main.accent1 input[type="radio"] + label {
 				color: rgba(255, 255, 255, 0.75);
 			}
 
-				#wrapper > .main.expert_banner input[type="checkbox"] + label:before,
-				#wrapper > .main.expert_banner input[type="radio"] + label:before {
+				#wrapper > .main.accent1 input[type="checkbox"] + label:before,
+				#wrapper > .main.accent1 input[type="radio"] + label:before {
 					border-color: rgba(255, 255, 255, 0.25);
 				}
 
-			#wrapper > .main.expert_banner input[type="checkbox"]:checked + label:before,
-			#wrapper > .main.expert_banner input[type="radio"]:checked + label:before {
+			#wrapper > .main.accent1 input[type="checkbox"]:checked + label:before,
+			#wrapper > .main.accent1 input[type="radio"]:checked + label:before {
 				background-color: #ffffff;
 				border-color: #ffffff;
 				color: #1bcea5;
 			}
 
-			#wrapper > .main.expert_banner input[type="checkbox"]:focus + label:before,
-			#wrapper > .main.expert_banner input[type="radio"]:focus + label:before {
+			#wrapper > .main.accent1 input[type="checkbox"]:focus + label:before,
+			#wrapper > .main.accent1 input[type="radio"]:focus + label:before {
 				border-color: #ffffff;
 				box-shadow: 0 0 0 1px #ffffff;
 			}
 
-			#wrapper > .main.expert_banner ::-webkit-input-placeholder {
+			#wrapper > .main.accent1 ::-webkit-input-placeholder {
 				color: rgba(255, 255, 255, 0.5) !important;
 			}
 
-			#wrapper > .main.expert_banner :-moz-placeholder {
+			#wrapper > .main.accent1 :-moz-placeholder {
 				color: rgba(255, 255, 255, 0.5) !important;
 			}
 
-			#wrapper > .main.expert_banner ::-moz-placeholder {
+			#wrapper > .main.accent1 ::-moz-placeholder {
 				color: rgba(255, 255, 255, 0.5) !important;
 			}
 
-			#wrapper > .main.expert_banner :-ms-input-placeholder {
+			#wrapper > .main.accent1 :-ms-input-placeholder {
 				color: rgba(255, 255, 255, 0.5) !important;
 			}
 
-			#wrapper > .main.expert_banner .formerize-placeholder {
+			#wrapper > .main.accent1 .formerize-placeholder {
 				color: rgba(255, 255, 255, 0.5) !important;
 			}
 
-			#wrapper > .main.expert_banner .icon.major:before {
+			#wrapper > .main.accent1 .icon.major:before {
 				box-shadow: inset 0 0 0 3px #ffffff;
 				color: #ffffff;
 			}
 
-			#wrapper > .main.expert_banner ul.alt li {
+			#wrapper > .main.accent1 ul.alt li {
 				border-top-color: rgba(255, 255, 255, 0.25);
 			}
 
-			#wrapper > .main.expert_banner table tbody tr {
+			#wrapper > .main.accent1 table tbody tr {
 				border-color: rgba(255, 255, 255, 0.25);
 			}
 
-				#wrapper > .main.expert_banner table tbody tr:nth-child(2n + 1) {
+				#wrapper > .main.accent1 table tbody tr:nth-child(2n + 1) {
 					background-color: rgba(255, 255, 255, 0.075);
 				}
 
-			#wrapper > .main.expert_banner table th {
+			#wrapper > .main.accent1 table th {
 				color: #ffffff;
 			}
 
-			#wrapper > .main.expert_banner table thead {
+			#wrapper > .main.accent1 table thead {
 				border-bottom-color: rgba(255, 255, 255, 0.25);
 			}
 
-			#wrapper > .main.expert_banner table tfoot {
+			#wrapper > .main.accent1 table tfoot {
 				border-top-color: rgba(255, 255, 255, 0.25);
 			}
 
-			#wrapper > .main.expert_banner table.alt tbody tr td {
+			#wrapper > .main.accent1 table.alt tbody tr td {
 				border-color: rgba(255, 255, 255, 0.25);
 			}
 
-			#wrapper > .main.expert_banner > .tabs > .titles > .title.active {
+			#wrapper > .main.accent1 > .tabs > .titles > .title.active {
 				box-shadow: 0 3px 0 0 #ffffff;
 			}
 
 		#wrapper > .main.accent2 {
-			background-color: #735bb9;
+			background-color: #937fd1;
 			color: rgba(255, 255, 255, 0.75);
 		}
 
@@ -4663,7 +4685,7 @@ input, select, textarea {
 				max-width: calc(100% - 4rem);
 			}
 
-			#wrapper > .main > header.expert_banner + .inner {
+			#wrapper > .main > header.accent1 + .inner {
 				padding-top: 4rem;
 			}
 
@@ -4722,7 +4744,7 @@ input, select, textarea {
 				max-width: calc(100% - 4rem);
 			}
 
-			#wrapper > .main > header.expert_banner + .inner {
+			#wrapper > .main > header.accent1 + .inner {
 				padding-top: 4rem;
 			}
 
@@ -4791,7 +4813,7 @@ input, select, textarea {
 				max-width: calc(100% - 3rem);
 			}
 
-			#wrapper > .main > header.expert_banner + .inner {
+			#wrapper > .main > header.accent1 + .inner {
 				padding-top: 3rem;
 			}
 
@@ -5011,7 +5033,7 @@ input, select, textarea {
 
 		}
 
-/* Nav Panel */
+	/* Nav Panel */
 
 	#wrapper {
 		-moz-transition: opacity 0.5s ease;
@@ -5158,3 +5180,186 @@ input, select, textarea {
 		transform: translateX(0);
 		visibility: visible;
 	}
+
+
+
+
+	.typing {
+		height: 55px;
+		display: flex;
+		justify-content: center;
+		align-items: flex-end;
+		font-size: 1.8rem;
+		margin-top: 70px;
+	  }
+	  
+	  .text {
+		font-size: 2.2rem;
+		margin-left: .6rem;
+	  }
+	  
+	  .text::after {
+		content: '';
+		margin-left: .4rem;
+		border-right: 2px solid #777;
+		animation: cursor .9s infinite steps(2);
+	  }
+	  
+	  @keyframes cursor {
+		from { border-right: 2px solid #222; }
+		to { border-right: 2px solid #777; }
+	  }
+
+	  .count,.count1,.count2 {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 30px;
+		font-weight: bold;
+		color: #3b3b3b;
+	  }
+
+	  .inner > .video main {
+		-moz-object-fit: cover;
+		-webkit-object-fit: cover;
+		-ms-object-fit: cover;
+		object-fit: cover;
+		-moz-object-position: center;
+		-webkit-object-position: center;
+		-ms-object-position: center;
+		object-position: center;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		overflow: hidden;
+		z-index: -1;
+	}
+	.review-box {
+		width: 400px;
+		height: 500px;
+	
+	}
+	.review h2{
+		margin-left: 50px;
+	}
+
+	
+	.swiper-pagination-bullet {
+		width: 8px;
+		height: 8px;
+		display: inline-block;
+		border-radius: 50%;
+		background: #000;
+		opacity: .2;
+		cursor: pointer;
+	}
+
+	.chat-container {
+		position: fixed;
+		bottom: 20px;
+		right: 20px;
+		z-index: 100;
+	  }
+	  
+	  #chat-button {
+		background-color:#1bcea5;
+		color: #fff;
+		padding: 10px 20px;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+	  }
+	  
+	  .chat-box {
+		width: 300px;
+		background-color: #fff;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		overflow: hidden;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	  }
+	  
+	  .chat-header {
+		background-color: #1bcea5;
+		color: #fff;
+		padding: 10px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	  }
+	  
+	  .chat-header h3 {
+		margin : 0;
+		color: #fff;
+	  }
+	  
+	  .chat-body {
+		height: 200px;
+		overflow-y: auto;
+		padding: 10px;
+	  }
+	  
+	  .chat-footer {
+		padding: 10px;
+		display: flex;
+		align-items: center;
+	  }
+	  
+	  #chat-input {
+		flex: 1;
+		padding: 5px;
+		border-radius: 3px;
+		border: 1px solid #ccc;
+	  }
+	  
+	  #send-message {
+		background-color: #1bcea5;
+		color: #fff9f9;
+		border: none;
+		padding: 5px 10px;
+		border-radius: 3px;
+		cursor: pointer;
+	  }
+
+
+
+	  .image-roll {
+		position: relative;
+		overflow: hidden;
+	  }
+	  
+	  .image-container {
+		display: flex;
+		transition: transform 0.5s ease; /* 슬라이드 효과를 위한 transition */
+	  }
+	  
+	  .image-container img {
+		width: 100%;
+		height: auto;
+	  }
+	  
+	  #prev-btn, #next-btn {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		color: #fff;
+		padding: 10px 20px;
+		border: none;
+		cursor: pointer;
+	  }
+	  
+	  #prev-btn {
+		left: 10px;
+	  }
+	  
+	  #next-btn {
+		right: 10px;
+	  }
+	  .image-roll button{
+		box-shadow: none;
+	  }
+	  .image-roll button:hover{
+		background-color: transparent;	  
+		}

@@ -1,5 +1,7 @@
 package com.ec.app.expert;
 
+import java.io.BufferedReader;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,13 +12,17 @@ import com.ec.app.action.Action;
 import com.ec.app.action.Transfer;
 import com.ec.model.dao.ExpertDAO;
 import com.ec.model.dto.ExpertDTO;
+import com.google.gson.Gson;
 
 public class ExpertSortOkAction implements Action{
 	@Override
 	public Transfer execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		int psort = Integer.parseInt(req.getParameter("psort"));
-		String temp = req.getParameter("page");
-	    int page = temp == null || temp.equals("") ? 1 : Integer.parseInt(temp);
+		String psortParam = req.getParameter("psort");
+        int psort = (psortParam != null && !psortParam.isEmpty()) ? Integer.parseInt(psortParam) : 1;
+
+        String pageParam = req.getParameter("page");
+        int page = (pageParam != null && !pageParam.isEmpty()) ? Integer.parseInt(pageParam) : 1;
+        
 	    ExpertDAO edao = new ExpertDAO();
 
 	    long totalCnt = edao.getExpertCnt();
@@ -29,7 +35,16 @@ public class ExpertSortOkAction implements Action{
 	    endPage = endPage > totalPage ? totalPage : endPage;
 
 	    int startRow = (page - 1) * pageSize;
-		
+	    
+	    
+	    // POST 요청의 본문에서 데이터 읽기
+	    BufferedReader reader = req.getReader();
+	    StringBuilder requestData = new StringBuilder();
+	    String line;
+	    while ((line = reader.readLine()) != null) {
+	    	requestData.append(line);
+	    }
+	   	
 		List<ExpertDTO> list = null;
 		if(psort == 1) {
 			list = edao.getExpertSortByLike(startRow, pageSize);
@@ -43,16 +58,19 @@ public class ExpertSortOkAction implements Action{
 		HttpSession session = req.getSession();
 		session.setAttribute("psort", psort);
 		
-		Transfer transfer = new Transfer();
-	    transfer.setRedirect(false);
-	    transfer.setPath("/app/expert/expertList.jsp");
-	    req.setAttribute("list", list); // 전문가 목록 데이터를 전달
-	    req.setAttribute("totalCnt", totalCnt); // 전체 전문가 수 전달
-	    req.setAttribute("totalPage", totalPage); // 전체 페이지 수 전달
-	    req.setAttribute("startPage", startPage); // 시작 페이지 번호 전달
-	    req.setAttribute("endPage", endPage); // 끝 페이지 번호 전달
-	    req.setAttribute("page", page); // 현재 페이지 번호 전달
+		 
+		 
 
-	    return transfer;
+		 Transfer transfer = new Transfer();
+		 transfer.setRedirect(false);
+		 transfer.setPath("/app/expert/expertList.jsp");
+		 req.setAttribute("list", list); // 전문가 목록 데이터를 전달
+		 req.setAttribute("totalCnt", totalCnt); // 전체 전문가 수 전달
+		 req.setAttribute("totalPage", totalPage); // 전체 페이지 수 전달
+		 req.setAttribute("startPage", startPage); // 시작 페이지 번호 전달
+		 req.setAttribute("endPage", endPage); // 끝 페이지 번호 전달
+		 req.setAttribute("page", page); // 현재 페이지 번호 전달
+	
+		 return transfer;
 	}
 }

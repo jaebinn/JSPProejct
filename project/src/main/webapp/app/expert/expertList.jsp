@@ -40,6 +40,7 @@
 										</ul>
 									</li>
 									<li><a href="generic.html">전문가 매칭</a></li>
+									
 									<li><a href="login.html"><input type="button" value="로그인" id="login_btn"></a></li>
 									<li><a href="logout.html"><input type="button" value="로그아웃" id="logout_btn"></a></li>
 									<li><a href="login.html"><input type="button" value="전문가등록" id="expert_btn"></a></li>		
@@ -56,9 +57,29 @@
 					<main id="content">
 						<div class="div_list">
 							<div class="search">
-								<div class="career_name" id="area_text"><span class="exam01">지역을 선택하시려면 클릭해주세요.</span></div>
-								<div class="career_name" id="sphere_text"><span class="exam01">분야를 선택하시려면 클릭해주세요.</span></div>
+								<div class="location" id="area_text"><span class="exam01">지역을 선택하시려면 클릭해주세요.</span></div>
+								<div class="career_name" id="sphere_text" onclick="toggleSphereSelection()"><span class="exam01">분야를 선택하시려면 클릭해주세요.</span></div>
+								<!-- 분야 선택창 -->
+								<div class="layer0101" id="layer_sphere">
+									<div class="layer_contract">
+										<div class="sphere01">* 최대 3개까지 선택 가능합니다.</div>
+										<div class="sphere_list">
+											
+											<button type="button" class="r_sphere1 r_sphere_baby" id="keyword_list" data-val="베이비시터" onclick="selectSphere(this)">베이비시터</button>
+											<button type="button" class="r_sphere1 r_sphere_study" id="keyword_list" data-val="학습시터" onclick="selectSphere(this)">학습시터</button>											
+											<button type="button" class="r_sphere1 r_sphere_baby" id="keyword_list" data-val="등하원도우미" onclick="selectSphere(this)">등하원도우미</button>
+											<button type="button" class="r_sphere1 r_sphere_hospital" id="keyword_list" data-val="병원동행" onclick="selectSphere(this)">병원동행</button>
+											<button type="button" class="r_sphere1 r_sphere_gasa" id="keyword_list" data-val="가사도우미" onclick="selectSphere(this)">가사도우미</button>
+											
+
+											<span class="r_sphere1_blank">&nbsp;</span>		
+										</div>
+										<div class="btn01"><input type="button" value="검색하기" id="btn_search_sphere" onclick="searchBySphere()"></div>
+								
+									</div>
+								</div>
 							</div>
+							
 							<div class="tit"><span>전문가찾기</span>
 								<span class="sort01">
 								<form id="sortForm" action="${cp}/expertsort.ep?&page=${page}" method="post">
@@ -169,7 +190,7 @@
 							<p>&copy; EveryCare. All rights reserved.</p>
 						</div>
 					</footer>
-
+					
 			</div>
 
 		<!-- Scripts -->
@@ -184,57 +205,68 @@
 			<script src="${cp}/js/util.js"></script>
 			<script src="${cp}/js/main.js"></script>
 			<script>
-			// 전역 변수로 전체 전문가 리스트와 정렬된 전문가 리스트를 저장합니다.
-			let expertList = [];
-			let sortedExpertList = [];
-			// 페이지당 전문가 수를 설정합니다.
-			let expertsPerPage = 4;
+			function toggleSphereSelection() {
+		        var layerSphere = document.getElementById('layer_sphere');
+		        if (layerSphere.style.display === 'none' || layerSphere.style.display === '') {
+		            layerSphere.style.display = 'block';
+		        } else {
+		            layerSphere.style.display = 'none';
+		        }
+		    }
 
-			// 페이지가 변경될 때마다 해당 페이지에 맞는 데이터를 표시합니다.
-			function displayExperts(page) {
-			    // 해당 페이지의 전문가 리스트를 가져옵니다.
-			    let startIndex = (page - 1) * expertsPerPage;
-			    let endIndex = startIndex + expertsPerPage;
-			    let currentPageExperts = sortedExpertList.slice(startIndex, endIndex);
+		    function selectSphere(button) {
+		        if (button.classList.contains('selected')) {
+		            button.classList.remove('selected');
+		            button.innerHTML = button.getAttribute('data-val');
+		        } else {
+		            var selectedSpheres = document.querySelectorAll('.r_sphere1.selected');
+		            if (selectedSpheres.length >= 3) {
+		                alert('최대 3개까지 선택할 수 있습니다.');
+		                return;
+		            }
+		            button.classList.add('selected');
+		            button.innerHTML = button.getAttribute('data-val') + '<span class="check">✓</span>';
+		        }
+		    }
 
-			    // currentPageExperts를 사용하여 전문가 리스트를 표시하는 코드를 작성합니다.
-			    // 예를 들어, 해당 페이지의 HTML을 동적으로 생성하거나, 템플릿을 사용하여 리스트를 업데이트할 수 있습니다.
-			}
+		    function searchBySphere() {
+		        let selectedSpheres = document.querySelectorAll('.r_sphere1.selected');
+		        let layerSphere = document.getElementById('layer_sphere');
+		        let selectedSphereValues = [];
+		        let sphere_text = document.querySelector('#sphere_text');
+		        selectedSpheres.forEach(function (sphere) {
+		            selectedSphereValues.push(sphere.getAttribute('data-val'));
+		        });
 
-			// 전문가 리스트를 정렬하고 페이지별로 전문가를 표시합니다.
-			function sortAndDisplayExperts(selectedOption) {
-			    // 전체 전문가 리스트를 복사하여 정렬합니다.
-			    sortedExpertList = expertList.slice();
+		        if (selectedSpheres.length === 0) {
+		            layerSphere.style.display = 'none';
+		            sphere_text.textContent = "분야를 선택하시려면 클릭해주세요.";
+		            sphere_text.style.color = "#9A9A9A";
+		            return;
+		        }
 
-			    if (selectedOption === "1") {
-			        // 좋아요순 정렬
-			        sortedExpertList.sort(function(a, b) {
-			            return b.like_cnt - a.like_cnt;
-			        });
-			    } else if (selectedOption === "2") {
-			        // 시급낮은순 정렬
-			        sortedExpertList.sort(function(a, b) {
-			            return parseFloat(a.cost) - parseFloat(b.cost);
-			        });
-			    } else if (selectedOption === "3") {
-			        // 시급높은순 정렬
-			        sortedExpertList.sort(function(a, b) {
-			            return parseFloat(b.cost) - parseFloat(a.cost);
-			        });
-			    }
+		        // AJAX 요청 보내기
+		        let xhr = new XMLHttpRequest();
+		        xhr.open('POST', cp+"/expertkeywordsort.ep", true);
+		        xhr.setRequestHeader('Content-Type', 'application/json');
+		        xhr.onreadystatechange = function () {
+		            if (xhr.readyState === 4 && xhr.status === 200) {
+		                // 서버로부터 응답을 받았을 때 추가적인 작업을 수행할 수 있습니다.
+		                console.log('서버 응답:', xhr.responseText);
+		            }
+		        };
 
-			    // 정렬된 전문가 리스트를 페이지별로 표시합니다.
-			    displayExperts(1); // 첫 번째 페이지를 표시합니다.
-			}
+		        let data = JSON.stringify({ spheres: selectedSphereValues });
+		        xhr.send(data);
 
-			$(document).ready(function() {
-			    $('#psort').change(function() {
-			        let selectedOption = $(this).children("option:selected").val(); // 선택된 옵션번호
+		        // 선택된 분야 텍스트 업데이트
+		        sphere_text.textContent = selectedSphereValues.join(", ");
+		        sphere_text.style.color = "black";
 
-			        // 전체 전문가 리스트를 정렬하고, 해당 정렬된 리스트를 페이지별로 표시합니다.
-			        sortAndDisplayExperts(selectedOption);
-			    });
-			});
+		        // 선택창 닫기
+		        layerSphere.style.display = 'none';
+		    }
+
 			</script>
-	</body>
+</body>
 </html>

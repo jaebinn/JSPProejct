@@ -4,7 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.ec.mybatis.SQLMapConfig;
 
-public class UserDAO {
+public class DAO {
 private SqlSession ss;
 	
 	public UserDAO() {
