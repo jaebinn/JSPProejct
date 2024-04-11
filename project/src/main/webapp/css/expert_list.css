@@ -1,28 +1,5 @@
-#nav li:nth-child(4) a > #login_btn{
-	height: 40px;
-	color: #fff;
-	border-radius: 60px;
-	cursor: pointer;
-	font-size: 14px;
-	line-height: 40px;
-}
-#nav li:nth-child(5) a > #logout_btn{
-	height: 40px;
-	color: #fff;
-	border-radius: 60px;
-	cursor: pointer;
-	font-size: 14px;
-	line-height: 40px;
-	display: none;
-}
-#nav li:nth-child(6) a > #expert_btn{
-	height: 40px;
-	color: #fff;
-	border-radius: 60px;
-	cursor: pointer;
-	font-size: 14px;
-	line-height: 40px;
-	display: none;
+form{
+	margin: 0;
 }
 
 

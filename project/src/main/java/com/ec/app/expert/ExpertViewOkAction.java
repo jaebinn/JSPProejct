@@ -18,7 +18,6 @@ public class ExpertViewOkAction implements Action{
 		ExpertDAO edao = new ExpertDAO();
 		ExpertDTO expert = edao.getExpertById(expert_idx);
 
-        
 		req.setAttribute("expert", expert);
 		
 		Transfer transfer = new Transfer();

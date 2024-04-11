@@ -13,40 +13,21 @@ public class ExpertLikeCntOkAction implements Action{
 		String expertIdxParam = req.getParameter("expert_idx");
 		String likeCntParam = req.getParameter("like_cnt");
 		
-		// expert_idx와 like_cnt 파라미터가 null인지 확인
-		if (expertIdxParam == null || likeCntParam == null) {
-			resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "expert_idx 또는 like_cnt 파라미터가 누락되었습니다.");
-			return null;
-		}
+		Long expert_idx = (expertIdxParam != null && !expertIdxParam.isEmpty()) ? Long.parseLong(expertIdxParam) : null;
+		int like_cnt = (likeCntParam != null && !likeCntParam.isEmpty()) ? Integer.parseInt(likeCntParam) : null;
 		
-		// expert_idx와 like_cnt 파라미터가 숫자인지 확인
-		Long expertIdx;
-		int likeCnt;
-		try {
-			expertIdx = Long.parseLong(expertIdxParam);
-			likeCnt = Integer.parseInt(likeCntParam);
-		} catch (NumberFormatException e) {
-			resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "expert_idx 또는 like_cnt 파라미터가 올바른 숫자 형식이 아닙니다.");
-			return null;
-		}
-		
+		System.out.println(expert_idx);
 		ExpertDAO edao = new ExpertDAO();
 		
-		// ExpertDAO가 null이 아닌지 확인
-		if (edao == null) {
-			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "데이터 액세스 객체를 초기화할 수 없습니다.");
-			return null;
-		}
-		
 		// 좋아요 카운트 업데이트 성공 여부 확인
-		boolean success = edao.updateLikeCount(expertIdx);
-        
+		boolean success = edao.updateLikeCount(expert_idx, like_cnt);
+        System.out.println(success);
         if (success) {
             resp.setStatus(HttpServletResponse.SC_OK);
         } else {
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
-        
+
         return null;
 	}
 }

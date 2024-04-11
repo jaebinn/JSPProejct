@@ -20,26 +20,32 @@
 
 						<!-- Logo -->
 							<div class="logo">
-								<a href="#"><strong>everycare</strong> <span class="extra">by 3</span></a>
+								<a href="#"><strong>everycare</strong/a>
 							</div>
 
 						<!-- Nav -->
-							<nav id="nav">
+							<nav id="nav" style="display:flex">
 								<ul>
 									<li class="current"><a href="index.html">Home</a></li>
 									<li>
-										<a href="#" class="icon solid fa-angle-down">Notice</a>
+										<a href="${cp}/u_boardlist.ub" class="icon solid fa-angle-down">게시판</a>
 										<ul>
-											<li><a href="#">Q&A</a></li>
-											<li><a href="${cp}/expertlist.ep">전문가매칭</a></li>
-											<li><a href="#">Review</a></li>
+											<li><a href="${cp}/u_boardlist.ub">전문가 찾기</a></li>
+											<li><a href="${cp}/faqlist.fa">FAQ게시판</a></li>
+											<li><a href="${cp}">리뷰게시판</a></li>
 										</ul>
 									</li>
-									<li><a href="generic.html">Find</a></li>
-									<li><a href="generic.html">Join</a></li>
-									<li><a href="elements.html">User</a></li>
-									<li><a href="elements.html">log-out</a></li>
-									<li><a href="elements.html">apply</a></li>
+									<li>
+										<a href="${cp}/" class="icon solid fa-angle-down">마이페이지</a>
+										<ul>
+											<li><a href="${cp}/">유저 정보</a></li>
+											<li><a href="${cp}/">전문가 정보</a></li>
+										</ul>
+									</li>
+									<li><a href="${cp}/expertlist.ep">전문가매칭</a></li>
+									<li><a href="login.html"><input type="button" value="로그인" id="login_btn"></a></li>
+									<li><a href="logout.html"><input type="button" value="로그아웃" id="logout_btn"></a></li>
+									<li><a href="login.html"><input type="button" value="전문가등록" id="expert_btn"></a></li>		
 								</ul>
 							</nav>
 

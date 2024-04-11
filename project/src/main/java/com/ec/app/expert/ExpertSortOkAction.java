@@ -62,8 +62,6 @@ public class ExpertSortOkAction implements Action{
 		 
 
 		 Transfer transfer = new Transfer();
-		 transfer.setRedirect(false);
-		 transfer.setPath("/app/expert/expertList.jsp");
 		 req.setAttribute("list", list); // 전문가 목록 데이터를 전달
 		 req.setAttribute("totalCnt", totalCnt); // 전체 전문가 수 전달
 		 req.setAttribute("totalPage", totalPage); // 전체 페이지 수 전달
@@ -71,6 +69,8 @@ public class ExpertSortOkAction implements Action{
 		 req.setAttribute("endPage", endPage); // 끝 페이지 번호 전달
 		 req.setAttribute("page", page); // 현재 페이지 번호 전달
 	
+		 transfer.setRedirect(false);
+		 transfer.setPath("/app/expert/expertList.jsp");
 		 return transfer;
 	}
 }

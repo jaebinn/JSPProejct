@@ -30,7 +30,8 @@ public class ExpertListOkAction implements Action {
 
         int startRow = (page - 1) * pageSize;
         List<ExpertDTO> list = edao.getList(startRow, pageSize);
-
+        
+        System.out.println(list);
         req.setAttribute("list", list);
         req.setAttribute("totalPage", totalPage);
         req.setAttribute("totalCnt", totalCnt);

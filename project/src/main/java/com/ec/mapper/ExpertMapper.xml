@@ -47,17 +47,19 @@
 		where expert.expert_idx = #{expert_idx}
 	</select>
 	
-	<select id="getExpertSortByKeyword" resultType="expertdto" parameterType="list">
-	    SELECT * FROM expert
-	    WHERE keyword_list IN
-	    <foreach item="item" collection="keywords" separator="," open='(' close=')'>
-	        "#{item}"
-	    </foreach>
+	<select id="getExpertSortByKeyword" resultType="expertdto" parameterType="hashmap">
+	    SELECT expert.*, user.name, user.age, expert_career_list.career_name
+	    FROM expert
+	    JOIN user ON expert.user_id = user.user_id
+	    JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
+	    WHERE keyword_list LIKE CONCAT('%', #{keyword}, '%')
+	    LIMIT #{startRow}, #{pageSize}
 	</select>
 
-	<update id="updateLikeCnt" parameterType="long">
-		update expert
-		set like_cnt += 1
-		where expert_idx = #{expert_idx}
-	</update>
+
+	<update id="updateLikeCount" parameterType="map">
+	    update expert
+	    set like_cnt = #{like_cnt}
+	    where expert_idx = #{expert_idx}
+</update>
 </mapper>

@@ -94,6 +94,24 @@ public class ExpertDTO {
 		this.like_cnt = like_cnt;
 	}
 	
-	
+	  @Override
+	    public String toString() {
+	        return "ExpertDTO{" +
+	               "expert_idx=" + expert_idx +
+	               ", user_id='" + user_id + '\'' +
+	               ", resume='" + resume + '\'' +
+	               ", is_drivable=" + is_drivable +
+	               ", location='" + location + '\'' +
+	               ", keyword_list='" + keyword_list + '\'' +
+	               ", available_time='" + available_time + '\'' +
+	               ", cost=" + cost +
+	               ", account='" + account + '\'' +
+	               ", like_cnt=" + like_cnt +
+	               ", name='" + name + '\'' +
+	               ", age=" + age +
+	               ", career_name='" + career_name + '\'' +
+	               '}';
+	    }
+
 	
 }

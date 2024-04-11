@@ -65,8 +65,11 @@
 							</tr>
 							<tr>
 								<th>가능지역:</th>
-								<td>${expert.location}<input type="button" value="지도" style="margin-left:30px"/></td>
-								
+								<td>${expert.location}</td>
+							</tr>
+							<tr>
+								<th>지도</th>
+								<td><div id="map" style="width:300px; height:300px"></div></td>
 							</tr>
 							<tr>
 								<th>시간당 요금:</th>
@@ -121,7 +124,7 @@
 						<button class="chating">1:1 채팅하기</button>
 					</div>
 
-					<div class="analytics">
+					<div class="analytics" data-expert_idx="${expert.expert_idx}">
 						<div class="data">
 							  <i class="fa-regular fa-heart toggle"></i>
 							<span>${expert.like_cnt}</span>					
@@ -184,13 +187,15 @@
 			<script src="${cp}/js/breakpoints.min.js"></script>
 			<script src="${cp}/js/util.js"></script>
 			<script src="${cp}/js/main.js"></script>
+			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=23697895f1f73fcadc63e0aa3f1d0bf9"></script>
 			<script>
 
 			$(document).ready(function () {
 			    $('.analytics .data').click(function () {
 			        let heart = $(this).find('.toggle');
 			        let like_cnt = parseInt($(this).find('span').text());
-			        let expert_idx = $(this).data('expert_idx');
+			        let expert_idx = $('.analytics').data('expert_idx');
+
 			        
 			        // 하트 클래스 토글 및 색상 변경
 			        heart.toggleClass('fa-regular fa-heart fa-solid fa-heart');
@@ -219,6 +224,22 @@
 			        });
 			    });
 			});
+			var container = document.getElementById('map');
+			var options = {
+				center: new kakao.maps.LatLng(33.450701, 126.570667),
+				level: 3
+			};
+
+			var map = new kakao.maps.Map(container, options);
+			
+			var markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667); 
+
+			// 마커를 생성합니다
+			var marker = new kakao.maps.Marker({
+			    position: markerPosition
+			});
+			
+			marker.setMap(map);
 			</script>
 	</body>
 </html>

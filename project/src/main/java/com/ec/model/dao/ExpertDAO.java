@@ -2,6 +2,7 @@ package com.ec.model.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -55,12 +56,20 @@ public class ExpertDAO {
 		return ss.selectList("Expert.getExpertSortByHighCost", datas);
 	}
 
-	public boolean updateLikeCount(long expert_idx) {
-		return ss.update("Expert.updateLikeCount", expert_idx) == 1;
+	public boolean updateLikeCount(long expert_idx, int like_cnt) {
+		Map<String, Object> params = new HashMap<>();
+	    params.put("expert_idx", expert_idx);
+	    params.put("like_cnt", like_cnt);
+	    return ss.update("Expert.updateLikeCount", params) == 1;
 	}
 
-	public List<ExpertDTO> getExpertSortByKeyword(String[] keywords) {
-		return ss.selectList("Expert.getExpertSortByKeyword", keywords);
+	public List<ExpertDTO> getExpertSortByKeyword(int startRow, int pageSize, String keyword) {
+		HashMap<String, Object> datas = new HashMap<String, Object>();
+		datas.put("startRow", startRow);
+		datas.put("pageSize", pageSize);
+		datas.put("keyword", keyword);
+	    return ss.selectList("Expert.getExpertSortByKeyword", datas);
 	}
+
 	
 }

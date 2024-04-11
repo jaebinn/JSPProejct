@@ -60,24 +60,25 @@
 								<div class="location" id="area_text"><span class="exam01">지역을 선택하시려면 클릭해주세요.</span></div>
 								<div class="career_name" id="sphere_text" onclick="toggleSphereSelection()"><span class="exam01">분야를 선택하시려면 클릭해주세요.</span></div>
 								<!-- 분야 선택창 -->
-								<div class="layer0101" id="layer_sphere">
-									<div class="layer_contract">
-										<div class="sphere01">* 최대 3개까지 선택 가능합니다.</div>
-										<div class="sphere_list">
-											
-											<button type="button" class="r_sphere1 r_sphere_baby" id="keyword_list" data-val="베이비시터" onclick="selectSphere(this)">베이비시터</button>
-											<button type="button" class="r_sphere1 r_sphere_study" id="keyword_list" data-val="학습시터" onclick="selectSphere(this)">학습시터</button>											
-											<button type="button" class="r_sphere1 r_sphere_baby" id="keyword_list" data-val="등하원도우미" onclick="selectSphere(this)">등하원도우미</button>
-											<button type="button" class="r_sphere1 r_sphere_hospital" id="keyword_list" data-val="병원동행" onclick="selectSphere(this)">병원동행</button>
-											<button type="button" class="r_sphere1 r_sphere_gasa" id="keyword_list" data-val="가사도우미" onclick="selectSphere(this)">가사도우미</button>
-											
-
-											<span class="r_sphere1_blank">&nbsp;</span>		
-										</div>
-										<div class="btn01"><input type="button" value="검색하기" id="btn_search_sphere" onclick="searchBySphere()"></div>
-								
-									</div>
-								</div>
+								<form id="expertSearchForm" action="${cp}/expertkeywordsort.ep" method="post">
+								    <!-- 여기에 선택된 키워드를 표시할 hidden input 추가 -->
+								    <input type="hidden" id="selectedKeywords" name="selectedKeywords">
+								    <div class="layer0101" id="layer_sphere">
+								        <div class="layer_contract">
+								            <!-- <div class="sphere01">* 최대 3개까지 선택 가능합니다.</div> -->
+								            <div class="sphere_list">
+								                <button type="button" class="r_sphere1 r_sphere_baby" data-val="베이비시터" onclick="selectSphere(this)">베이비시터</button>
+								                <button type="button" class="r_sphere1 r_sphere_study" data-val="학습시터" onclick="selectSphere(this)">학습시터</button>                                            
+								                <button type="button" class="r_sphere1 r_sphere_baby" data-val="등하원도우미" onclick="selectSphere(this)">등하원도우미</button>
+								                <button type="button" class="r_sphere1 r_sphere_hospital" data-val="병원동행" onclick="selectSphere(this)">병원동행</button>
+								                <button type="button" class="r_sphere1 r_sphere_gasa" data-val="가사도우미" onclick="selectSphere(this)">가사도우미</button>
+								            </div>
+								            <div class="btn01">
+								                <input type="submit" value="검색하기" id="btn_search_sphere">
+								            </div>
+								        </div>
+								    </div>
+								</form>
 							</div>
 							
 							<div class="tit"><span>전문가찾기</span>
@@ -119,7 +120,7 @@
 										</c:forEach>
 									</c:when>
 									<c:otherwise>					
-										<p>전문가가 없습니다.</p>
+										<p style="text-align:center"> <b>전문가가 없습니다.</b></p>
 									</c:otherwise>
 								</c:choose>			
 							</div>
@@ -214,58 +215,40 @@
 		        }
 		    }
 
-		    function selectSphere(button) {
-		        if (button.classList.contains('selected')) {
-		            button.classList.remove('selected');
-		            button.innerHTML = button.getAttribute('data-val');
-		        } else {
-		            var selectedSpheres = document.querySelectorAll('.r_sphere1.selected');
-		            if (selectedSpheres.length >= 3) {
-		                alert('최대 3개까지 선택할 수 있습니다.');
-		                return;
-		            }
-		            button.classList.add('selected');
-		            button.innerHTML = button.getAttribute('data-val') + '<span class="check">✓</span>';
-		        }
-		    }
+			function selectSphere(button) {
+			    if (button.classList.contains('selected')) {
+			        button.classList.remove('selected');
+			        button.innerHTML = button.getAttribute('data-val');
+			    } else {
+			        var selectedSpheres = document.querySelectorAll('.r_sphere1.selected');
+			        if (selectedSpheres.length >= 1) {
+			            alert('하나만 선택할 수 있습니다.');
+			            return;
+			        }
+			        button.classList.add('selected');
+			        button.innerHTML = button.getAttribute('data-val') + '<span class="check">✓</span>';
+			    }
 
-		    function searchBySphere() {
-		        let selectedSpheres = document.querySelectorAll('.r_sphere1.selected');
-		        let layerSphere = document.getElementById('layer_sphere');
-		        let selectedSphereValues = [];
-		        let sphere_text = document.querySelector('#sphere_text');
-		        selectedSpheres.forEach(function (sphere) {
-		            selectedSphereValues.push(sphere.getAttribute('data-val'));
-		        });
+			    // 선택된 키워드 업데이트
+			    updateSelectedKeywords();
+			}
 
-		        if (selectedSpheres.length === 0) {
-		            layerSphere.style.display = 'none';
-		            sphere_text.textContent = "분야를 선택하시려면 클릭해주세요.";
-		            sphere_text.style.color = "#9A9A9A";
-		            return;
-		        }
+			function updateSelectedKeywords() {
+			    var selectedSphere = document.querySelector('.r_sphere1.selected');
+			    var selectedKeyword = selectedSphere ? selectedSphere.getAttribute('data-val') : '';
 
-		        // AJAX 요청 보내기
-		        let xhr = new XMLHttpRequest();
-		        xhr.open('POST', cp+"/expertkeywordsort.ep", true);
-		        xhr.setRequestHeader('Content-Type', 'application/json');
-		        xhr.onreadystatechange = function () {
-		            if (xhr.readyState === 4 && xhr.status === 200) {
-		                // 서버로부터 응답을 받았을 때 추가적인 작업을 수행할 수 있습니다.
-		                console.log('서버 응답:', xhr.responseText);
-		            }
-		        };
+			    document.getElementById('selectedKeywords').value = selectedKeyword;
 
-		        let data = JSON.stringify({ spheres: selectedSphereValues });
-		        xhr.send(data);
+			    var sphereText = document.getElementById('sphere_text');
+			    sphereText.innerHTML = "<span class='exam01'>" + (selectedKeyword !== '' ? selectedKeyword : "분야를 선택하시려면 클릭해주세요.") + "</span>";
 
-		        // 선택된 분야 텍스트 업데이트
-		        sphere_text.textContent = selectedSphereValues.join(", ");
-		        sphere_text.style.color = "black";
+			    // 검색하기를 눌렀을 때만 선택된 키워드가 sphereText에 남아있도록 수정
+			    var btnSearchSphere = document.getElementById('btn_search_sphere');
+			    btnSearchSphere.addEventListener('click', function() {
+			        sphereText.innerHTML = "<span class='exam01'>" + (selectedKeyword !== '' ? selectedKeyword : "분야를 선택하시려면 클릭해주세요.") + "</span>";
+			    });
+			}
 
-		        // 선택창 닫기
-		        layerSphere.style.display = 'none';
-		    }
 
 			</script>
 </body>
