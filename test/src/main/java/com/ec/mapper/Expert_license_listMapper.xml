@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="Expert_license_list">
+  	<insert id="insert" parameterType="expertls">
+  		insert into expert_license_list(expert_idx, license_name, acquire_date)
+  		values(#{expert_idx},#{license_name},#{acquire_date})
+  	</insert>
+  </mapper>

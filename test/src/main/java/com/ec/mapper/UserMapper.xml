@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="User">
+	<insert id="insert" parameterType="userdto">
+		insert into user(user_id, pw, name, tel_mobile, tel_sub, email, gender, age, zipcode, addr, addr_detail, addr_etc, user_etc) 
+		values(#{user_id},#{pw},#{name},#{tel_mobile},#{tel_sub},#{email},#{gender},#{age},#{zipcode}, #{addr},#{addr_detail},#{addr_etc},#{user_etc})
+	</insert>
+	
+	<select id="select" parameterType="string" resultType="userdto">
+		select * from user where user_id = #{user_id}
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="U_reply">
+	<insert id="insert" parameterType="u_replydto">
+		insert into u_reply (board_idx,user_id,contents)
+		values(#{board_idx},#{user_id},#{contents})
+	</insert>
+	<select id="getReplies" parameterType="long" resultType="u_replydto">
+		select * from u_reply where board_idx=#{board_idx}
+	</select>
+	<update id="update" parameterType="u_replydto">
+		update u_reply
+		set contents=#{contents},updatechk='o'
+		where u_reply_idx=#{u_reply_idx}
+	</update>
+	<delete id="delete" parameterType="long">
+		delete from u_reply where u_reply_idx=#{u_reply_idx}
+	</delete>
+	<delete id="deleteReplyByBoard_idx" parameterType="long">
+		delete from u_reply where board_idx=#{board_idx}
+	</delete>
+	<select id="getReplyCnt" parameterType="long" resultType="int">
+		select count(*) from u_reply where board_idx=#{board_idx}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+

@@ -1,34 +1,28 @@
-package com.kh.app.board;
+package com.ec.app.u_board;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.action.Action;
-import com.kh.action.Transfer;
-import com.kh.model.dao.BoardDAO;
-import com.kh.model.dao.ReplyDAO;
-import com.kh.model.dto.BoardDTO;
-import com.kh.model.dto.ReplyDTO;
+import com.ec.action.Action;
+import com.ec.action.Transfer;
+import com.ec.model.dao.U_boardDAO;
+import com.ec.model.dao.U_replyDAO;
+import com.ec.model.dto.U_boardDTO;
 
-public class BoardListOkAction implements Action{
+public class U_boardListOkAction implements Action{
 	@Override
 	public Transfer execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		String temp = req.getParameter("page");
 		int page = temp == null || temp.equals("") ? 1 : Integer.parseInt(temp);
-		String keyword = req.getParameter("keyword");
 		
-		BoardDAO bdao = new BoardDAO();
+		U_boardDAO udao = new U_boardDAO();
 		//전체 게시글의 개수
-		long totalCnt = 0;
-		if(keyword == null || keyword.equals("")) {
-			totalCnt = bdao.getBoardCnt();
-		}
-		else {
-			totalCnt = bdao.getBoardCnt(keyword);
-		}
+		long totalCnt = udao.getBoardCnt();
 		
 		//한 페이지에서 보여줄 게시글의 개수
 		int pageSize = 10;
@@ -50,42 +44,30 @@ public class BoardListOkAction implements Action{
 		endPage = endPage > totalPage ? totalPage : endPage;
 		
 		int startRow = (page-1)*pageSize;
-		List<BoardDTO> list = null;
-		if(keyword == null || keyword.equals("")) {
-			list = bdao.getList(startRow,pageSize);
+		List<U_boardDTO> list  = udao.getList(startRow, pageSize);
+		
+		//오늘 날짜 
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String now = sdf.format(new Date());
+		//댓글개수
+		U_replyDAO urdao = new U_replyDAO();
+		ArrayList<Integer> u_reply_cnt_list = new ArrayList<Integer>();
+		for(U_boardDTO u_board : list) {
+			u_reply_cnt_list.add(urdao.getReplyCnt(u_board.getBoard_idx()));
 		}
-		else {
-			list = bdao.getList(startRow,pageSize,keyword);
-		}
+		
+		req.setAttribute("now", now);
 		req.setAttribute("list", list);
 		req.setAttribute("totalPage", totalPage);
 		req.setAttribute("totalCnt", totalCnt);
 		req.setAttribute("startPage", startPage);
 		req.setAttribute("endPage", endPage);
 		req.setAttribute("page", page);
-		req.setAttribute("keyword", keyword);
-		
-		ReplyDAO rdao = new ReplyDAO();
-		ArrayList<Integer> reply_cnt_list = new ArrayList<Integer>();
-		
-		for(BoardDTO board : list) {
-			reply_cnt_list.add(rdao.getReplyCnt(board.getBoardnum()));
-			
-		}
-		
-		req.setAttribute("reply_cnt_list", reply_cnt_list);
-		
+		req.setAttribute("u_reply_cnt_list", u_reply_cnt_list);
+
 		Transfer transfer = new Transfer();
 		transfer.setRedirect(false);
-		transfer.setPath("/app/board/list.jsp");
+		transfer.setPath("/app/u_board/u_board_list.jsp");
 		return transfer;
 	}
 }
-
-
-
-
-
-
-
-

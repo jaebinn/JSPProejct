@@ -1,0 +1,57 @@
+#banner {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+.content primary {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+input, textarea{
+    background-color: transparent;
+}
+textarea {
+    resize: none;
+  }
+#resume {
+    text-align: center; /* 가로 중앙 정렬 */
+    vertical-align: middle; /* 세로 중앙 정렬 */
+}
+#is_driveable_yes, #is_driveable_no {
+    width: 200px;
+}
+#is_driveable_yes {
+    margin-right: 20px;
+}
+#is_driveable_no {
+    margin-left: 20px;
+}
+#info_box {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+table tbody tr:nth-child(2n + 1) {
+     background-color: transparent;
+}
+#e_id_value {
+    width: 100%;
+}
+::placeholder {
+    color: slategray;
+}
+.btn_area {
+    text-align: right;
+    padding-right: 10px;
+}
+#careerAdd, #licenseAdd, #careerDelete, #licenseDelete {
+    width: 250px;
+}
+#careerAdd, #licenseAdd {
+    margin-right: 20px;
+}

@@ -1,34 +1,24 @@
-package com.kh.app.board;
+package com.ec.app.faq;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.action.Action;
-import com.kh.action.Transfer;
-import com.kh.model.dao.BoardDAO;
-import com.kh.model.dao.ReplyDAO;
-import com.kh.model.dto.BoardDTO;
-import com.kh.model.dto.ReplyDTO;
+import com.ec.action.Action;
+import com.ec.action.Transfer;
+import com.ec.model.dao.FaqDAO;
+import com.ec.model.dto.FaqDTO;
 
-public class BoardListOkAction implements Action{
+public class FaqListOkAction implements Action{
 	@Override
 	public Transfer execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		String temp = req.getParameter("page");
 		int page = temp == null || temp.equals("") ? 1 : Integer.parseInt(temp);
-		String keyword = req.getParameter("keyword");
 		
-		BoardDAO bdao = new BoardDAO();
+		FaqDAO fdao = new FaqDAO();
 		//전체 게시글의 개수
-		long totalCnt = 0;
-		if(keyword == null || keyword.equals("")) {
-			totalCnt = bdao.getBoardCnt();
-		}
-		else {
-			totalCnt = bdao.getBoardCnt(keyword);
-		}
+		long totalCnt = fdao.getBoardCnt();
 		
 		//한 페이지에서 보여줄 게시글의 개수
 		int pageSize = 10;
@@ -50,42 +40,19 @@ public class BoardListOkAction implements Action{
 		endPage = endPage > totalPage ? totalPage : endPage;
 		
 		int startRow = (page-1)*pageSize;
-		List<BoardDTO> list = null;
-		if(keyword == null || keyword.equals("")) {
-			list = bdao.getList(startRow,pageSize);
-		}
-		else {
-			list = bdao.getList(startRow,pageSize,keyword);
-		}
+		List<FaqDTO> list  = fdao.getList(startRow,pageSize);
+		
 		req.setAttribute("list", list);
 		req.setAttribute("totalPage", totalPage);
 		req.setAttribute("totalCnt", totalCnt);
 		req.setAttribute("startPage", startPage);
 		req.setAttribute("endPage", endPage);
 		req.setAttribute("page", page);
-		req.setAttribute("keyword", keyword);
 		
-		ReplyDAO rdao = new ReplyDAO();
-		ArrayList<Integer> reply_cnt_list = new ArrayList<Integer>();
-		
-		for(BoardDTO board : list) {
-			reply_cnt_list.add(rdao.getReplyCnt(board.getBoardnum()));
-			
-		}
-		
-		req.setAttribute("reply_cnt_list", reply_cnt_list);
-		
+	
 		Transfer transfer = new Transfer();
 		transfer.setRedirect(false);
-		transfer.setPath("/app/board/list.jsp");
+		transfer.setPath("/app/faq/list.jsp");
 		return transfer;
 	}
 }
-
-
-
-
-
-
-
-

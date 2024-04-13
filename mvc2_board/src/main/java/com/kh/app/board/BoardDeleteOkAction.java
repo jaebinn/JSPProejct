@@ -19,7 +19,7 @@ public class BoardDeleteOkAction implements Action{
 		long boardnum = Long.parseLong(req.getParameter("boardnum"));
 		String keyword = req.getParameter("keyword");
 		String temp = req.getParameter("page");
-		int page = temp==null||temp.equals("") ? 1 : Integer.parseInt(temp);
+		int page = temp== null||temp.equals("") ? 1 : Integer.parseInt(temp);
 		
 		keyword = URLEncoder.encode(keyword,"UTF-8");
 		

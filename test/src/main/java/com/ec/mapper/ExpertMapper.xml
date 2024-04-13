@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Expert">
+	<!-- 전체 전문가 수  -->
+	<select id="getExpertCnt" parameterType="long" resultType="long">
+		select count(*) from expert 
+	</select>
+	<!-- 전문가 정렬 -->
+	<select id="getList" parameterType="hashmap" resultType="expertdto">
+		SELECT expert.*, user.name, user.age, expert_career_list.career_name
+	      FROM expert
+	      JOIN user ON expert.user_id = user.user_id JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
+	      order by expert_idx desc limit #{startRow},#{pageSize}
+	</select>
+	<!-- 좋아요순 정렬 -->
+	<select id="getExpertSortByLike" parameterType="hashmap" resultType="expertdto">
+		SELECT expert.*, user.name, user.age, expert_career_list.career_name
+        FROM expert
+        JOIN user ON expert.user_id = user.user_id
+        JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
+        ORDER BY like_cnt DESC
+        LIMIT #{startRow}, #{pageSize}
+	</select>
+	<!--  -->
+	<select id="getExpertSortByLowCost" parameterType="hashmap" resultType="expertdto">
+		SELECT expert.*, user.name, user.age, expert_career_list.career_name
+        FROM expert
+        JOIN user ON expert.user_id = user.user_id
+        JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
+        ORDER BY cost ASC
+        LIMIT #{startRow}, #{pageSize}
+	</select>
+	<select id="getExpertSortByHighCost" parameterType="hashmap" resultType="expertdto">
+		SELECT expert.*, user.name, user.age, expert_career_list.career_name
+        FROM expert
+        JOIN user ON expert.user_id = user.user_id
+        JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
+        ORDER BY cost DESC
+        LIMIT #{startRow}, #{pageSize}
+	</select>
+	<select id="getExpertById" parameterType="long" resultType="expertdto">
+		select expert.*, user.name, user.age, expert_career_list.career_name
+		from expert
+		join user on expert.user_id = user.user_id join expert_career_list on expert.expert_idx = expert_career_list.expert_idx
+		where expert.expert_idx = #{expert_idx}
+	</select>
+	
+	<select id="getExpertSortByKeyword" resultType="expertdto" parameterType="hashmap">
+	    SELECT expert.*, user.name, user.age, expert_career_list.career_name
+	    FROM expert
+	    JOIN user ON expert.user_id = user.user_id
+	    JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
+	    WHERE keyword_list LIKE CONCAT('%', #{keyword}, '%')
+	    LIMIT #{startRow}, #{pageSize}
+	</select>
+
+    
+
+
+	
+</mapper>

@@ -70,6 +70,7 @@
 								<td><a href="${cp}/boardview.bo?boardnum=${board.boardnum}&page=${page}&keyword=${keyword}">${board.boardtitle}
 								<span id="reply_cnt">[${reply_cnt_list[i]}]</span></a></td>
 								<td>${board.userid }</td>
+								<td>${board.userid }</td>
 								<td>${board.regdate }</td>
 								<td>${board.readcount }</td>
 							</tr>

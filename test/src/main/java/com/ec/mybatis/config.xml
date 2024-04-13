@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <typeAliases>
+  	<typeAlias type="com.ec.model.dto.FaqDTO" alias="faqdto"/>
+  	<typeAlias type="com.ec.model.dto.U_boardDTO" alias="u_boarddto"/>  	
+  	<typeAlias type="com.ec.model.dto.U_FileDTO" alias="u_filedto"/>  	  	
+  	<typeAlias type="com.ec.model.dto.U_replyDTO" alias="u_replydto"/>  	  	
+  	<typeAlias type="com.ec.model.dto.UserDTO" alias="userdto"/>  	  	
+  	<typeAlias type="com.ec.model.dto.ExpertDTO" alias="expertdto"/>  	  	
+  	<typeAlias type="com.ec.model.dto.Like_cntDTO" alias="likecntdto"/>  	  	
+  </typeAliases>
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/project"/>
+        <property name="username" value="root"/>
+        <property name="password" value="rootroot"/>
+      </dataSource>
+    </environment>
+  </environments>
+  <mappers>
+    <mapper resource="com/ec/mapper/FaqMapper.xml"/>
+    <mapper resource="com/ec/mapper/U_boardMapper.xml"/>    
+    <mapper resource="com/ec/mapper/U_FileMapper.xml"/>    
+    <mapper resource="com/ec/mapper/U_replyMapper.xml"/>    
+    <mapper resource="com/ec/mapper/UserMapper.xml"/>    
+    <mapper resource="com/ec/mapper/ExpertMapper.xml"/>    
+    <mapper resource="com/ec/mapper/Like_cntMapper.xml"/>    
+  </mappers>
+</configuration>
+
+

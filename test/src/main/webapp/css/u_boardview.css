@@ -1,0 +1,11 @@
+.main{
+    margin-top: 5%;
+}
+.content-area > td >textarea{
+    height: 500px;
+    resize: none;
+}
+table th{
+    text-align: center;
+    font-weight: bold;
+}
