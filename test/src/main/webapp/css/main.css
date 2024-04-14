@@ -5644,4 +5644,7 @@ input, select, textarea {
 	line-height: 40px;
 	display: none;
 }
+#nav li:nth-child(8) #login_user{
+	line-height:40px;
+}
 

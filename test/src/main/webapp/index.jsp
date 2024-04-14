@@ -56,7 +56,8 @@
 									    <!-- 세션이 있을 때 (로그인된 상태) -->
 									    <li><a href="${cp}/expertok.ep"><input type="button" value="전문가등록" id="expert_btn"></a></li>
 									    <li><a href="${cp}/app/user/user-logout.jsp"><input type="button" value="로그아웃" id="logout_btn"></a></li>
-									</c:if>
+									    <li><p id="login_user">${sessionScope.loginUser}님</p></li>
+									</c:if>								
 								</ul>
 							</nav>
 

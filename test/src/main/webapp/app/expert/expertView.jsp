@@ -133,12 +133,27 @@
 					<div class="chat_btn">
 						<button class="chating">1:1 채팅하기</button>
 					</div>
-					<div class="analytics" data-expert_idx="${expert.expert_idx}">
-						<div class="data">
-							  <i class="fa-regular fa-heart toggle"></i>
-							<span>${expert.totalCnt}</span>					
-						</div>				
-					</div>
+					<c:if test="${not empty sessionScope.loginUser}">
+					    <!-- 세션이 있을 때 (로그인된 상태) -->
+					    <c:set var="loginUser" value="${sessionScope.loginUser}" />
+						<c:set var="likeInfo" value="${likeInfo}"/>
+					</c:if>
+					
+					    <div class="analytics" data-expert_idx="${expert.expert_idx}">
+					        <div class="data">
+					            <c:choose>
+					                <c:when test="${likeInfo ne null and likeInfo.expert_idx eq expert.expert_idx and likeInfo.isLike eq 'O'}">
+					                    <i class="fa-solid fa-heart toggle" style="color:red"></i>
+					                </c:when>
+					                <c:otherwise>
+					                    <i class="fa-regular fa-heart toggle"></i>
+					                </c:otherwise>
+					            </c:choose>
+					            <span>${expert.totalCnt}</span>                    
+					        </div>              
+					    </div>
+
+
 				</section>
 				
 				<!-- Footer -->
@@ -181,7 +196,9 @@
 						<p>&copy; EveryCare. All rights reserved.</p>
 					</div>
 				</footer>
-				
+				${loginUser}
+				${expert.expert_idx}
+				${likeInfo.expert_idx}
 			</div>
 
 		<!-- Scripts -->
@@ -200,11 +217,10 @@
 
 			$(document).ready(function() {
 		        $('.analytics .data').click(function () {
-		            let expert_idx = $('.analytics').data('expert_idx');
+		        	let expert_idx = $(this).closest('.analytics').data('expert_idx');
 		            
 		            let heart = $(this).find('.toggle');
 		            let totalCnt = parseInt($(this).find('span').text());
-		            let isLiked = heart.hasClass('fa-solid'); // 하트가 눌려 있는지 여부
 		            
 		            heart.toggleClass('fa-regular fa-heart fa-solid fa-heart');
 		            if (heart.hasClass('fa-solid')) {

@@ -9,9 +9,9 @@ import javax.servlet.http.HttpSession;
 
 import com.ec.action.Action;
 import com.ec.action.Transfer;
-import com.ec.model.dao.ExpertDAO;
 import com.ec.model.dao.Like_cntDAO;
 import com.ec.model.dto.ExpertDTO;
+import com.ec.model.dto.Like_cntDTO;
 
 
 public class ExpertLikeCntOkAction implements Action {
@@ -31,19 +31,17 @@ public class ExpertLikeCntOkAction implements Action {
         String user_id = (String) session.getAttribute("loginUser");
         System.out.println(user_id);
         System.out.println(expert_idx);
+        Like_cntDAO ldao = new Like_cntDAO();
         
         String isLike = (isLiked) ? "O" : "X";
         System.out.println(isLike);
-        
-        Like_cntDAO ldao = new Like_cntDAO();
-        ExpertDAO edao = new ExpertDAO();
-        
+		
         ExpertDTO expert = new ExpertDTO();
+        
         
         expert.setTotalCnt(totalCnt);
         
-        
-        
+        PrintWriter out = resp.getWriter();
         
         if (user_id != null && expert_idx != null) {
         	if (isLiked) {
@@ -51,23 +49,29 @@ public class ExpertLikeCntOkAction implements Action {
         		// 전문가테이블 totalCnt업데이트
         		ldao.updateTotalCnt(expert_idx, totalCnt);
         		if(!ldao.isExpertLike(user_id, expert_idx)) { //db에 저장이 안되어있다면
-        			
-        			ldao.updateIsLike(expert_idx, user_id, "O");
+        			System.out.println("O들어옴");
+        			ldao.insertIsLike(expert_idx, user_id, "O");
         		}
-                // 세션에 하트가 눌렸음을 저장
-                session.setAttribute("isLiked", true);
+        		
+        		session.setAttribute("isLiked", true);
+        		
             } else {
             	// 하트가 눌리지 않았을 때
             	// 전문가테이블 totalCnt업데이트
             	ldao.updateTotalCnt(expert_idx, totalCnt); 
-        		if(!ldao.isExpertLike(user_id, expert_idx)) { 
-        			ldao.updateIsLike(expert_idx, user_id, "X");
+        		if(ldao.isExpertLike(user_id, expert_idx)) { 
+        			System.out.println("X들어옴");
+        			ldao.deleteIsLike(user_id, expert_idx);
         		}
-                
-                
-
+        		session.setAttribute("isLiked", false);
             }
         }
+        else{
+        	out.print("<script>");
+        	out.print("location.replace('"+req.getContextPath()+"/app/user/user-login.jsp')");
+        	out.print("</script>");
+        }
+        
         return null;
     }
 }
