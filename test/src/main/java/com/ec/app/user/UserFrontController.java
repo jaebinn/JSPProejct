@@ -65,11 +65,26 @@ public class UserFrontController extends HttpServlet {
 			}
 			break;
 		case "/userlogout.us":
-			
 			req.getSession().invalidate();
 			transfer = new Transfer();
 			transfer.setRedirect(false);
 			transfer.setPath("/");
+			break;
+		case "/userdeleteok.us":	
+			try {
+				new UserDeleteOkAction().execute(req,resp);
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+			break;
+		case "/getjoincnt.us":
+			try {
+				transfer = new GetUserCnt().execute(req,resp);
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
 			break;
 		}
 		

@@ -55,3 +55,31 @@ table tbody tr:nth-child(2n + 1) {
 #careerAdd, #licenseAdd {
     margin-right: 20px;
 }
+.keywordH {
+    border: 2px solid orchid !important;
+    background-color: slateblu !important;
+    color: white !important;
+    padding: 5px !important;
+    margin: 5px 5px 5px 5px !important;
+    border-radius: 50px 50px 50px 50px / 50px 50px 50px 50px !important;
+}
+#info_box > tr > #imgArea {
+	width: 120px;
+	height: 120px;
+	border: 1px solid black;
+	text-align: center;
+	line-height: 120px;
+	color: gray;
+	border-radius: 50%;
+	margin: 0px 0px 10px 25px;
+	cursor: pointer;
+	background-size: cover;
+	background-position: center;
+}
+#info_box > tr > #fileArea {
+	display: none;
+}
+
+
+
+

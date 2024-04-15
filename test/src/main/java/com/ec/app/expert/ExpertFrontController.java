@@ -78,6 +78,13 @@ public class ExpertFrontController extends HttpServlet{
 				System.out.println("/expertlikecnt.ep : "+e);
 			}
 			break;
+		case "/getexpertinfo.ep":
+			try {
+				new ExpertGetInfoOkAction().execute(req, resp);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		if(transfer != null) {

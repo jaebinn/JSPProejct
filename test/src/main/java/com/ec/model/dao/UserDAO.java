@@ -22,7 +22,16 @@ public class UserDAO {
 	public UserDTO getUserByPw(String pw) {
 		return ss.selectOne("User.select",pw);
 	}
-		
+	public int deleteUser(String userid) {
+		return ss.delete("User.delete-user",userid);
+	}
+	public int deleteExpert(String userid) {
+		return ss.delete("User.delete-expert",userid);
+	}
+
+	public long getUserCnt() {
+		return ss.selectOne("User.userCnt");
+	}
 }
 
 

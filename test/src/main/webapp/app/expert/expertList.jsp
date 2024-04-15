@@ -13,7 +13,6 @@
 		<link rel="stylesheet" href="${cp}/css/expert_list.css" />
 	</head>
 	<body class="is-preload">
-
 		<!-- Wrapper -->
 			<div id="wrapper">
 
@@ -67,8 +66,11 @@
 					<main id="content">
 						<div class="div_list">
 							<div class="search">
-								<div class="location" id="area_text"><span class="exam01">지역을 선택하시려면 클릭해주세요.</span></div>
-								<div class="career_name" id="sphere_text" onclick="toggleSphereSelection()"><span class="exam01">분야를 선택하시려면 클릭해주세요.</span></div>
+								<form id="keyForm">
+									<div class="keyword_search location" id="area_text"><input type="text" class="exam01" placeholder="키워드를 입력하세요." style="border:none; padding:0;"></div>
+								</form>
+								
+								<div class="career_name" id="sphere_text" onclick="toggleSphereSelection()"><span class="exam01">${not empty selectedKeywords ? selectedKeywords : '분야를 선택하시려면 클릭해주세요.'}</span></div>
 								<!-- 분야 선택창 -->
 								<form id="expertSearchForm" action="${cp}/expertkeywordsort.ep" method="post">
 								    <!-- 여기에 선택된 키워드를 표시할 hidden input 추가 -->
@@ -258,6 +260,35 @@
 			        sphereText.innerHTML = "<span class='exam01'>" + (selectedKeyword !== '' ? selectedKeyword : "분야를 선택하시려면 클릭해주세요.") + "</span>";
 			    });
 			}
+			
+			let form = document.getElementById("keyForm");
+
+			// 폼에 이벤트 리스너 추가
+			form.addEventListener("submit", function(e) {
+			// 기본 제출 동작 방지
+			e.preventDefault();
+			});
+
+			// 입력 필드 가져오기
+			let input = document.querySelector(".exam01");
+
+			// 입력 필드에 이벤트 리스너 추가
+			input.addEventListener("keypress", function(e) {
+			// 엔터 키가 눌렸는지 확인
+			if (e.key === "Enter") {
+				// 원하는 동작 수행 (여기서는 함수 호출)
+				handleEnter();
+			}
+			});
+
+			// 엔터 키가 눌렸을 때 실행할 함수
+			function handleEnter() {
+			// 여기에 원하는 동작을 추가하세요
+			console.log("엔터 키가 눌렸습니다!");
+			}
+			
+			
+
 
 
 			</script>

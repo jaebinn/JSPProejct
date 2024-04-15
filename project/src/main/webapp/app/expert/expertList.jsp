@@ -8,6 +8,7 @@
 		<title>에브리케어</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="${cp}/css/main.css" />
 		<link rel="stylesheet" href="${cp}/css/expert_list.css" />
 	</head>
@@ -57,7 +58,7 @@
 					<main id="content">
 						<div class="div_list">
 							<div class="search">
-								<div class="location" id="area_text"><span class="exam01">지역을 선택하시려면 클릭해주세요.</span></div>
+								<div class="location" id="area_text"><input type="text" class="exam01" placeholder="키워드를 입력하세요."></div>
 								<div class="career_name" id="sphere_text" onclick="toggleSphereSelection()"><span class="exam01">분야를 선택하시려면 클릭해주세요.</span></div>
 								<!-- 분야 선택창 -->
 								<form id="expertSearchForm" action="${cp}/expertkeywordsort.ep" method="post">

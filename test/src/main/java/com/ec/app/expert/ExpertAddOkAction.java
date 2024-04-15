@@ -1,6 +1,5 @@
 package com.ec.app.expert;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -8,8 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ec.model.dao.ExpertDAO;
-import com.ec.model.dao.Expert_career_listDAO;
-import com.ec.model.dao.Expert_license_listDAO;
 import com.ec.model.dto.ExpertCareerListDTO;
 import com.ec.model.dto.ExpertDTO;
 import com.ec.model.dto.ExpertLicenseListDTO;
@@ -35,13 +32,24 @@ public class ExpertAddOkAction implements Action{
 		
 		Boolean boo = true;
 		if(req.getParameter("is_drivable_yes") == "is_drivable_no") {
-			expertdto.setIs_drivable(false);
+			expertdto.setIs_drivable(!boo);
 		} else {
 			expertdto.setIs_drivable(boo);
 		}
 	
 		expertdto.setLocation(req.getParameter("location_value"));
-		expertdto.setKeyword_list(req.getParameter("keyword_value"));
+		
+//		String keywordH[] = req.getParameterValues("keywordH");
+		expertdto.setKeyword_list(req.getParameter("keywordH"));
+//		System.out.println("확인!"+keywordH[0]);
+//		
+//		
+//		for(int l = 0; l < keywordH.length; l++) {
+//			if(keywordH[l] != null && keywordH[l] != "") {
+//				expertdto.setKeyword_list(keywordH[l]);
+//			}
+//		}
+		
 		expertdto.setAvailable_time(req.getParameter("available_time_value"));
 		expertdto.setCost(Integer.parseInt(req.getParameter("cost_value")));
 		expertdto.setAccount(req.getParameter("account_value"));
@@ -87,8 +95,7 @@ public class ExpertAddOkAction implements Action{
 					System.out.println("경력기간 파싱 과정에서 타입 미스매치오류"+e);
 					e.printStackTrace();
 				}
-				Expert_career_listDAO careerdao = new Expert_career_listDAO();
-				careerdao.insertExpert_career_list(expertcarrerdto);
+				edao.insertExpert_career_list(expertcarrerdto);
 			}
 		}
 		// 전문가의 라이센스테이블에 들어갈 정보들 파라미터 수집
@@ -96,7 +103,7 @@ public class ExpertAddOkAction implements Action{
 		String acquire_date[] = req.getParameterValues("acquire_date");
 		for(int j = 0; j < license_name.length; j++) {
 			if(license_name[j] != null && license_name[j] != "" &&
-					acquire_date[j] != null && acquire_date[j] != "") {
+				acquire_date[j] != null && acquire_date[j] != "") {
 				expertlicensedto.setExpert_idx(expert_idx);
 				expertlicensedto.setLicense_name(license_name[j]);
 				
@@ -113,8 +120,7 @@ public class ExpertAddOkAction implements Action{
 					System.out.println("자격증 취득일자 파싱 과정에서 타입 미스매치오류"+e);
 					e.printStackTrace();
 				}
-				Expert_license_listDAO licensedao = new Expert_license_listDAO();
-				licensedao.insertExpert_license_list(expertlicensedto);
+				edao.insertExpert_license_list(expertlicensedto);
 			}
 		}
 			

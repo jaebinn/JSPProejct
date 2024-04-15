@@ -77,7 +77,7 @@
                         <div class="common_bottom_buttongroup column2">
                             <a class="common_bottom_btn">
                                 <i class="fa-regular fa-calendar"></i>
-                                <span>다시 예약하기</span>
+                                <span>결제하기</span>
                             </a>
                         </div>
                     </div>
@@ -126,6 +126,8 @@
 
         </div>
     </div>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=23697895f1f73fcadc63e0aa3f1d0bf9"></script>
     <script>
         var container = document.getElementById('map');
@@ -173,6 +175,25 @@
                 });
             });
         });
-    </script>
+
+	const IMP = window.IMP;
+	IMP.init("imp16375222");
+	const button = document.querySelector(".common_bottom_btn");
+	const onClickPay = async () => {
+    IMP.request_pay({
+        pg: "kakaopay",
+        pay_method: "card",
+        name: "가사도우미",
+        amount: "1원",
+        merchant_uid: "ORD20231030-000001",
+        /* buyer_email: "apple@naver.com",
+        buyer_name: "구매자이름",
+        buyer_tel: "010-1234-5678",
+        buyer_addr: "서울특별시 강남구 역삼동",
+        buyer_postcode: "123-456", */
+    });
+};
+	button.addEventListener("click", onClickPay);
+</script>
 </body>
 </html>

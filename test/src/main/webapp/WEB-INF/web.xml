@@ -9,6 +9,9 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <session-config>
+    <session-timeout>30</session-timeout> <!-- 세션 타임아웃을 분 단위로 설정 -->
+	</session-config>
   <servlet>
   	<servlet-name>FaqFrontController</servlet-name>
   	<servlet-class>com.ec.app.faq.FaqFrontController</servlet-class>

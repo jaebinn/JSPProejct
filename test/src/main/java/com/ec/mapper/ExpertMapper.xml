@@ -3,6 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Expert">
+	<!-- 좋아요 순 상위 3명의 전문가 -->
+	<select id="topThree" resultType="expertdto">
+		select * from expert join user on expert.user_id = user.user_id order by totalCnt desc limit 3
+	</select>
 	<!-- 전체 전문가 수  -->
 	<select id="getExpertCnt" parameterType="long" resultType="long">
 		select count(*) from expert 
@@ -20,7 +24,7 @@
         FROM expert
         JOIN user ON expert.user_id = user.user_id
         JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
-        ORDER BY like_cnt DESC
+        ORDER BY totalCnt DESC
         LIMIT #{startRow}, #{pageSize}
 	</select>
 	<!--  -->
@@ -55,9 +59,24 @@
 	    WHERE keyword_list LIKE CONCAT('%', #{keyword}, '%')
 	    LIMIT #{startRow}, #{pageSize}
 	</select>
-
+	<insert id="insertExpert" parameterType="expertdto">
+  		insert into
+  		expert(user_id, resume, is_drivable, location, keyword_list, available_time, cost, account)
+  		values(#{user_id},#{resume},#{is_drivable},#{location},#{keyword_list},#{available_time},#{cost},#{account})
+  	</insert>
+  	<select id="selectExpertInfo" parameterType="String" resultType="expertdto">
+  		select * from expert where user_id = #{user_id};
+  	</select>
     
-
-
+    <!-- 자격증 삽입 -->
+	<insert id="insertLicense" parameterType="expertls">
+  		insert into expert_license_list(expert_idx, license_name, acquire_date)
+  		values(#{expert_idx},#{license_name},#{acquire_date})
+  	</insert>
+	<!-- 경력 삽입 -->
+	<insert id="insertCareer" parameterType="expertca">
+  		insert into expert_career_list(expert_idx, career_name, start_time, end_time)
+  		values(#{expert_idx},#{career_name},#{start_time},#{end_time})
+  	</insert>
 	
 </mapper>

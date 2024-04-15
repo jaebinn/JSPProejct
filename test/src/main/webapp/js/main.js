@@ -216,44 +216,6 @@
 	// 초기 실행
 	setTimeout(typing, 1400);
 
-
-	// 각 카운터에 대한 함수 정의
-	const counter = ($counter, max) => {
-		let now = max;
-		
-		const handle = setInterval(() => {
-			$counter.innerHTML = Math.ceil(max - now);
-			
-			// 목표수치에 도달하면 정지
-			if (now < 1) {
-				clearInterval(handle);
-			}
-			
-			// 증가되는 값이 계속하여 작아짐
-			const step = now / 10;
-			
-			// 값을 적용시키면서 다음 차례에 영향을 끼침
-			now -= step;
-		}, 50);
-	}
-
-	window.onload = () => {
-		// 각 카운터에 대한 요소 선택
-		const $counter = document.querySelector(".count");
-		const $counter1 = document.querySelector(".count1");
-		const $counter2 = document.querySelector(".count2");
-		
-		// 각 카운터의 목표 수치 설정
-		const max = 1557; // 총 가입자 수의 목표 수치
-		const max1 = 612; // 메이트 수의 목표 수치
-		const max2 = 5000; // 총 이용 건수의 목표 수치
-		
-		// 각 카운터에 대한 카운트 함수 호출
-		setTimeout(() => counter($counter, max), 800); // 총 가입자 수 카운트
-		setTimeout(() => counter($counter1, max1), 900); // 메이트 수 카운트
-		setTimeout(() => counter($counter2, max2), 1000); // 총 이용 건수 카운트
-	}
-
 	var handleResponsive = () => {
 		var items = [...document.querySelectorAll('.horizontal-scroll-item')];
 		if (window.matchMedia("(max-width: 991px)").matches && window.matchMedia("(min-width: 767px)").matches) {

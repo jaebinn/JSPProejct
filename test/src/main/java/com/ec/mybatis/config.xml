@@ -11,6 +11,8 @@
   	<typeAlias type="com.ec.model.dto.UserDTO" alias="userdto"/>  	  	
   	<typeAlias type="com.ec.model.dto.ExpertDTO" alias="expertdto"/>  	  	
   	<typeAlias type="com.ec.model.dto.Like_cntDTO" alias="likecntdto"/>  	  	
+  	<typeAlias type="com.ec.model.dto.ExpertLicenseListDTO" alias="expertls"/>  	  	
+  	<typeAlias type="com.ec.model.dto.ExpertCareerListDTO" alias="expertca"/>  	  	
   </typeAliases>
   <environments default="development">
     <environment id="development">
@@ -31,6 +33,7 @@
     <mapper resource="com/ec/mapper/UserMapper.xml"/>    
     <mapper resource="com/ec/mapper/ExpertMapper.xml"/>    
     <mapper resource="com/ec/mapper/Like_cntMapper.xml"/>    
+    <mapper resource="com/ec/mapper/MatchingMapper.xml"/>    
   </mappers>
 </configuration>
 

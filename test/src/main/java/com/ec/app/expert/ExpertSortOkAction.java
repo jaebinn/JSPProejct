@@ -19,7 +19,7 @@ public class ExpertSortOkAction implements Action{
 	public Transfer execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		String psortParam = req.getParameter("psort");
         int psort = (psortParam != null && !psortParam.isEmpty()) ? Integer.parseInt(psortParam) : 1;
-
+ 
         String pageParam = req.getParameter("page");
         int page = (pageParam != null && !pageParam.isEmpty()) ? Integer.parseInt(pageParam) : 1;
         

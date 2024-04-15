@@ -6,7 +6,9 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.ec.model.dto.ExpertCareerListDTO;
 import com.ec.model.dto.ExpertDTO;
+import com.ec.model.dto.ExpertLicenseListDTO;
 import com.ec.mybatis.SQLMapConfig;
 
 public class ExpertDAO {
@@ -15,17 +17,7 @@ public class ExpertDAO {
 	public ExpertDAO() {
 		ss = SQLMapConfig.getFactory().openSession(true);
 	}
-	
-	// 전문가 테이블 추가
-	public boolean insertExpert(ExpertDTO expert) {
-		return ss.insert("Expert.insert",expert) == 1;
-	}
 		
-	// 전문가 테이블에서 아이디를 매개로 정보 찾아오기
-	public ExpertDTO expert_info(String user_id) {
-		return ss.selectOne("Expert.select",user_id);
-	}
-	
 	public boolean insertUser(ExpertDTO expert) {
 		return ss.insert("Expert.insert",expert) == 1;
 	}
@@ -85,8 +77,25 @@ public class ExpertDAO {
 		datas.put("totalCnt", totalCnt);
         return ss.update("Expert.updateExpertLikeCount", datas) == 1;
     }
+	// 전문가 테이블 추가
+	public boolean insertExpert(ExpertDTO expert) {
+		return ss.insert("Expert.insertExpert", expert) == 1;
+	}
 
-	
+	// 전문가 테이블에서 아이디를 매개로 정보 찾아오기
+	public ExpertDTO expert_info(String user_id) {
+		return ss.selectOne("Expert.selectExpertInfo", user_id);
+	}
+	public boolean insertExpert_license_list(ExpertLicenseListDTO expertlicense) {
+		return ss.insert("Expert.insertLicense",expertlicense) == 1;
+	}	
+	public boolean insertExpert_career_list(ExpertCareerListDTO expertcareer) {
+		return ss.insert("Expert.insertCareer",expertcareer) == 1;
+	}
+
+	public List<ExpertDTO> getLikeTopThree() {
+        return ss.selectList("Expert.topThree");
+	}
 
 	
 }

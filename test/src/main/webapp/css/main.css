@@ -3283,7 +3283,7 @@ input, select, textarea {
 					#header > nav > ul > li.current:after {
 						content: '';
 						display: block;
-						position: absolute;
+						/* position: absolute; */
 						bottom: 0;
 						left: 0;
 						width: 100%;
@@ -5618,6 +5618,7 @@ input, select, textarea {
 			  top: -100%;
 			}
 		  }
+
 #nav li:nth-child(5) a > #login_btn{
 	height: 40px;
 	color: #fff;
@@ -5644,7 +5645,5 @@ input, select, textarea {
 	line-height: 40px;
 	display: none;
 }
-#nav li:nth-child(8) #login_user{
-	line-height:40px;
-}
+
 

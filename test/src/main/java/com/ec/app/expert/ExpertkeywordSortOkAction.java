@@ -42,6 +42,7 @@ public class ExpertkeywordSortOkAction implements Action {
 	       		req.setAttribute("startPage", startPage); // 시작 페이지 번호 전달
 	       		req.setAttribute("endPage", endPage); // 끝 페이지 번호 전달
 	       		req.setAttribute("page", page); // 현재 페이지 번호 전달
+	       		req.setAttribute("selectedKeywords", selectedKeywords);
                 transfer.setPath("/app/expert/expertList.jsp");
             } else {
                 transfer.setPath("/app/expert/expertList.jsp");

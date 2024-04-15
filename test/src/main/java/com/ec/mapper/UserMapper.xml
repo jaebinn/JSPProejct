@@ -11,7 +11,15 @@
 	<select id="select" parameterType="string" resultType="userdto">
 		select * from user where user_id = #{user_id}
 	</select>
-
+	<delete id="delete-user"  parameterType="string">
+		delete from user where user_id = #{user_id}
+	</delete>
+	<delete id="delete-expert"  parameterType="string">
+		delete from expert where user_id = #{user_id}
+	</delete>
+	<select id="userCnt" resultType="long">
+		select count(*) from user;
+	</select>
 </mapper>
 
 

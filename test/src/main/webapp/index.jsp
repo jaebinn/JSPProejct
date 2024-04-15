@@ -14,12 +14,10 @@
 	<script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="${cp}/css/main.css" />
 </head>
-	</head>
 	<body class="is-preload">
-
 		<!-- Wrapper -->
 			<div id="wrapper">
-
+				${expert}
 				<!-- Header -->
 					<header id="header" class="alt">
 
@@ -30,7 +28,7 @@
 
 						<!-- Nav -->
 							<nav id="nav">
-								<ul>
+								<ul style="display:flex">
 									<li class="current"><a href="${cp}/index.jsp">Home</a></li>
 									<li><a href="${cp}/expertlist.ep">전문가매칭</a></li>
 									<li>									
@@ -41,11 +39,11 @@
 											<li><a href="${cp}">리뷰게시판</a></li>
 										</ul>
 									</li>
-									<li>
+									<li class="mypage">
 										<a href="${cp}/" class="icon solid fa-angle-down" style="pointer-events: none;">마이페이지</a>
 										<ul>
-											<li><a href="${cp}/">유저 정보</a></li>
-											<li><a href="${cp}/">전문가 정보</a></li>
+											<li class="mypage"><a href="${cp}/">유저 정보</a></li>
+											<li class="expertpage"><a href="${cp}/">전문가 정보</a></li>
 										</ul>
 									</li>									
 									<c:if test="${empty sessionScope.loginUser}">
@@ -54,9 +52,9 @@
 									</c:if>
 									<c:if test="${not empty sessionScope.loginUser}">
 									    <!-- 세션이 있을 때 (로그인된 상태) -->
-									    <li><a href="${cp}/expertok.ep"><input type="button" value="전문가등록" id="expert_btn"></a></li>
+									    <li><a href="${cp}/app/expert/expertRegister.jsp"><input type="button" value="전문가등록" id="expert_btn"></a></li>
 									    <li><a href="${cp}/app/user/user-logout.jsp"><input type="button" value="로그아웃" id="logout_btn"></a></li>
-									    <li><p id="login_user">${sessionScope.loginUser}님</p></li>
+									    <li><p id="login_user" style="font-weight:bold">${sessionScope.loginUser}님</p></li>
 									</c:if>								
 								</ul>
 							</nav>
@@ -79,21 +77,24 @@
 						<div class="content secondary">
 							<div class="inner">
 								<div class="features">
-									<section>
-										<span class="icon fa-light fa-address-card major"></span>
-										<h3>총 가입자 수</h3>
-										<div class="count">0</div>
+									<section id="total-users">
+									    <span class="icon fa-light fa-address-card major"></span>
+									    <h3>총 가입자 수</h3>
+									    <div class="count">0</div>
 									</section>
-									<section>
-										<span class="icon solid fa-users major"></span>
-										<h3>메이트 수</h3>
-										<div class="count1">0</div>
+									
+									<section id="mates-count">
+									    <span class="icon solid fa-users major"></span>
+									    <h3>메이트 수</h3>
+									    <div class="count1">0</div>
 									</section>
-									<section>
-										<span class="icon solidfa-regular fa-heart major"></span>
-										<h3>총 이용 건수</h3>
-										<div class="count2">0</div>
+									
+									<section id="total-usage">
+									    <span class="icon solidfa-regular fa-heart major"></span>
+									    <h3>총 이용 건수</h3>
+									    <div class="count2">0</div>
 									</section>
+
 								</div>
 							</div>
 							<div class="review">
@@ -160,80 +161,79 @@
 						</header>
 						<ul class="tabs">
 							<li>
-								<h3>신 <span class="extra">재빈</span></h3>
+								<h3 id="best1"></h3>
 								<div class="spotlight">
 									<ul>
 										<li>
-											<h4>분야 베이비시터 </h4>
-											<p>신생아(0~6개월), 영아(7~36개월)</p>
+											<h4>분야</h4>
+											<p id="keyword_list1"></p>
 										</li>
 										<li>
 											<h4>경력</h4>
-											<p>10년이상 오랜기간 아이돌봄베이비시터 선생님으로 활동한 경력이 있습니다.
-											</p>
+											<p id="career_name1"></p>
 										</li>
 									</ul>
 									<span class="image"><img src="https://i.pinimg.com/564x/20/b8/9c/20b89cfdf5297a973ae2a9803ae0d4be.jpg" alt="" /></span>
 									<ul>
 										<li>
-											<h4>사랑과 정성으로 아이를 돌보는 선생님을 찾으신다면 연락주세요^^ </h4>
-											<p>	늘 언제나 아이가 부모님에 빈자리를 느끼지 않고 사랑으로 올바르게 잘 양육하는 아이돌봄 선생님을 찾으신다면 연락주시기 바랍니다.</p>
+											<h4>한 줄 소개</h4>
+											<p id="resume1"></p>
 										</li>
 										<li>
 											<h4>희망근무지역</h4>
-											<p>인천 서구 </p>
+											<p id="location1"></p>
 										</li>
 									</ul>
 								</div>
 							</li>
 							<li>
-								<h3>최 <span class="extra">영환</span></h3>
+								<h3 id="best2"></h3>
 								<div class="spotlight">
 									<ul>
 										<li>
-											<h4>Erat aliquam</h4>
-											<p>Praesent dapibus, neque id cursus fauci quam erat volutpat nam dui mitin.</p>
+											<h4>분야</h4>
+											<p id="keyword_list2"></p>
 										</li>
 										<li>
-											<h4>Neque veroeros</h4>
-											<p>Sed adipiscing ornare risus. Morbi lorem lentesque egestas sem consequat.</p>
+											<h4>경력</h4>
+											<p id="career_name2"></p>
 										</li>
 									</ul>
 									<span class="image"><img src="https://i.pinimg.com/564x/a6/0f/42/a60f42eafff6589cc35c95bd6f7cae3e.jpg" alt="" /></span>
 									<ul>
 										<li>
-											<h4>Quis portitor</h4>
-											<p>Donec nec justo eget felis facilisis ferme Aenean dignissim pellen.</p>
+											<h4>한 줄 소개</h4>
+											<p id="resume2"></p>
 										</li>
 										<li>
-											<h4>Magna accumsan</h4>
-											<p>Lorem in sem quis dui placerat ornare tra sed etiam veroeros consequat.</p>
+											<h4>희망근무지역</h4>
+											<p id="location2"></p>
 										</li>
 									</ul>
 								</div>
 							</li>
 							<li>
-								<h3>박 <span class="extra">민수</span></h3>
+								<h3 id="best3"></h3>
 								<div class="spotlight">
 									<ul>
 										<li>
-											<h4>Neque veroeros</h4>
-											<p>Sed adipiscing ornare risus. Morbi lorem lentesque egestas sem consequat.</p>
+											<h4>분야</h4>
+											<p id="keyword_list3"></p>
 										</li>
 										<li>
-											<h4>Quis portitor</h4>
-											<p>Donec nec justo eget felis facilisis ferme Aenean dignissim pellen.</p>
+											<h4>경력</h4>
+											<p id="career_name3"></p>
 										</li>
 									</ul>
 									<span class="image"><img src="https://i.pinimg.com/736x/1b/a0/b6/1ba0b69d92b079e303d4392b8e99fbeb.jpg" alt="" /></span>
 									<ul>
 										<li>
-											<h4>Magna accumsan</h4>
-											<p>Lorem in sem quis dui placerat ornare tra sed etiam veroeros consequat.</p>
+											<h4>한 줄 소개</h4>
+											<p id="resume3"></p>
 										</li>
 										<li>
-											<h4>Erat aliquam</h4>
-											<p>Praesent dapibus, neque id cursus fauci quam erat volutpat nam dui mitin.</p>
+											<h4>희망근무지역</h4>
+											<p id="career_name3"></p>
 										</li>
 									</ul>
 								</div>
@@ -503,6 +503,7 @@
 			</div>
 
 		<!-- Scripts -->
+			<script> const cp = '${cp}';</script>
 			<script src="${cp}/js/jquery.min.js"></script>
 			<script src="${cp}/js/jquery.dropotron.min.js"></script>
 			<script src="${cp}/js/jquery.selectorr.min.js"></script>
@@ -514,8 +515,150 @@
 			<script src="${cp}/js/main.js"></script>
 			<script src="${cp}/js/chat.js"></script>
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function () {
+        $(".loginLink").click(function () {
+            window.location.href = "${cp}/app/user/user-login.jsp";
+        });
 
-	</body>
+        $(".logoutLink").click(function () {
+            window.location.href = "${cp}/app/user/user-logout.jsp";
+        });
+
+        $("nav ul li:nth-child(4)").click(function () {
+            if (${empty sessionScope.loginUser}) {
+            	window.alert("로그인 후 이용해주세요!");
+                window.location.href = "${cp}/app/user/user-login.jsp";
+            }
+        });
+        $(".mypage").click(function () {
+            if (${empty sessionScope.loginUser}) {
+            	window.alert("로그인 후 이용해주세요!");
+                window.location.href = "${cp}/app/user/user-login.jsp";
+            }
+        });
+        $(".expertpage").click(function () {
+            if (${empty sessionScope.loginUser}) {
+            	window.alert("로그인 후 이용해주세요!");
+                window.location.href = "${cp}/app/user/user-login.jsp";
+            }
+        });
+    });
+	const counter = ($counter, max) => {
+		let now = max;
+		
+		const handle = setInterval(() => {
+			$counter.innerHTML = Math.ceil(max - now);
+			
+			// 목표수치에 도달하면 정지
+			if (now < 1) {
+				clearInterval(handle);
+			}
+			
+			// 증가되는 값이 계속하여 작아짐
+			const step = now / 10;
+			
+			// 값을 적용시키면서 다음 차례에 영향을 끼침
+			now -= step;
+		}, 50);
+	}
+
+	window.onload = () => {
+	    // 각 카운터에 대한 요소 선택
+	    const $counter = document.querySelector(".count");
+	    const $counter1 = document.querySelector(".count1");
+	    const $counter2 = document.querySelector(".count2");
+	    
+	    // 서버에서 데이터 가져오기
+	    fetch('/getjoincnt.us')
+	        .then(response => response.json())
+	        .then(data => {
+	            // 서버에서 받은 데이터를 변수에 할당
+	            const totalUsers = data.totalUsers;
+	            const expertCount = data.expertCount;
+	            const matchingCount = data.matchingCount;
+
+	            // 각 카운터의 목표 수치 설정
+	            const max = totalUsers; // 총 가입자 수의 목표 수치
+	            const max1 = expertCount; // 메이트 수의 목표 수치
+	            const max2 = matchingCount; // 총 이용 건수의 목표 수치
+				console.log(max);
+				console.log(max1);
+				console.log(max2);
+	            // 카운터 함수 호출
+	            setTimeout(() => counter($counter, max), 800); // 총 가입자 수 카운트
+	            setTimeout(() => counter($counter1, max1), 900); // 메이트 수 카운트
+	            setTimeout(() => counter($counter2, max2), 1000); // 총 이용 건수 카운트
+	        })
+	        .catch(error => console.error('Error fetching data:', error));
+	}
+	// Ajax 요청 생성
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', '/getexpertinfo.ep', true);
+
+	// 서버 응답 처리
+	xhr.onload = function() {
+    if(xhr.readyState == 4){
+        if(xhr.status == 200){
+            var response = JSON.parse(xhr.responseText);
+            // 전문가 정보를 각각의 요소에 할당
+            console.log(response[0].name);
+            var best1 = document.querySelector("#best1");
+            best1.innerHTML = response[0].name;
+
+            var keywordList1 = document.querySelector("#keyword_list1");
+            keywordList1.innerHTML = response[0].keyword_list;
+
+            var careerName1 = document.querySelector("#career_name1");
+            careerName1.innerHTML = response[0].career_name;
+
+            var resume1 = document.querySelector("#resume1");
+            resume1.innerHTML = response[0].resume;
+
+            var location1 = document.querySelector("#location1");
+            location1.innerHTML = response[0].location;
+            
+            var best1 = document.querySelector("#best2");
+            best1.innerHTML = response[1].name;
+
+            var keywordList1 = document.querySelector("#keyword_list2");
+            keywordList1.innerHTML = response[1].keyword_list;
+
+            var careerName1 = document.querySelector("#career_name2");
+            careerName1.innerHTML = response[1].career_name;
+
+            var resume1 = document.querySelector("#resume2");
+            resume1.innerHTML = response[1].resume;
+
+            var location1 = document.querySelector("#location2");
+            location1.innerHTML = response[0].location;
+            
+            var best1 = document.querySelector("#best3");
+            best1.innerHTML = response[0].name;
+
+            var keywordList1 = document.querySelector("#keyword_list3");
+            keywordList1.innerHTML = response[2].keyword_list;
+
+            var careerName1 = document.querySelector("#career_name3");
+            careerName1.innerHTML = response[2].career_name;
+
+            var resume1 = document.querySelector("#resume3");
+            resume1.innerHTML = response[2].resume;
+
+            var location1 = document.querySelector("#location3");
+            location1.innerHTML = response[2].location;
+            
+        } else {
+            console.error(xhr.statusText); // 요청이 실패한 경우 에러 메시지 출력
+        }
+    }
+};
+//요청 보내기
+xhr.send();
+
+</script>
+
+</body>
 </html>
 
 	
