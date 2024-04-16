@@ -17,7 +17,6 @@
 	<body class="is-preload">
 		<!-- Wrapper -->
 			<div id="wrapper">
-				${expert}
 				<!-- Header -->
 					<header id="header" class="alt">
 
@@ -52,13 +51,28 @@
 									</c:if>
 									<c:if test="${not empty sessionScope.loginUser}">
 									    <!-- 세션이 있을 때 (로그인된 상태) -->
-									    <li><a href="${cp}/app/expert/expertRegister.jsp"><input type="button" value="전문가등록" id="expert_btn"></a></li>
+										<c:choose>
+										    <c:when test="${!empty sessionScope.loginUser}">
+										        <li><a href="${cp}/app/expert/expertRegister.jsp"><input type="button" value="전문가등록" id="expert_btn"></a></li>
+										    </c:when>
+										    <c:otherwise>
+										        <c:choose>
+										            <c:when test="${empty sessionScope.expert_idx}">
+										                <li><a href="${cp}/app/expert/expertRegister.jsp"><input type="button" value="전문가등록" id="expert_btn"></a></li>
+										            </c:when>
+										            <c:otherwise>
+										                <li><a href="${cp}/app/expert/expertChatList.jsp"><input type="button" value="전문가채팅" id="expert_chat"></a></li>
+										                <span class="note-num">3</span>
+										            </c:otherwise>
+										        </c:choose>
+										    </c:otherwise>
+										</c:choose>
 									    <li><a href="${cp}/app/user/user-logout.jsp"><input type="button" value="로그아웃" id="logout_btn"></a></li>
 									    <li><p id="login_user" style="font-weight:bold">${sessionScope.loginUser}님</p></li>
+									   
 									</c:if>								
 								</ul>
 							</nav>
-
 					</header>
 
 				<!-- Banner -->
@@ -333,7 +347,7 @@
 
 		
 					<div class="chat-container">
-							<button id="chat-circle" class="icon solid fa-regular fa-comments major"></button>
+							<button id="chat-circle" class="icon solid fa-regular fa-comments major"><span class="note-num">3</span></button>
 					</div>
 						<div id="chatbox" style="display: none;" >
 							<div id="friendslist">
@@ -592,69 +606,40 @@
 	        })
 	        .catch(error => console.error('Error fetching data:', error));
 	}
-	// Ajax 요청 생성
+
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', '/getexpertinfo.ep', true);
 
-	// 서버 응답 처리
 	xhr.onload = function() {
-    if(xhr.readyState == 4){
-        if(xhr.status == 200){
-            var response = JSON.parse(xhr.responseText);
-            // 전문가 정보를 각각의 요소에 할당
-            console.log(response[0].name);
-            var best1 = document.querySelector("#best1");
-            best1.innerHTML = response[0].name;
+	    if(xhr.readyState == 4){
+	        if(xhr.status == 200){
+	            var response = JSON.parse(xhr.responseText);
 
-            var keywordList1 = document.querySelector("#keyword_list1");
-            keywordList1.innerHTML = response[0].keyword_list;
+	            document.getElementById("best1").textContent = response[0].name;
+	            document.getElementById("keyword_list1").textContent = response[0].keyword_list;
+	            document.getElementById("career_name1").textContent = response[0].career_name;
+	            document.getElementById("resume1").textContent = response[0].resume;
+	            document.getElementById("location1").textContent = response[0].location;
 
-            var careerName1 = document.querySelector("#career_name1");
-            careerName1.innerHTML = response[0].career_name;
+	            document.getElementById("best2").textContent = response[1].name;
+	            document.getElementById("keyword_list2").textContent = response[1].keyword_list;
+	            document.getElementById("career_name2").textContent = response[1].career_name;
+	            document.getElementById("resume2").textContent = response[1].resume;
+	            document.getElementById("location2").textContent = response[1].location;
 
-            var resume1 = document.querySelector("#resume1");
-            resume1.innerHTML = response[0].resume;
+	            document.getElementById("best3").textContent = response[2].name;
+	            document.getElementById("keyword_list3").textContent = response[2].keyword_list;
+	            document.getElementById("career_name3").textContent = response[2].career_name;
+	            document.getElementById("resume3").textContent = response[2].resume;
+	            document.getElementById("location3").textContent = response[2].location;
 
-            var location1 = document.querySelector("#location1");
-            location1.innerHTML = response[0].location;
-            
-            var best1 = document.querySelector("#best2");
-            best1.innerHTML = response[1].name;
+	        } else {
+	            console.error(xhr.statusText); // 요청이 실패한 경우 에러 메시지 출력
+	        }
+	    }
+	};
 
-            var keywordList1 = document.querySelector("#keyword_list2");
-            keywordList1.innerHTML = response[1].keyword_list;
-
-            var careerName1 = document.querySelector("#career_name2");
-            careerName1.innerHTML = response[1].career_name;
-
-            var resume1 = document.querySelector("#resume2");
-            resume1.innerHTML = response[1].resume;
-
-            var location1 = document.querySelector("#location2");
-            location1.innerHTML = response[0].location;
-            
-            var best1 = document.querySelector("#best3");
-            best1.innerHTML = response[0].name;
-
-            var keywordList1 = document.querySelector("#keyword_list3");
-            keywordList1.innerHTML = response[2].keyword_list;
-
-            var careerName1 = document.querySelector("#career_name3");
-            careerName1.innerHTML = response[2].career_name;
-
-            var resume1 = document.querySelector("#resume3");
-            resume1.innerHTML = response[2].resume;
-
-            var location1 = document.querySelector("#location3");
-            location1.innerHTML = response[2].location;
-            
-        } else {
-            console.error(xhr.statusText); // 요청이 실패한 경우 에러 메시지 출력
-        }
-    }
-};
-//요청 보내기
-xhr.send();
+	xhr.send();
 
 </script>
 

@@ -11,19 +11,18 @@ import com.ec.model.dao.ExpertDAO;
 import com.ec.model.dto.ExpertDTO;
 import com.google.gson.Gson;
 
-public class ExpertGetInfoOkAction implements Action{
-	@Override
-	public Transfer execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		ExpertDAO edao = new ExpertDAO();
-	    List<ExpertDTO> expert = edao.getLikeTopThree();
-	    System.out.println(expert); 
-	    Gson gson = new Gson();
-		String jsonData = gson.toJson(expert);
+public class ExpertGetInfoOkAction implements Action {
+    @Override
+    public Transfer execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        ExpertDAO edao = new ExpertDAO();
+        List<ExpertDTO> expertList = edao.getLikeTopThree();
+        Gson gson = new Gson();
+        String jsonData = gson.toJson(expertList);
 
-		resp.setContentType("text/html; charset=utf-8");
+        resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(jsonData);
 
-		return null;
-	}
+        return null;
+    }
 }

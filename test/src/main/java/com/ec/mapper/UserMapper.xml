@@ -11,6 +11,12 @@
 	<select id="select" parameterType="string" resultType="userdto">
 		select * from user where user_id = #{user_id}
 	</select>
+	<select id="select_expert" parameterType="string" resultType="userdto">
+		select user_id from expert where user_id = #{user_id}
+	</select>
+	<select id="select_expert_idx" parameterType="string" resultType="int">
+		select expert_idx from expert where user_id = #{user_id}
+	</select>
 	<delete id="delete-user"  parameterType="string">
 		delete from user where user_id = #{user_id}
 	</delete>

@@ -48,11 +48,15 @@ main#content .location
     position: relative;
     background-color: #F4F4F4;
 }
+.keyword_search{
+    display: flex;
+}
 .career_name .exam01,
 .keyword_search .exam01{
     color: #9A9A9A;
     border: none;
     padding: 0;
+    width: 750px;
 }
 .search #area_text:after {
     width: 35px;
@@ -139,17 +143,9 @@ p.cost{
 	text-align: center;
 }
 .profile {
-    width: 70px; 
-    height: 70px; 
-}
-.like .heart01 {
-    display: inline-block;
-    width: 24px;
-    height: 22px;
-    background: url("/images/좋아요.png");
-    background-size: 23px;
-    margin: 4px 3px 4px 3px;
-    box-sizing: border-box;
+    width: 100px; 
+    height: 100px;
+    border-radius:50%; 
 }
 .expert_list .ul01 .li01 .tab02{
     float: left;

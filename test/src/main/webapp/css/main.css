@@ -1895,6 +1895,7 @@ input, select, textarea {
 	input[type="submit"],
 	input[type="reset"],
 	input[type="button"],
+	input[type="search"],
 	button,
 	.button {
 		-moz-appearance: none;
@@ -5266,16 +5267,23 @@ input, select, textarea {
 		#view-code:hover{opacity:1;}
 		#chatbox{
 		width:290px;
-		background:#fff;
-		border-radius:6px;
-		overflow:hidden;
-		height:484px;
-		position: fixed;
-		bottom: 55px; /* �먰븯�� �꾩튂濡� 議곗젙 */
-		right: 30px; /* �먰븯�� �꾩튂濡� 議곗젙 */
-		margin-bottom: 20px; /* �먰븯�� 媛꾧꺽�쇰줈 議곗젙 */
-		margin-right: 20px; /* �먰븯�� 媛꾧꺽�쇰줈 議곗젙 */
-		}
+      	background:#fff;
+      	border-radius:6px;
+      	overflow:hidden;
+      	height:484px;
+      	position: fixed;
+      	bottom: 55px; /* 원하는 위치로 조정 */
+      	right: 30px; /* 원하는 위치로 조정 */
+      	margin-bottom: 20px; /* 원하는 간격으로 조정 */
+      	margin-right: 20px; /* 원하는 간격으로 조정 */
+      	z-index:1000;
+      }
+      .note-num{
+      position : absolute;
+      top:0;
+      right:0;
+      z-index:3;
+      }
 
 		#friendslist{
 		position:absolute;

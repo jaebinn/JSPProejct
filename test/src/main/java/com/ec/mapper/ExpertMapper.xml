@@ -13,50 +13,61 @@
 	</select>
 	<!-- 전문가 정렬 -->
 	<select id="getList" parameterType="hashmap" resultType="expertdto">
-		SELECT expert.*, user.name, user.age, expert_career_list.career_name
-	      FROM expert
-	      JOIN user ON expert.user_id = user.user_id JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
-	      order by expert_idx desc limit #{startRow},#{pageSize}
+		SELECT DISTINCT expert.*, user.name, user.age, expert_career_list.career_name, expert_file_indexes.original_name
+		FROM expert
+		JOIN user ON expert.user_id = user.user_id 
+		JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx JOIN expert_file_indexes ON expert.expert_idx = expert_file_indexes.expert_idx
+		WHERE expert_career_list.career_name IS NOT NULL and expert_career_list.career_name != ""
+		ORDER BY expert_idx limit #{startRow}, #{pageSize};
 	</select>
 	<!-- 좋아요순 정렬 -->
 	<select id="getExpertSortByLike" parameterType="hashmap" resultType="expertdto">
-		SELECT expert.*, user.name, user.age, expert_career_list.career_name
-        FROM expert
-        JOIN user ON expert.user_id = user.user_id
-        JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
-        ORDER BY totalCnt DESC
+		SELECT DISTINCT expert.*, user.name, user.age, expert_career_list.career_name, expert_file_indexes.original_name
+		FROM expert
+		JOIN user ON expert.user_id = user.user_id
+		JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
+		JOIN expert_file_indexes ON expert.expert_idx = expert_file_indexes.expert_idx
+		WHERE expert_career_list.career_name IS NOT NULL AND expert_career_list.career_name != ""
+		ORDER BY totalCnt DESC
         LIMIT #{startRow}, #{pageSize}
 	</select>
 	<!--  -->
 	<select id="getExpertSortByLowCost" parameterType="hashmap" resultType="expertdto">
-		SELECT expert.*, user.name, user.age, expert_career_list.career_name
-        FROM expert
-        JOIN user ON expert.user_id = user.user_id
-        JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
-        ORDER BY cost ASC
+		SELECT DISTINCT expert.*, user.name, user.age, expert_career_list.career_name, expert_file_indexes.original_name
+		FROM expert
+		JOIN user ON expert.user_id = user.user_id
+		JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
+		JOIN expert_file_indexes ON expert.expert_idx = expert_file_indexes.expert_idx
+		WHERE expert_career_list.career_name IS NOT NULL AND expert_career_list.career_name != ""
+		ORDER BY cost ASC
         LIMIT #{startRow}, #{pageSize}
 	</select>
 	<select id="getExpertSortByHighCost" parameterType="hashmap" resultType="expertdto">
-		SELECT expert.*, user.name, user.age, expert_career_list.career_name
-        FROM expert
-        JOIN user ON expert.user_id = user.user_id
-        JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
-        ORDER BY cost DESC
+		SELECT DISTINCT expert.*, user.name, user.age, expert_career_list.career_name, expert_file_indexes.original_name
+		FROM expert
+		JOIN user ON expert.user_id = user.user_id
+		JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
+		JOIN expert_file_indexes ON expert.expert_idx = expert_file_indexes.expert_idx
+		WHERE expert_career_list.career_name IS NOT NULL AND expert_career_list.career_name != ""
+		ORDER BY cost DESC
         LIMIT #{startRow}, #{pageSize}
 	</select>
 	<select id="getExpertById" parameterType="long" resultType="expertdto">
-		select expert.*, user.name, user.age, expert_career_list.career_name
-		from expert
-		join user on expert.user_id = user.user_id join expert_career_list on expert.expert_idx = expert_career_list.expert_idx
-		where expert.expert_idx = #{expert_idx}
+		SELECT DISTINCT expert.*, user.name, user.age, expert_career_list.career_name, expert_file_indexes.original_name
+		FROM expert
+		JOIN user ON expert.user_id = user.user_id 
+		JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx JOIN expert_file_indexes ON expert.expert_idx = expert_file_indexes.expert_idx
+		where expert.expert_idx = #{expert_idx} and expert_career_list.career_name IS NOT NULL and expert_career_list.career_name != ""
 	</select>
 	
 	<select id="getExpertSortByKeyword" resultType="expertdto" parameterType="hashmap">
-	    SELECT expert.*, user.name, user.age, expert_career_list.career_name
+	    SELECT DISTINCT expert.*, user.name, user.age, expert_career_list.career_name, expert_file_indexes.original_name
 	    FROM expert
 	    JOIN user ON expert.user_id = user.user_id
 	    JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
-	    WHERE keyword_list LIKE CONCAT('%', #{keyword}, '%')
+	    JOIN expert_file_indexes ON expert.expert_idx = expert_file_indexes.expert_idx
+	    WHERE keyword_list LIKE CONCAT('%', #{keyword}, '%') 
+	    and expert_career_list.career_name IS NOT NULL and expert_career_list.career_name != "" 
 	    LIMIT #{startRow}, #{pageSize}
 	</select>
 	<insert id="insertExpert" parameterType="expertdto">
@@ -77,6 +88,58 @@
 	<insert id="insertCareer" parameterType="expertca">
   		insert into expert_career_list(expert_idx, career_name, start_time, end_time)
   		values(#{expert_idx},#{career_name},#{start_time},#{end_time})
+  	</insert>
+  	<select id="getExpertCntWithKey" resultType="long">  	
+		SELECT count(*)
+		FROM expert
+		JOIN user ON expert.user_id = user.user_id
+		JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
+		WHERE 
+		    (
+		        keyword_list LIKE CONCAT('%', #{keyword}, '%') 
+		        OR 
+		        cost LIKE CONCAT('%', #{keyword}, '%')
+		        OR
+		        location LIKE CONCAT('%', #{keyword}, '%')
+		        OR 
+		        available_time LIKE CONCAT('%', #{keyword}, '%')
+		        OR 
+		        name LIKE CONCAT('%', #{keyword}, '%')
+		        OR 
+		        career_name LIKE CONCAT('%', #{keyword}, '%')
+		    )
+  	</select>
+  	<select id="getExpertList" resultType="expertdto" parameterType="hashmap">
+		select * from expert order by expert_idx desc limit #{startRow},#{pageSize}
+	</select>
+	<select id="getExpertSearchKeyword" resultType="expertdto" parameterType="hashmap">
+	    SELECT DISTINCT expert.*, user.name, user.age, expert_career_list.career_name, expert_file_indexes.original_name
+		FROM expert
+		JOIN user ON expert.user_id = user.user_id
+		JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
+		JOIN expert_file_indexes ON expert.expert_idx = expert_file_indexes.expert_idx
+		WHERE 
+			expert_career_list.career_name IS NOT NULL and expert_career_list.career_name != "" 
+		    and
+		    (
+				expert.keyword_list LIKE CONCAT('%', #{keyword}, '%')
+				OR 
+				expert.cost LIKE CONCAT('%', #{keyword}, '%')
+				OR
+				expert.location LIKE CONCAT('%', #{keyword}, '%')
+				OR 
+				expert.available_time LIKE CONCAT('%', #{keyword}, '%')
+				OR 
+				user.name LIKE CONCAT('%', #{keyword}, '%')
+				OR 
+				expert_career_list.career_name LIKE CONCAT('%', #{keyword}, '%')
+			)
+		    limit #{startRow}, #{pageSize};
+	</select>
+	<insert id="insertExpert_file_indexes" parameterType="expertfiledto">
+  		insert into
+  		expert_file_indexes(system_name, original_name, is_license_identification, expert_idx)
+  		values(#{system_name},#{original_name},#{is_license_identification},#{expert_idx})
   	</insert>
 	
 </mapper>

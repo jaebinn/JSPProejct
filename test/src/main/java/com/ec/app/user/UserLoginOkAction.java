@@ -19,7 +19,7 @@ public class UserLoginOkAction implements Action{
 		PrintWriter out = resp.getWriter();
 		String userid = req.getParameter("user_id");
 		String userpw = req.getParameter("pw");
-		System.out.println(req.getContextPath());
+		
 		
 		if(userid.equals("") ||userpw.equals("")) {
 			
@@ -45,16 +45,42 @@ public class UserLoginOkAction implements Action{
 		
 		
 		
+		
+		
 
 		
 		else if(temp.getPw().equals(userpw) ) {
-			req.getSession().setAttribute("loginUser", userid);
-			//메인으로 이동합니다
-			out.print("<script>");
-			out.print("alert('"+userid+"님,방문을 환영합니다');");
+			UserDTO Expert = udao.SelectExpert(userid);
 			
-			out.print("location.replace('/index.jsp')");
-			out.print("</script>");
+			
+			if (Expert == null) {
+				req.getSession().setAttribute("loginUser", userid);
+				System.out.println("일반유저 세션값 확인"+req.getSession().getAttribute("loginUser"));
+				//메인으로 이동합니다
+				out.print("<script>");
+				out.print("alert('"+userid+"님,방문을 환영합니다');");
+				
+				out.print("location.replace('"+req.getContextPath()+"/index.jsp')");
+				out.print("</script>");
+			}
+			
+			else if(Expert.getUser_id().equals(userid)) {
+				int Expert_idx = udao.SelectExpertIdx(userid);
+				req.getSession().setAttribute("expert_idx", Expert_idx);
+				System.out.println("전문가 번호 :: "+req.getSession().getAttribute("expert_idx"));
+				
+				req.getSession().setAttribute("loginUser", userid);
+				System.out.println("일반유저 세션값 확인"+req.getSession().getAttribute("loginUser"));
+				//메인으로 이동합니다
+				out.print("<script>");
+				out.print("alert('"+userid+"님,방문을 환영합니다');");
+				
+				out.print("location.replace('"+req.getContextPath()+"/index.jsp')");
+				out.print("</script>");
+			}
+			
+			
+		
 		}
 		
 		else if(!temp.getPw().equals(userpw) || !temp.getUser_id().equals(userid)) {
@@ -62,15 +88,16 @@ public class UserLoginOkAction implements Action{
 			out.print("<script>");
 			out.print("alert('아이디/비밀번호를 다시 확인해주세요 ');");
 			
-			out.print("location.replace('"+req.getContextPath()+"/app/user/user-login.jsp'");
+			out.print("location.replace('"+req.getContextPath()+"/app/user/user-login.jsp')");
 			out.print("</script>");
 		}
-
+			
 		}
 		return null;
 		}
 	
-}
+	}
+
 
 
 

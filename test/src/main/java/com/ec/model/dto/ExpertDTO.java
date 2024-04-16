@@ -13,6 +13,7 @@ public class ExpertDTO {
 	private String name;
 	private int age;
 	private String career_name;
+	private String original_name;
 	private long totalCnt;
 	
 	public long getExpert_idx() {
@@ -87,8 +88,13 @@ public class ExpertDTO {
 	public void setCareer_name(String career_name) {
 		this.career_name = career_name;
 	}
-
-	  public long getTotalCnt() {
+	public String getOriginal_name() {
+		return original_name;
+	}
+	public void setOriginal_name(String original_name) {
+		this.original_name = original_name;
+	}
+	public long getTotalCnt() {
 		return totalCnt;
 	}
 	public void setTotalCnt(long totalCnt) {

@@ -32,6 +32,18 @@ public class UserDAO {
 	public long getUserCnt() {
 		return ss.selectOne("User.userCnt");
 	}
+	public int deletePayment(String userid) {
+		return ss.delete("User.delete-payment",userid);
+	}
+	public int deleteChatDetail(String userid) {
+		return ss.delete("User.delete-chat_detail",userid);
+	}
+	public UserDTO SelectExpert(String userid) {
+		return ss.selectOne("User.select_expert", userid);
+	}
+	public int SelectExpertIdx(String userid) {
+		return ss.selectOne("User.select_expert_idx", userid);
+	}
 }
 
 

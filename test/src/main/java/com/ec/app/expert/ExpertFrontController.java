@@ -64,6 +64,13 @@ public class ExpertFrontController extends HttpServlet{
 				System.out.println("/expertkeywordsort.ep : "+e);
 			}
 			break;
+		case "/expertsearchkeywordsort.ep":
+			try {
+				transfer = new ExpertSearchkeywordSortOkAction().execute(req,resp);
+			} catch (Exception e) {
+				System.out.println("/expertsearchkeywordsort.ep : "+e);
+			}
+			break;
 		case "/expertview.ep":
 			try {
 				transfer = new ExpertViewOkAction().execute(req, resp);

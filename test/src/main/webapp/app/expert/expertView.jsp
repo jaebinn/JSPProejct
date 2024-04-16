@@ -10,8 +10,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="${cp}/css/main.css" />
-		<link rel="stylesheet" href="${cp}/css/expert_list.css" />
 		<link rel="stylesheet" href="${cp}/css/expert_view.css" />
+		<link rel="stylesheet" href="${cp}/css/expert_list.css" />
 		
 	</head>
 	<body class="is-preload">
@@ -62,7 +62,7 @@
 					<!--프로필  -->
 				<section class="profile-card">
 					<div class="image">
-						<img src="./images/profile.png" alt="" class="profile-img">
+						<img src="${cp}/file/${expert.original_name}" alt="" class="profile-img">
 					</div>
 
 					<div class="text-data">
@@ -129,9 +129,14 @@
 							<i class="fa-brands fa-youtube"></i>
 						</a>
 					</div>
-
-					<div class="chat_btn">
-						<button class="chating">1:1 채팅하기</button>
+					
+					<div class="btns">
+						<div class="chat_btn">
+							<button class="chating">1:1 채팅하기</button>
+						</div>
+						<div class="review_btn">
+							<button class="review_write">리뷰쓰기</button>
+						</div>					
 					</div>
 					<c:if test="${not empty sessionScope.loginUser}">
 					    <!-- 세션이 있을 때 (로그인된 상태) -->

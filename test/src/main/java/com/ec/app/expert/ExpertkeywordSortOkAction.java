@@ -28,7 +28,6 @@ public class ExpertkeywordSortOkAction implements Action {
         int startRow = (page - 1) * pageSize;
 
         String selectedKeywords = req.getParameter("selectedKeywords");
-
         System.out.println(selectedKeywords);
         if (selectedKeywords != null && !selectedKeywords.isEmpty()) {
             List<ExpertDTO> list = edao.getExpertSortByKeyword(startRow, pageSize, selectedKeywords);

@@ -50,7 +50,7 @@
 									</c:if>
 									<c:if test="${not empty sessionScope.loginUser}">
 									    <!-- 세션이 있을 때 (로그인된 상태) -->
-									    <li><a href="${cp}/expertok.ep"><input type="button" value="전문가등록" id="expert_btn"></a></li>
+									    <li><a href="${cp}/app/expert/expertRegister.jsp"><input type="button" value="전문가등록" id="expert_btn"></a></li>
 									    <li><a href="${cp}/app/user/user-logout.jsp"><input type="button" value="로그아웃" id="logout_btn"></a></li>
 									</c:if>
 								</ul>
@@ -66,13 +66,16 @@
 					<main id="content">
 						<div class="div_list">
 							<div class="search">
-								<form id="keyForm">
-									<div class="keyword_search location" id="area_text"><input type="text" class="exam01" placeholder="키워드를 입력하세요." style="border:none; padding:0;"></div>
+								<form id="keyForm" action="${cp}/expertsearchkeywordsort.ep" method="post">
+									<div class="keyword_search location" id="area_text">
+										<input type="text" class="exam01" name="keyword" placeholder="키워드를 입력하세요." style="border:none; padding:0;" value="${keyword}" >
+										<input type="submit" value="검색" id="keyword_btn"/>
+									</div>
 								</form>
 								
 								<div class="career_name" id="sphere_text" onclick="toggleSphereSelection()"><span class="exam01">${not empty selectedKeywords ? selectedKeywords : '분야를 선택하시려면 클릭해주세요.'}</span></div>
 								<!-- 분야 선택창 -->
-								<form id="expertSearchForm" action="${cp}/expertkeywordsort.ep" method="post">
+								<form id="expertSearchForm" action="${cp}/expertkeywordsort.ep?page=${page}&keyword=${keyword}&psort=${psort}" method="post">
 								    <!-- 여기에 선택된 키워드를 표시할 hidden input 추가 -->
 								    <input type="hidden" id="selectedKeywords" name="selectedKeywords">
 								    <div class="layer0101" id="layer_sphere">
@@ -95,7 +98,7 @@
 							
 							<div class="tit"><span>전문가찾기</span>
 								<span class="sort01">
-								<form id="sortForm" action="${cp}/expertsort.ep?&page=${page}" method="post">
+								<form id="sortForm" action="${cp}/expertsort.ep?page=${page}" method="post">
 								    <select name="psort" class="psort" id="psort" onchange="document.getElementById('sortForm').submit();">
 								        <option value="1" <%= session.getAttribute("psort") != null && session.getAttribute("psort").equals(1) ? "selected" : "" %>>좋아요순</option>                    
 								        <option value="2" <%= session.getAttribute("psort") != null && session.getAttribute("psort").equals(2) ? "selected" : "" %>>시급낮은순</option>
@@ -112,13 +115,15 @@
 											<c:set var="expert" value="${list[i]}"/>
 												<ul class="ul01">
 													<li class="li01">
+														<div class="like" style="text-align:right">
+															<i class="fa-regular fa-heart"></i>
+														</div>
 														<a href="${cp}/expertview.ep?expert_idx=${expert.expert_idx}&page=${page}">
 															<p class="tab01">
-																<img src="/images/profile.png" class="profile">
-																<p class="like" id="follow43350" data-val="43350" data-code="MXFNd3JGL29tTlc3cnJPN0JJb1lGdz09"><span class="temperate">36.5도</span><span class="heart01 ">&nbsp;</span></p>
+																<img src="${cp}/file/${expert.original_name}" class="profile">
 															</p>
 															<p class="tab02">
-																<span class="name">이름: ${expert.name} <span class="age">/ 나이: ${expert.age}</span></span>
+																<span class="name" style="margin-left:30px">이름: ${expert.name} <span class="age">/ 나이: ${expert.age}</span></span>
 																<p class="location">가능 지역: ${expert.location}</p>
 																<p class="cost">시급: ${expert.cost}원 /<span class="available_time"> 가능시간: ${expert.available_time}</span></p>
 															</p>
@@ -142,7 +147,7 @@
 								<tr>
 									<td>
 										<c:if test="${startPage != 1}">
-											<a class="btn" href="${cp}/expertlist.ep?page=${startPage-1}">&lt;</a>
+											<a class="btn" href="${cp}/expertlist.ep?page=${startPage-1}&psort=${psort}&keyword=${keyword}">&lt;</a>
 										</c:if>
 										<c:forEach begin="${startPage}" end="${endPage}" var="i">
 										<c:choose>
@@ -150,19 +155,18 @@
 												<span class="nowPage">${i}</span>
 											</c:when>
 											<c:otherwise>
-												<a class="btn" href="${cp}/expertlist.ep?page=${i}">${i}</a>
+												<a class="btn" href="${cp}/expertlist.ep?page=${i}&psort=${psort}&keyword=${keyword}">${i}</a>
 											</c:otherwise>
 										</c:choose>
 										</c:forEach>
 										<c:if test="${endPage != totalPage}">
-											<a class="btn" href="${cp}/expertlist.ep?page=${endPage+1}">&gt;</a>
+											<a class="btn" href="${cp}/expertlist.ep?page=${endPage+1}&psort=${psort}&keyword=${keyword}">&gt;</a>
 										</c:if>
 									</td>
 								</tr>
 							</tbody>
 						</table>
 					</main>
-				
 				<!-- Footer -->
 					<footer id="footer">
 						<div class="inner">
@@ -260,37 +264,6 @@
 			        sphereText.innerHTML = "<span class='exam01'>" + (selectedKeyword !== '' ? selectedKeyword : "분야를 선택하시려면 클릭해주세요.") + "</span>";
 			    });
 			}
-			
-			let form = document.getElementById("keyForm");
-
-			// 폼에 이벤트 리스너 추가
-			form.addEventListener("submit", function(e) {
-			// 기본 제출 동작 방지
-			e.preventDefault();
-			});
-
-			// 입력 필드 가져오기
-			let input = document.querySelector(".exam01");
-
-			// 입력 필드에 이벤트 리스너 추가
-			input.addEventListener("keypress", function(e) {
-			// 엔터 키가 눌렸는지 확인
-			if (e.key === "Enter") {
-				// 원하는 동작 수행 (여기서는 함수 호출)
-				handleEnter();
-			}
-			});
-
-			// 엔터 키가 눌렸을 때 실행할 함수
-			function handleEnter() {
-			// 여기에 원하는 동작을 추가하세요
-			console.log("엔터 키가 눌렸습니다!");
-			}
-			
-			
-
-
-
 			</script>
 </body>
 </html>

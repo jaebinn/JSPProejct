@@ -55,6 +55,7 @@ public class ExpertSortOkAction implements Action{
 		else if(psort == 3) {
 			list = edao.getExpertSortByHighCost(startRow, pageSize);
 		}
+		System.out.println(list);
 		HttpSession session = req.getSession();
 		session.setAttribute("psort", psort);
 		
@@ -68,6 +69,7 @@ public class ExpertSortOkAction implements Action{
 		 req.setAttribute("startPage", startPage); // 시작 페이지 번호 전달
 		 req.setAttribute("endPage", endPage); // 끝 페이지 번호 전달
 		 req.setAttribute("page", page); // 현재 페이지 번호 전달
+		 req.setAttribute("psort", psort);
 	
 		 transfer.setRedirect(false);
 		 transfer.setPath("/app/expert/expertList.jsp");

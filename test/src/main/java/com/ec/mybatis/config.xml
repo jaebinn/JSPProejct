@@ -12,7 +12,9 @@
   	<typeAlias type="com.ec.model.dto.ExpertDTO" alias="expertdto"/>  	  	
   	<typeAlias type="com.ec.model.dto.Like_cntDTO" alias="likecntdto"/>  	  	
   	<typeAlias type="com.ec.model.dto.ExpertLicenseListDTO" alias="expertls"/>  	  	
-  	<typeAlias type="com.ec.model.dto.ExpertCareerListDTO" alias="expertca"/>  	  	
+  	<typeAlias type="com.ec.model.dto.ExpertCareerListDTO" alias="expertca"/>  	
+  	<typeAlias type="com.ec.model.dto.Expert_file_indexesDTO" alias="expertfiledto"/>  	
+  	  	
   </typeAliases>
   <environments default="development">
     <environment id="development">

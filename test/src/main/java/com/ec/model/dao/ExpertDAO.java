@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.ec.model.dto.ExpertCareerListDTO;
 import com.ec.model.dto.ExpertDTO;
 import com.ec.model.dto.ExpertLicenseListDTO;
+import com.ec.model.dto.Expert_file_indexesDTO;
 import com.ec.mybatis.SQLMapConfig;
 
 public class ExpertDAO {
@@ -97,5 +98,31 @@ public class ExpertDAO {
         return ss.selectList("Expert.topThree");
 	}
 
+	public long getExpertCnt(String keyword) {
+		return ss.selectOne("Expert.getExpertCntWithKey",keyword);
+	}
+
+	public List<ExpertDTO> getExpertList(int startRow, int pageSize) {
+		HashMap<String, Integer> datas = new HashMap<String, Integer>();
+		datas.put("startRow", startRow);
+		datas.put("pageSize", pageSize);
+		return ss.selectList("Expert.getExpertList",datas);
+	}
+
+	public List<ExpertDTO> getExpertSearchList(int startRow, int pageSize, String keyword) {
+		HashMap<String, Object> datas = new HashMap<String, Object>();
+		datas.put("startRow", startRow);
+		datas.put("pageSize", pageSize);
+		datas.put("keyword", keyword);
+	    return ss.selectList("Expert.getExpertSearchKeyword", datas);
+	}
+	// 전문가 파일업로드 추가(프로필사진)
+	public boolean insertExpert_file_indexes(Expert_file_indexesDTO expertfiledto) {
+		return ss.insert("Expert.insertExpert_file_indexes", expertfiledto) == 1;
+	}
+
+	public Expert_file_indexesDTO getProfile() {
+		return ss.selectOne("Expert.getProfile");
+	}
 	
 }

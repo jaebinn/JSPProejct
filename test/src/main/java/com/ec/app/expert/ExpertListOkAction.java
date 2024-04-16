@@ -10,16 +10,16 @@ import com.ec.action.Action;
 import com.ec.action.Transfer;
 import com.ec.model.dao.ExpertDAO;
 import com.ec.model.dto.ExpertDTO;
+import com.ec.model.dto.Expert_file_indexesDTO;
 
 public class ExpertListOkAction implements Action {
     @Override
     public Transfer execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         
         ExpertDAO edao = new ExpertDAO();
-
         String temp = req.getParameter("page");
         int page = temp == null || temp.equals("") ? 1 : Integer.parseInt(temp);
-
+        
         long totalCnt = edao.getExpertCnt();
         int pageSize = 4;
         int pageCnt = 10;
@@ -29,6 +29,7 @@ public class ExpertListOkAction implements Action {
         endPage = endPage > totalPage ? totalPage : endPage;
 
         int startRow = (page - 1) * pageSize;
+        
         List<ExpertDTO> list = edao.getList(startRow, pageSize);
         
         System.out.println(list);

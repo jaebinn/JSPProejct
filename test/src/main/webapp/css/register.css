@@ -4,81 +4,111 @@
     margin: 0px;
 }
 .content primary {
-    box-sizing: border-box;
-    padding: 0px;
-    margin: 0px;
+    box-sizing: border-box !important;
+    padding: 0px !important;
+    margin: 0px !important;
 }
 .content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
 }
 input, textarea{
-    background-color: transparent;
+    background-color: transparent !important;
 }
 textarea {
-    resize: none;
+    resize: none !important;
   }
 #resume {
-    text-align: center; /* 가로 중앙 정렬 */
-    vertical-align: middle; /* 세로 중앙 정렬 */
+    text-align: center !important;
+    vertical-align: middle !important;
 }
 #is_driveable_yes, #is_driveable_no {
-    width: 200px;
+    width: 200px !important;
 }
 #is_driveable_yes {
-    margin-right: 20px;
+    margin-right: 20px !important;
 }
 #is_driveable_no {
-    margin-left: 20px;
+    margin-left: 20px !important;
 }
 #info_box {
-    border-collapse: separate;
-    border-spacing: 0;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
 }
 table tbody tr:nth-child(2n + 1) {
-     background-color: transparent;
+     background-color: transparent !important;
 }
 #e_id_value {
-    width: 100%;
-}
-::placeholder {
-    color: slategray;
+    width: 100% !important;
 }
 .btn_area {
-    text-align: right;
-    padding-right: 10px;
+    text-align: right !important;
+    padding-right: 10px !important;
 }
 #careerAdd, #licenseAdd, #careerDelete, #licenseDelete {
     width: 250px;
 }
 #careerAdd, #licenseAdd {
-    margin-right: 20px;
+    margin-right: 20px !important;
 }
 .keywordH {
     border: 2px solid orchid !important;
-    background-color: slateblu !important;
-    color: white !important;
+    color: black !important;
     padding: 5px !important;
     margin: 5px 5px 5px 5px !important;
     border-radius: 50px 50px 50px 50px / 50px 50px 50px 50px !important;
 }
-#info_box > tr > #imgArea {
-	width: 120px;
-	height: 120px;
-	border: 1px solid black;
-	text-align: center;
-	line-height: 120px;
-	color: gray;
-	border-radius: 50%;
-	margin: 0px 0px 10px 25px;
-	cursor: pointer;
-	background-size: cover;
-	background-position: center;
+#keyword {
+	text-align: center !important;
+    vertical-align: middle !important;
 }
-#info_box > tr > #fileArea {
-	display: none;
+#info_box {
+	text-align: center !important;
 }
+#imgArea {
+	width: 120px !important;
+	height: 120px !important;
+	border: 1px solid black !important;
+	text-align: center !important;
+	line-height: 120px !important;
+	color: gray !important;
+	border-radius: 50% !important;
+	margin: 0 auto !important;
+	cursor: pointer !important;
+	background-image: url(/images/기본프사.png);
+	background-size: cover !important;
+	background-position: center !important;
+}
+#fileArea {
+	display: none !important;
+}
+.box2 {
+    background-color: #E2E2E2;
+    border-radius: 50px 50px 50px 50px / 50px 50px 50px 50px !important;
+}
+#addbutton {
+    margin: 10px 0px 0px 0px !important;
+}
+#keyword_list {
+	margin-top: 10px;
+}
+#complete {
+	margin: 0px 0px 40px 0px;
+}
+#is_driveable_yes, #is_driveable_no, #addbutton, #careerAdd, #careerDelete,
+#licenseAdd, #licenseDelete, #complete {
+	box-shadow: none;
+	border: 2px solid #1bcea5;
+}
+h2 {
+	padding: 50px 0px 0px 0px;
+}
+#is_driveable_yes.selected,
+#is_driveable_no.selected {
+  background-color: #BAB8B6 !important;
+}
+
 
 
 

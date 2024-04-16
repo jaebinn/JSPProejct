@@ -34,8 +34,8 @@ button{
 
 .image{
     position: relative;
-    height: 150px;
-    width: 150px;
+    height: 170px;
+    width: 170px;
     border-radius: 50%;
     background-color: #1bcea5;
     padding: 3px;
@@ -87,12 +87,15 @@ button{
     transition: transform 0.3s ease; 
 }
 
-.profile-card .chat_btn{
+.profile-card .chat_btn,
+.profile-card .review_btn{
     display: flex;
     align-items: center;
     margin-top: 25px;
 }
-
+.btns{
+	display:flex;
+}
 .chat_btn .chating{
     color: #fff;
     font-size: 14px;
@@ -106,6 +109,20 @@ button{
 }
 
 .chat_btn .chating:hover{
+    background-color: #81F7D8;
+}
+.review_btn .review_write{
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    border: none;
+    border-radius: 24px;
+    background-color: #1bcea5;
+    cursor: pointer;
+    transform: all 0.3s ease;
+}
+
+.review_btn .review_write:hover{
     background-color: #81F7D8;
 }
 
