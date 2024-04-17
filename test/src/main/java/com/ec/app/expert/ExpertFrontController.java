@@ -92,6 +92,23 @@ public class ExpertFrontController extends HttpServlet{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			break;
+		case "/getexpertrating.ep":
+			try {
+				new ExpertRatingOkAction().execute(req, resp);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		case "/getexpertlocation.ep":
+			try {
+				new ExpertLoctionOkAction().execute(req, resp);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
 		}
 		
 		if(transfer != null) {

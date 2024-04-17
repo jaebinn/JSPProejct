@@ -317,4 +317,28 @@ table.list, .pagination, .pagination+table {
     /* display: none; */
     position: relative;
 }
+.rating{
+	text-align: right;
+}
+.rating__star {
+    color: #ccc; 
+}
 
+.rating__star.fas {
+    color: gold; 
+}
+
+.rating__star.fas.partial {
+    color: gold;
+    overflow: hidden;
+    position: relative;
+}
+
+.rating__star.fas.partial::before {
+    content: "\f005"; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+}

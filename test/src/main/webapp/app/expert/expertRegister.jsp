@@ -9,7 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="${cp}/css/main.css"/>
-		<%-- <link rel="stylesheet" href="${cp}/css/register.css"/> --%>
+		<link rel="stylesheet" href="${cp}/css/register.css"/>
 	</head>
 	<body class="is-preload">
 
@@ -80,10 +80,10 @@
 										</tr>
 										<tr>
 											<td id="is_drivable">운전가능여부</td>
-											<td colspan="3">
-												<input type="button" id="is_drivable_yes" name="is_drivable_yes" value="가능" onclick="is_drivable('is_drivable_yes')">
+										    <td colspan="3">
+										        <input type="button" id="is_drivable_yes" name="is_drivable_yes" value="가능" onclick="is_drivable('is_drivable_yes')">
 												<input type="button" id="is_drivable_no" name="is_drivable_no" value="불가능" onclick="is_drivable('is_drivable_no')">
-											</td>
+										    </td>
 										</tr>
 										<tr>
 											<td id="location">근무가능지역</td>
@@ -241,21 +241,22 @@
 	// 운전여부 클릭시 이벤트
 	function is_drivable(elementId) {
 		var button = document.getElementById(elementId);
-		var otherButtonId = (elementId === "is_drivable_yes") ? "is_drivable_yes" : "is_drivable_no";
+		var otherButtonId = (elementId === "is_drivable_yes") ? "is_drivable_no" : "is_drivable_yes";
 		var otherButton = document.getElementById(otherButtonId);
 
-      if (!button.classList.contains("selected")) {
-        // 현재 클릭된 버튼에 selected 클래스추가
-        button.classList.add("selected");
-        // 다른 버튼에 selected 클래스가 부여되어 있다면 제거
-        if (otherButton.classList.contains("selected")) {
-          otherButton.classList.remove("selected");
+      if (button.style.backgroundColor !== "slateblue") {
+        // 현재 클릭된 버튼을 초록색으로 변경하고
+        button.style.backgroundColor = "slateblue";
+        // 다른 버튼이 초록색이면 초기화
+        if (otherButton.style.backgroundColor === "slateblue") {
+          otherButton.style.backgroundColor = "";
         }
       } else {
-        // 클릭된 버튼이 selected 클래스를 가지고 있다면 제거
-    	button.classList.remove("selected");
+        // 클릭된 버튼이 이미 초록색이면 초기화
+        button.style.backgroundColor = "";
       }
-      console.log(otherButton);  
+      console.log(otherButtonId);
+      
     }
 		
 	// 경력입력란 추가
@@ -276,8 +277,6 @@
 		input.setAttribute("id","career_name"); // input id속성 지정 1
 		input.setAttribute("name","career_name"); // input name속성 지정 1
 		input.setAttribute("placeholder","Ex : 전 근무지명"); // placeholder속성 지정
-		newtd2.id = "line1";
-		newtd2.colSpan = 3;
 		newtd2.appendChild(input); // td2의 자식개체로 삽입
 		careerTr.appendChild(newtd1); // td1을 tr의 자식개체로 삽입
 		careerTr.appendChild(newtd2); // td2를 tr의 자식개체로 삽입
@@ -468,11 +467,9 @@
         var imgArea =  document.getElementById("imgArea");
         var orgFileName = document.getElementById("orgFileName");
         var reader = new FileReader();
-        var imageUrl = "url('/images/기본프사.png')";
 
         if(file == undefined) {
-            imgArea.style.backgroundImage = imageUrl;
-            imgArea.textContent = "프로필 사진";
+            imgArea.style.backgroundImage = "none";
             orgFileName.value = "";
         } else {
         	// 업로드된 파일이 있다면
@@ -484,11 +481,10 @@
         	let ext = file.name.split(".").pop();
         	
         	// 만약 업로드 파일형식이 사진 등이라면
-        	if(ext == "png" || ext == "jpg" || ext == "webp" || ext == "gif") {
+        	if(ext == "jpeg" || ext == "png" || ext == "jpg" || ext == "webp" || ext == "gif") {
         		// 프로필창에 미리보기  사진 삽입
 		        reader.onloadend = function () {
 		            imgArea.style.backgroundImage = "url(" + reader.result + ")";
-		            imgArea.innerHTML = "";
 		        }	
         	} else {
         		alert("유효하지 않은 파일형식 입니다!");
@@ -501,7 +497,7 @@
     // 이미지 파일 클릭 시 파일 삭제
     document.getElementById("imgArea").addEventListener("click", function() {
         // 파일 영역을 초기화하고, 이미지 영역도 초기화
-        imgArea.style.backgroundImage = imageUrl;
+        imgArea.style.backgroundImage = "none";
         imgArea.textContent = "프로필 사진";
         fileArea.value = null;
     });
@@ -513,8 +509,8 @@
 //		var cookieId = cookie.joinid.value;
 		const expertAddForm = document.expertAddForm;
 		var viewId = expertAddForm.e_id_value.value;
-		var drivebleYes = document.getElementById("is_drivable_yes");
-		var drivebleNo = document.getElementById("is_drivable_no");
+		var driveableYes = document.getElementById("is_drivable_yes");
+		var driveableNo = document.getElementById("is_drivable_no");
 		var location = document.getElementById("location_value")
 		var Pettern1 = /^[가-힣a-zA-Z\d\s]*$/; // 한글과 숫자,영어
 		var available_time = document.getElementById("available_time_value");
@@ -621,6 +617,8 @@
 			return;
 		}
 		
+		console.log("");
+		
 		const keywordTag = expertAddForm.keywordH;
 		keywordTag.value = arKeyword.join(",");
 		
@@ -628,4 +626,5 @@
 		expertAddForm.submit();
 	}  
 </script>
+
 

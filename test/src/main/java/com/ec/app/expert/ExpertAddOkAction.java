@@ -56,7 +56,7 @@ public class ExpertAddOkAction implements com.ec.action.Action{
 		expertdto.setResume(multi.getParameter("resume_value")); // 자개소개 파라미터 수집
 		
 		Boolean boo = true;
-		if(multi.getParameter("is_driveable_yes") == "is_driveable_no") { // 운전가능여부 파라미터 수집
+		if(multi.getParameter("is_drivable_yes") == "is_drivable_no") { // 운전가능여부 파라미터 수집
 			expertdto.setIs_drivable(!boo);
 		} else {
 			expertdto.setIs_drivable(boo);

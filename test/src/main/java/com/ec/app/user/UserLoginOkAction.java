@@ -42,13 +42,6 @@ public class UserLoginOkAction implements Action{
 			out.print("</script>");
 		}
 		
-		
-		
-		
-		
-		
-
-		
 		else if(temp.getPw().equals(userpw) ) {
 			UserDTO Expert = udao.SelectExpert(userid);
 			
@@ -65,8 +58,8 @@ public class UserLoginOkAction implements Action{
 			}
 			
 			else if(Expert.getUser_id().equals(userid)) {
-				int Expert_idx = udao.SelectExpertIdx(userid);
-				req.getSession().setAttribute("expert_idx", Expert_idx);
+				int expert_idx = udao.SelectExpertIdx(userid);
+				req.getSession().setAttribute("expert_idx", expert_idx);
 				System.out.println("전문가 번호 :: "+req.getSession().getAttribute("expert_idx"));
 				
 				req.getSession().setAttribute("loginUser", userid);

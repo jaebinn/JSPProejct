@@ -115,8 +115,12 @@
 											<c:set var="expert" value="${list[i]}"/>
 												<ul class="ul01">
 													<li class="li01">
-														<div class="like" style="text-align:right">
-															<i class="fa-regular fa-heart"></i>
+														<div class="rating" data-expert-idx="${expert.expert_idx}">
+														    <i class="rating__star far fa-star"></i>
+														    <i class="rating__star far fa-star"></i>
+														    <i class="rating__star far fa-star"></i>
+														    <i class="rating__star far fa-star"></i>
+														    <i class="rating__star far fa-star"></i>
 														</div>
 														<a href="${cp}/expertview.ep?expert_idx=${expert.expert_idx}&page=${page}">
 															<p class="tab01">
@@ -264,6 +268,40 @@
 			        sphereText.innerHTML = "<span class='exam01'>" + (selectedKeyword !== '' ? selectedKeyword : "분야를 선택하시려면 클릭해주세요.") + "</span>";
 			    });
 			}
-			</script>
+			$(document).ready(function() {
+			    $('.rating[data-expert-idx]').each(function() {
+			        var expert_idx = $(this).data('expert-idx');
+			        var ratingElement = $(this); // 현재 별점 요소에 대한 jQuery 객체 저장
+			        $.ajax({
+			            url: cp + '/getexpertrating.ep',
+			            type: 'POST',
+			            data: { expert_idx: expert_idx },
+			            success: function(response) {
+			                let totalRating = response.totalRating;
+			                let filledStars = Math.floor(totalRating);
+			                let decimalPart = totalRating - filledStars;
+			                // 별점을 채우는 코드 작성
+			                ratingElement.find('.rating__star').removeClass('fas').removeClass('half').addClass('far');
+			                for (let i = 0; i < filledStars; i++) {
+			                    ratingElement.find('.rating__star').eq(i).removeClass('far').addClass('fas');
+			                }
+			                if (decimalPart >= 0.25 && decimalPart < 0.75) {
+			                    ratingElement.find('.rating__star').eq(filledStars).addClass('half');
+			                } else if (decimalPart >= 0.75) {
+			                    ratingElement.find('.rating__star').eq(filledStars).removeClass('far').addClass('fas');
+			                }
+			            },
+			            error: function(xhr, status, error) {
+			                console.error('에러 발생:', error);
+			            }
+			        });
+			    });
+			});
+
+
+
+
+
+		</script>
 </body>
 </html>

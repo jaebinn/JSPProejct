@@ -124,5 +124,9 @@ public class ExpertDAO {
 	public Expert_file_indexesDTO getProfile() {
 		return ss.selectOne("Expert.getProfile");
 	}
+
+	public String getExpertLoction(Long expert_idx) {
+		return ss.selectOne("Expert.getLocation",expert_idx);
+	}
 	
 }

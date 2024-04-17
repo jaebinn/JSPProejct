@@ -5,7 +5,14 @@
 <mapper namespace="Expert">
 	<!-- 좋아요 순 상위 3명의 전문가 -->
 	<select id="topThree" resultType="expertdto">
-		select * from expert join user on expert.user_id = user.user_id order by totalCnt desc limit 3
+		select expert.*, user.name, expert_career_list.career_name,expert_file_indexes.original_name
+		from expert 
+		join user on expert.user_id = user.user_id
+        join expert_career_list on expert.expert_idx = expert_career_list.expert_idx
+		join expert_file_indexes on expert.expert_idx = expert_file_indexes.expert_idx
+		WHERE expert_career_list.career_name IS NOT NULL and expert_career_list.career_name != ""
+		order by expert.totalCnt desc 
+		limit 3;
 	</select>
 	<!-- 전체 전문가 수  -->
 	<select id="getExpertCnt" parameterType="long" resultType="long">
@@ -141,5 +148,15 @@
   		expert_file_indexes(system_name, original_name, is_license_identification, expert_idx)
   		values(#{system_name},#{original_name},#{is_license_identification},#{expert_idx})
   	</insert>
-	
+	<select id="totalScore" parameterType="long" resultType="long">
+	    SELECT SUM(star_score)
+	    FROM rating
+	    WHERE expert_idx = #{expert_idx}
+	</select>
+	<select id="getExpertCntByRatingUser" resultType="int" parameterType="long">
+		select count(*) from rating where expert_idx = #{expert_idx};
+	</select>
+	<select id="getLocation" parameterType="long" resultType="string">
+		select location from expert where expert_idx = #{expert_idx} 
+	</select>
 </mapper>

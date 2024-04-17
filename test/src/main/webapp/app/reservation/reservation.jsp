@@ -125,6 +125,45 @@
             </div>
 
         </div>
+        <footer id="footer">
+					<div class="inner">
+						<section>
+							<h3>EveryCare</h3>
+							<p>EveryCare는 사용자들의 개인 정보와 상담 내용을 철저히 보호하며, 안전한 결제 시스템을 통해 사용자들이 안심하고 서비스를 이용할 수 있도록 최선을 다하고 있습니다.</p>
+							<ul class="icons">
+								<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+								<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+								<li><a href="#" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+							</ul>
+						</section>
+						<section class="narrow">
+							<h4>EveryCare SNS</h4>
+							<ul class="links">
+								<li><a href="#">인스타그램</a></li>
+								<li><a href="#">페이스북</a></li>
+								<li><a href="#">유튜브</a></li>
+							</ul>
+						</section>
+						<section class="narrow">
+							<h4>EveryCare 오픈채팅</h4>
+							<ul class="links">
+								<li><a href="#">링크</a></li>
+								<li><a href="#">Vulputate tristique</a></li>
+								<li><a href="#">Ultrices nulla</a></li>
+								<li><a href="#">Cursus sed magna</a></li>
+								<li><a href="#">Sed lectus donec</a></li>
+							</ul>
+						</section>
+						<section>
+							<h3>고객센터</h3>
+							<p>EveryCare 고객센터는 여러분의 궁금증이나 문의사항에 친절하고 신속하게 대응해 드립니다. 저희 팀은 24시간 365일 연중무휴로 운영되며, 다음과 같은 서비스를 제공합니다.<p>
+							<p><a href="#" class="major">(000) 000-0000</a></p>
+						</section>
+					</div>
+					<div class="copyright">
+						<p>&copy; EveryCare. All rights reserved.</p>
+					</div>
+				</footer>
     </div>
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

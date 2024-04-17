@@ -23,13 +23,13 @@ textarea {
     text-align: center !important;
     vertical-align: middle !important;
 }
-#is_driveable_yes, #is_driveable_no {
+#is_drivable_yes, #is_drivable_no {
     width: 200px !important;
 }
-#is_driveable_yes {
+#is_drivable_yes {
     margin-right: 20px !important;
 }
-#is_driveable_no {
+#is_drivable_no {
     margin-left: 20px !important;
 }
 #info_box {
@@ -96,7 +96,7 @@ table tbody tr:nth-child(2n + 1) {
 #complete {
 	margin: 0px 0px 40px 0px;
 }
-#is_driveable_yes, #is_driveable_no, #addbutton, #careerAdd, #careerDelete,
+#is_drivable_yes, #is_drivable_no, #addbutton, #careerAdd, #careerDelete,
 #licenseAdd, #licenseDelete, #complete {
 	box-shadow: none;
 	border: 2px solid #1bcea5;
@@ -104,8 +104,8 @@ table tbody tr:nth-child(2n + 1) {
 h2 {
 	padding: 50px 0px 0px 0px;
 }
-#is_driveable_yes.selected,
-#is_driveable_no.selected {
+#is_drivable_yes.selected,
+#is_drivable_no.selected {
   background-color: #BAB8B6 !important;
 }
 

@@ -57,7 +57,7 @@
 										    </c:when>
 										    <c:otherwise>
 										        <c:choose>
-										            <c:when test="${empty sessionScope.expert_idx}">
+										            <c:when test="${empty expert_idx}">
 										                <li><a href="${cp}/app/expert/expertRegister.jsp"><input type="button" value="전문가등록" id="expert_btn"></a></li>
 										            </c:when>
 										            <c:otherwise>
@@ -175,7 +175,7 @@
 						</header>
 						<ul class="tabs">
 							<li>
-								<h3 id="best1"></h3>
+								<h3>Best1</h3>
 								<div class="spotlight">
 									<ul>
 										<li>
@@ -187,7 +187,7 @@
 											<p id="career_name1"></p>
 										</li>
 									</ul>
-									<span class="image"><img src="https://i.pinimg.com/564x/20/b8/9c/20b89cfdf5297a973ae2a9803ae0d4be.jpg" alt="" /></span>
+									<span class="image profileImg1"><img src="" alt="" style="width:350px; height:350px;"/></span>
 									<ul>
 										<li>
 											<h4>한 줄 소개</h4>
@@ -196,12 +196,13 @@
 										<li>
 											<h4>희망근무지역</h4>
 											<p id="location1"></p>
-										</li>
+										</li>									
 									</ul>
 								</div>
+								<p style="text-align:center; font-size:24px; font-weight:bold" class="best_name1"></p>
 							</li>
 							<li>
-								<h3 id="best2"></h3>
+								<h3 id="title2">Best2</h3>
 								<div class="spotlight">
 									<ul>
 										<li>
@@ -213,7 +214,7 @@
 											<p id="career_name2"></p>
 										</li>
 									</ul>
-									<span class="image"><img src="https://i.pinimg.com/564x/a6/0f/42/a60f42eafff6589cc35c95bd6f7cae3e.jpg" alt="" /></span>
+									<span class="image profileImg2"><img src="" alt="" style="width:350px; height:350px;"/></span>
 									<ul>
 										<li>
 											<h4>한 줄 소개</h4>
@@ -225,9 +226,10 @@
 										</li>
 									</ul>
 								</div>
+								<p style="text-align:center; font-size:24px; font-weight:bold" class="best_name2"></p>
 							</li>
 							<li>
-								<h3 id="best3"></h3>
+								<h3 id="title3">Best3</h3>
 								<div class="spotlight">
 									<ul>
 										<li>
@@ -239,7 +241,7 @@
 											<p id="career_name3"></p>
 										</li>
 									</ul>
-									<span class="image"><img src="https://i.pinimg.com/736x/1b/a0/b6/1ba0b69d92b079e303d4392b8e99fbeb.jpg" alt="" /></span>
+									<span class="image profileImg3"><img src="" alt="" style="width:350px; height:350px;"/></span>
 									<ul>
 										<li>
 											<h4>한 줄 소개</h4>
@@ -251,6 +253,7 @@
 										</li>
 									</ul>
 								</div>
+								<p style="text-align:center; font-size:24px; font-weight:bold" class="best_name3"></p>
 							</li>
 						</ul>
 					</section>
@@ -469,11 +472,7 @@
 								</div>        
 							</div>  
 						</div>
-					</div>
 			
-
-					  
-					
 				<!-- Footer -->
 					<footer id="footer">
 					<div class="inner">
@@ -576,7 +575,6 @@
 			now -= step;
 		}, 50);
 	}
-
 	window.onload = () => {
 	    // 각 카운터에 대한 요소 선택
 	    const $counter = document.querySelector(".count");
@@ -605,41 +603,31 @@
 	            setTimeout(() => counter($counter2, max2), 1000); // 총 이용 건수 카운트
 	        })
 	        .catch(error => console.error('Error fetching data:', error));
+	    $.ajax({
+		    url: '/getexpertinfo.ep',
+		    type: 'GET',
+		    dataType: 'json',
+		    success: function(responseData) {
+		    	let i=1;
+		        $.each(responseData, function(index, expertList) {
+		            $("#keyword_list" + i).text(expertList.keyword_list); // 분야
+		            $("#career_name" + i).text(expertList.career_name); // 경력
+		            $("#resume" + i).text(expertList.resume); // 한 줄 소개
+		            $("#location" + i).text(expertList.location); // 희망 근무지역
+		            $(".profileImg"+i+" > img").attr("src",cp+"/file/"+expertList.original_name);
+		            $(".best_name" + i).text(expertList.name); // 희망 근무지역
+		            i++;
+		        });
+		    },
+		    error: function() {
+		        console.error('Error:'); // 요청이 실패한 경우 에러 메시지 출력
+		    }
+		});
 	}
 
-	var xhr = new XMLHttpRequest();
-	xhr.open('GET', '/getexpertinfo.ep', true);
+	
 
-	xhr.onload = function() {
-	    if(xhr.readyState == 4){
-	        if(xhr.status == 200){
-	            var response = JSON.parse(xhr.responseText);
 
-	            document.getElementById("best1").textContent = response[0].name;
-	            document.getElementById("keyword_list1").textContent = response[0].keyword_list;
-	            document.getElementById("career_name1").textContent = response[0].career_name;
-	            document.getElementById("resume1").textContent = response[0].resume;
-	            document.getElementById("location1").textContent = response[0].location;
-
-	            document.getElementById("best2").textContent = response[1].name;
-	            document.getElementById("keyword_list2").textContent = response[1].keyword_list;
-	            document.getElementById("career_name2").textContent = response[1].career_name;
-	            document.getElementById("resume2").textContent = response[1].resume;
-	            document.getElementById("location2").textContent = response[1].location;
-
-	            document.getElementById("best3").textContent = response[2].name;
-	            document.getElementById("keyword_list3").textContent = response[2].keyword_list;
-	            document.getElementById("career_name3").textContent = response[2].career_name;
-	            document.getElementById("resume3").textContent = response[2].resume;
-	            document.getElementById("location3").textContent = response[2].location;
-
-	        } else {
-	            console.error(xhr.statusText); // 요청이 실패한 경우 에러 메시지 출력
-	        }
-	    }
-	};
-
-	xhr.send();
 
 </script>
 
