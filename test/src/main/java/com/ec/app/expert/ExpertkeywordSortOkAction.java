@@ -1,5 +1,6 @@
 package com.ec.app.expert;
 
+import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,10 +14,21 @@ public class ExpertkeywordSortOkAction implements Action {
     public Transfer execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         String pageParam = req.getParameter("page");
         int page = (pageParam != null && !pageParam.isEmpty()) ? Integer.parseInt(pageParam) : 1;
-
+        String selectedKeywords = req.getParameter("selectedKeywords");
         ExpertDAO edao = new ExpertDAO();
 
-        long totalCnt = edao.getExpertCnt();
+        Transfer transfer = new Transfer();
+
+        if (selectedKeywords == null || selectedKeywords.isEmpty()) {
+            // selectedKeywords가 null이거나 비어있을 때의 처리
+            transfer.setPath("/expertsort.ep?psort=1");
+            transfer.setRedirect(false);
+            return transfer;
+        }
+
+        
+        long totalCnt = edao.getExpertKeywordCnt(selectedKeywords);
+        System.err.println(totalCnt);
         int pageSize = 4;
         int pageCnt = 10;
         int startPage = (page - 1) / pageCnt * pageCnt + 1;
@@ -26,34 +38,30 @@ public class ExpertkeywordSortOkAction implements Action {
         endPage = endPage > totalPage ? totalPage : endPage;
 
         int startRow = (page - 1) * pageSize;
-
-        String selectedKeywords = req.getParameter("selectedKeywords");
+        
         System.out.println(selectedKeywords);
-        if (selectedKeywords != null && !selectedKeywords.isEmpty()) {
-            List<ExpertDTO> list = edao.getExpertSortByKeyword(startRow, pageSize, selectedKeywords);
+        
+        List<ExpertDTO> list = edao.getExpertSortByKeyword(startRow, pageSize, selectedKeywords);
 
-            System.out.println(list);
-            Transfer transfer = new Transfer();
-            if (list != null && !list.isEmpty()) {
-                req.setAttribute("list", list); 
-                req.setAttribute("totalCnt", totalCnt); // 전체 전문가 수 전달
-	       		req.setAttribute("totalPage", totalPage); // 전체 페이지 수 전달
-	       		req.setAttribute("startPage", startPage); // 시작 페이지 번호 전달
-	       		req.setAttribute("endPage", endPage); // 끝 페이지 번호 전달
-	       		req.setAttribute("page", page); // 현재 페이지 번호 전달
-	       		req.setAttribute("selectedKeywords", selectedKeywords);
-                transfer.setPath("/app/expert/expertList.jsp");
-            } else {
-                transfer.setPath("/app/expert/expertList.jsp");
-            }
-            transfer.setRedirect(false);
+        System.out.println(list);
 
-            return transfer;
+        if (list != null && !list.isEmpty()) {
+            req.setAttribute("list", list); 
+            req.setAttribute("totalCnt", totalCnt); // 전체 전문가 수 전달
+	       	req.setAttribute("totalPage", totalPage); // 전체 페이지 수 전달
+	       	req.setAttribute("startPage", startPage); // 시작 페이지 번호 전달
+	       	req.setAttribute("endPage", endPage); // 끝 페이지 번호 전달
+	       	req.setAttribute("page", page); // 현재 페이지 번호 전달
+	       	req.setAttribute("keyword", selectedKeywords);
+            transfer.setPath("/app/expert/expertSortList.jsp?page="+page+"&keyword="+selectedKeywords);
         } else {
-            Transfer transfer = new Transfer();
-            transfer.setPath("/app/expert/expertList.jsp");
-            transfer.setRedirect(false);
-            return transfer;
+            // 전문가가 없을 때의 처리
+//            out.print("<script>");
+//            out.print("alert('해당하는전문가가 없습니다.')");
+//            out.print("</script>");
+            transfer.setPath("/expertsort.ep?psort=1");
         }
+        transfer.setRedirect(false);
+        return transfer;
     }
 }

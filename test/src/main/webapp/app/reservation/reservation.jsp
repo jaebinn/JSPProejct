@@ -32,7 +32,7 @@
             <div class="confirm_item_top">
                 <h3 class="confirm_title">
                     <i class="fa-regular fa-clock"></i>
-                    <span class="title_text" data-tst_booking_state="0">예약완료</span>
+                    <span class="title_text" data-tst_booking_state="0">예약중</span>
                 </h3>
                 <div class="confirm_top_content">
                     <p class="reservation_number" id="reservation_id"><span data-tst_rserv_no="0">${reservation.reservation_id}</span></p>
@@ -42,18 +42,24 @@
                             <li class="info_item">
                                 <div class="item_tit"><b>&lt;일정&gt;</b></div>
                                 <div class="item_desc">
-                                    <span class="booked_date" data-tst_booking_date="0" id="reservation_time">2023. 12. 23(토) 오후 2:00</span>
+                                    <div class="booked_date" data-tst_booking_date="0" id="reservation_time">
+										날짜: <input type="date" id="start_date" style="margin-right:20px">
+										시작시간: <input type="time" id="available_time start_time"/>					
+										종료시간: <input type="time" id="available_time end_time"/>											
+									</div>
                                 </div>
                             </li>
                             <li class="info_item">
                                 <div class="item_tit">
                                     <span><b>&lt;분야&gt;</b></span>
                                 </div>
-                                <div class="item_desc" id="keyword_list">가사도우미</div>
+                                <div class="item_desc" id="keyword_list">${expert.keyword_list}</div>
                             </li>
                             <li class="info_item">
                                 <div class="item_tit"><b>&lt;요청&gt;</b></div>
-                                <div class="item_desc" id="reservation_detail">집안일 깨끗이 부탁드립니다!</div>
+                                <div class="item_desc" id="reservation_detail">
+                                	<textarea style="resize:none;" cols=82></textarea>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -67,7 +73,7 @@
                                 <div class="item_desc">
                                     <i class="ico_arr"></i>
                                     <div class="box_info"><span>예약이 확정되었습니다 !<br>
-                                        </span><span>혹시라도 변동사항이 있을 경우, 꼭 미리 연락 부탁드려요~ 감사합니다 :)</span>
+                                        </span><span>예약정보를 꼼꼼히 기입해주세요 감사합니다 :)</span>
                                     </div>
                                 </div>
                             </li>
@@ -125,45 +131,7 @@
             </div>
 
         </div>
-        <footer id="footer">
-					<div class="inner">
-						<section>
-							<h3>EveryCare</h3>
-							<p>EveryCare는 사용자들의 개인 정보와 상담 내용을 철저히 보호하며, 안전한 결제 시스템을 통해 사용자들이 안심하고 서비스를 이용할 수 있도록 최선을 다하고 있습니다.</p>
-							<ul class="icons">
-								<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-								<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-								<li><a href="#" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-							</ul>
-						</section>
-						<section class="narrow">
-							<h4>EveryCare SNS</h4>
-							<ul class="links">
-								<li><a href="#">인스타그램</a></li>
-								<li><a href="#">페이스북</a></li>
-								<li><a href="#">유튜브</a></li>
-							</ul>
-						</section>
-						<section class="narrow">
-							<h4>EveryCare 오픈채팅</h4>
-							<ul class="links">
-								<li><a href="#">링크</a></li>
-								<li><a href="#">Vulputate tristique</a></li>
-								<li><a href="#">Ultrices nulla</a></li>
-								<li><a href="#">Cursus sed magna</a></li>
-								<li><a href="#">Sed lectus donec</a></li>
-							</ul>
-						</section>
-						<section>
-							<h3>고객센터</h3>
-							<p>EveryCare 고객센터는 여러분의 궁금증이나 문의사항에 친절하고 신속하게 대응해 드립니다. 저희 팀은 24시간 365일 연중무휴로 운영되며, 다음과 같은 서비스를 제공합니다.<p>
-							<p><a href="#" class="major">(000) 000-0000</a></p>
-						</section>
-					</div>
-					<div class="copyright">
-						<p>&copy; EveryCare. All rights reserved.</p>
-					</div>
-				</footer>
+        
     </div>
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -214,25 +182,78 @@
                 });
             });
         });
+		//결제 API 
+        const IMP = window.IMP;
+        IMP.init("imp16375222");
 
-	const IMP = window.IMP;
-	IMP.init("imp16375222");
-	const button = document.querySelector(".common_bottom_btn");
-	const onClickPay = async () => {
-    IMP.request_pay({
-        pg: "kakaopay",
-        pay_method: "card",
-        name: "가사도우미",
-        amount: "1원",
-        merchant_uid: "ORD20231030-000001",
-        /* buyer_email: "apple@naver.com",
-        buyer_name: "구매자이름",
-        buyer_tel: "010-1234-5678",
-        buyer_addr: "서울특별시 강남구 역삼동",
-        buyer_postcode: "123-456", */
-    });
-};
-	button.addEventListener("click", onClickPay);
+        const button = document.querySelector(".common_bottom_btn");
+        const onClickPay = async () => {
+            IMP.request_pay({
+                    pg: "kakaopay",
+                    pay_method: "card",
+                    name: "가사도우미",
+                    amount: "1원",
+                    merchant_uid: "ORD20231030-000003", //상품번호(예약번호로 받을 것)
+                    buyer_email : "apple@naver.com",
+                    buyer_name : "김사과",
+                    buyer_tel : "010-1111-1111",
+                    buyer_addr : "경기도 수원시",
+                },function(res) {
+
+                    // 결제검증
+                    $.ajax({
+                        type : "POST",
+                        url : "/verifyIamport/" + res.imp_uid
+                    }).done(function(data) {
+
+                        if(res.paid_amount == data.response.amount){
+                            alert("결제 및 결제검증완료");
+
+                            //결제 성공 시 비즈니스 로직
+
+                        } else {
+                            alert("결제 실패");
+                        }
+            
+                    });
+            });
+        };
+
+        button.addEventListener("click", onClickPay);
+
+	//지도 API
+	$(document).ready(function(){
+		let location = "${expert.location}";
+       	console.log(location);
+        var mapContainer = document.getElementById('map'), 
+        mapOption = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667),
+            level: 3 // 지도의 확대 레벨
+        };  
+	    var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+	    var geocoder = new kakao.maps.services.Geocoder();
+
+	    geocoder.addressSearch(location, function(result, status) {
+
+	         if (status === kakao.maps.services.Status.OK) {
+
+	            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+	            var marker = new kakao.maps.Marker({
+	                map: map,
+	                position: coords
+	            });
+
+	            var infowindow = new kakao.maps.InfoWindow({
+	                content: '<div style="width:150px;text-align:center;padding:6px 0;">가능지역</div>'
+	            });
+	            infowindow.open(map, marker);
+
+	            map.setCenter(coords);
+	        } 
+	    });    
+	});
 </script>
 </body>
 </html>

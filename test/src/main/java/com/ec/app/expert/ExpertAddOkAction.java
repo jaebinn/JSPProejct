@@ -1,11 +1,8 @@
 package com.ec.app.expert;
 
 import java.io.File;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +19,7 @@ import com.ec.action.Transfer;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-public class ExpertAddOkAction implements com.ec.action.Action{
+public class ExpertAddOkAction implements Action{
 
 	@Override
 	public Transfer execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
@@ -63,9 +60,14 @@ public class ExpertAddOkAction implements com.ec.action.Action{
 		}
 	
 		expertdto.setLocation(multi.getParameter("location_value")); // 근무가능지역 파라미터 수집
-		expertdto.setKeyword_list(multi.getParameter("keywordH")); // 키워드 파라미터 수집
-		expertdto.setAvailable_time(multi.getParameter("available_time_value")); // 근무가능시간 파라미터 수집
+		expertdto.setKeyword_list(multi.getParameter("keyWordList")); // 키워드 파라미터 수집
 		
+		
+		String starttime = multi.getParameter("available_time_value1");
+		String endtime = multi.getParameter("available_time_value2");
+		String available_time = starttime + " ~ " + endtime;
+		System.out.println("근무가능 시간 : "+available_time);
+		expertdto.setAvailable_time(available_time); // 근무 가능한 시간 파라미터 수집	
 		
 		String cost_value = multi.getParameter("cost_value"); // 희망급여 파라미터 수집
 		if(cost_value != null && !cost_value.isEmpty()) {
@@ -178,7 +180,6 @@ public class ExpertAddOkAction implements com.ec.action.Action{
 				
 				expertfiledto.setSystem_name(fileName);
 				expertfiledto.setOriginal_name(multi.getParameter("orgFileName"));
-				expertfiledto.setIs_license_identification(false);
 				expertfiledto.setExpert_idx(expert_idx);
 				
 				edao.insertExpert_file_indexes(expertfiledto);

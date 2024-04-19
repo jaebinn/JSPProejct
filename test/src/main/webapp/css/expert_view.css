@@ -5,6 +5,15 @@
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
+#header.alt > .logo {
+	top: 0 !important;
+	left: 2rem;
+}
+
+#header.alt > nav {
+	top: 0 !important;
+	right: 1rem;
+}
 button{
     color: #fff !important;
 }
@@ -12,7 +21,7 @@ button{
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 500px;
+    max-width: 600px;
     width: 100%;
     background-color: #fff;
     border-radius: 24px;

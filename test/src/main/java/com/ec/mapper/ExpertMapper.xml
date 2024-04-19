@@ -18,6 +18,40 @@
 	<select id="getExpertCnt" parameterType="long" resultType="long">
 		select count(*) from expert 
 	</select>
+	<!-- 검색된 전문가  -->
+	<select id="getSearchKeywordCnt" parameterType="string" resultType="long">
+		SELECT COUNT(*)
+    FROM expert
+    WHERE 
+        (
+            keyword_list LIKE CONCAT('%', '${keyword}', '%') 
+            OR 
+            cost LIKE CONCAT('%', '${keyword}', '%')
+            OR
+            location LIKE CONCAT('%', '${keyword}', '%')
+            OR 
+            available_time LIKE CONCAT('%', '${keyword}', '%')
+        )
+        OR 
+        EXISTS (
+            SELECT 1 
+            FROM user 
+            WHERE user.user_id = expert.user_id 
+            AND name LIKE CONCAT('%', '${keyword}', '%')
+        )
+        OR 
+        EXISTS (
+            SELECT 1 
+            FROM expert_career_list 
+            WHERE expert.expert_idx = expert_career_list.expert_idx 
+            AND career_name LIKE CONCAT('%', '${keyword}', '%')
+        );
+	</select>
+	<select id="getExpertKeywordCnt" parameterType="string" resultType="long">
+		select count(*) 
+		from expert
+		where keyword_list like CONCAT('%', '${keyword}', '%')
+	</select>
 	<!-- 전문가 정렬 -->
 	<select id="getList" parameterType="hashmap" resultType="expertdto">
 		SELECT DISTINCT expert.*, user.name, user.age, expert_career_list.career_name, expert_file_indexes.original_name
@@ -26,6 +60,17 @@
 		JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx JOIN expert_file_indexes ON expert.expert_idx = expert_file_indexes.expert_idx
 		WHERE expert_career_list.career_name IS NOT NULL and expert_career_list.career_name != ""
 		ORDER BY expert_idx limit #{startRow}, #{pageSize};
+	</select>
+	<!-- 등록순 정 -->
+	<select id="getExpertSortByRegister" parameterType="hashmap" resultType="expertdto">
+		SELECT DISTINCT expert.*, user.name, user.age, expert_career_list.career_name, expert_file_indexes.original_name
+		FROM expert
+		JOIN user ON expert.user_id = user.user_id
+		JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
+		JOIN expert_file_indexes ON expert.expert_idx = expert_file_indexes.expert_idx
+		WHERE expert_career_list.career_name IS NOT NULL AND expert_career_list.career_name != ""
+		ORDER BY expert_idx DESC
+        LIMIT #{startRow}, #{pageSize}
 	</select>
 	<!-- 좋아요순 정렬 -->
 	<select id="getExpertSortByLike" parameterType="hashmap" resultType="expertdto">
@@ -121,27 +166,21 @@
 	</select>
 	<select id="getExpertSearchKeyword" resultType="expertdto" parameterType="hashmap">
 	    SELECT DISTINCT expert.*, user.name, user.age, expert_career_list.career_name, expert_file_indexes.original_name
-		FROM expert
-		JOIN user ON expert.user_id = user.user_id
-		JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
-		JOIN expert_file_indexes ON expert.expert_idx = expert_file_indexes.expert_idx
-		WHERE 
-			expert_career_list.career_name IS NOT NULL and expert_career_list.career_name != "" 
-		    and
-		    (
-				expert.keyword_list LIKE CONCAT('%', #{keyword}, '%')
-				OR 
-				expert.cost LIKE CONCAT('%', #{keyword}, '%')
-				OR
-				expert.location LIKE CONCAT('%', #{keyword}, '%')
-				OR 
-				expert.available_time LIKE CONCAT('%', #{keyword}, '%')
-				OR 
-				user.name LIKE CONCAT('%', #{keyword}, '%')
-				OR 
-				expert_career_list.career_name LIKE CONCAT('%', #{keyword}, '%')
-			)
-		    limit #{startRow}, #{pageSize};
+    FROM expert
+    JOIN user ON expert.user_id = user.user_id
+    JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
+    JOIN expert_file_indexes ON expert.expert_idx = expert_file_indexes.expert_idx
+    WHERE 
+        expert_career_list.career_name IS NOT NULL AND expert_career_list.career_name != "" 
+        AND (
+            expert.keyword_list LIKE CONCAT('%', #{keyword}, '%')
+            OR expert.cost LIKE CONCAT('%', #{keyword}, '%')
+            OR expert.location LIKE CONCAT('%', #{keyword}, '%')
+            OR expert.available_time LIKE CONCAT('%', #{keyword}, '%')
+            OR user.name LIKE CONCAT('%', #{keyword}, '%')
+            OR expert_career_list.career_name LIKE CONCAT('%', #{keyword}, '%')
+        )
+    LIMIT #{startRow}, #{pageSize};
 	</select>
 	<insert id="insertExpert_file_indexes" parameterType="expertfiledto">
   		insert into
@@ -159,4 +198,16 @@
 	<select id="getLocation" parameterType="long" resultType="string">
 		select location from expert where expert_idx = #{expert_idx} 
 	</select>
+	<select id="getUser_nameByExpert_idx" parameterType="long" resultType="string">
+      SELECT user.name
+         FROM expert
+         JOIN user ON expert.user_id = user.user_id
+         where expert_idx = #{expert_idx}
+   </select>
+     <select id="getExpertIdxByName" resultType="long" parameterType="string">
+      select * from expert 
+      join user on expert.user_id= user.user_id
+      where user.name = #{expert_name};
+   </select>
+   
 </mapper>

@@ -30,14 +30,24 @@ public class ExpertDAO {
 	public long getExpertCnt() {
 		return ss.selectOne("Expert.getExpertCnt");
 	}
-	
+	public long getExpertKeywordCnt(String selectedKeywords) {
+		return ss.selectOne("Expert.getExpertKeywordCnt", selectedKeywords);
+	}
+	public long getSearchKeywordCnt(String keyword) {
+		return ss.selectOne("Expert.getSearchKeywordCnt",keyword);
+	}
 	public List<ExpertDTO> getList(int startRow, int pageSize) {
 		HashMap<String, Integer> datas = new HashMap<String, Integer>();
 		datas.put("startRow", startRow);
 		datas.put("pageSize", pageSize);
 		return ss.selectList("Expert.getList",datas);
 	}
-
+	public List<ExpertDTO> getExpertSortByRegister(int startRow, int pageSize) {
+		HashMap<String, Integer> datas = new HashMap<String, Integer>();
+		datas.put("startRow", startRow);
+		datas.put("pageSize", pageSize);
+		return ss.selectList("Expert.getExpertSortByRegister",datas);
+	}
 	public List<ExpertDTO> getExpertSortByLike(int startRow, int pageSize) {
 		HashMap<String, Integer> datas = new HashMap<String, Integer>();
 		datas.put("startRow", startRow);
@@ -128,5 +138,14 @@ public class ExpertDAO {
 	public String getExpertLoction(Long expert_idx) {
 		return ss.selectOne("Expert.getLocation",expert_idx);
 	}
+	public String getUser_nameByExpert_idx(long expert_idx) {
+	      return ss.selectOne("Expert.getUser_nameByExpert_idx", expert_idx);
+	   }
+	public long getExpertIdxByName(String expert_name) {
+		return ss.selectOne("Expert.getExpertIdxByName", expert_name);
+	}
+
 	
+
+
 }

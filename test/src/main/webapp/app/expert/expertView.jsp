@@ -12,17 +12,15 @@
 		<link rel="stylesheet" href="${cp}/css/main.css" />
 		<link rel="stylesheet" href="${cp}/css/expert_view.css" />
 		<link rel="stylesheet" href="${cp}/css/expert_list.css" />
+		<link rel="stylesheet" href="${cp}/css/chat.css" />
 		
 	</head>
 	<body class="is-preload">
 
 		<!-- Wrapper -->
 			<div id="wrapper">
-				<%
-    				String expert_idx = request.getParameter("expert_idx"); 
-				%>
 				<!-- Header -->
-					<header id="header">
+					<header id="header" class="alt">
 
 						<!-- Logo -->
 							<div class="logo">
@@ -31,32 +29,43 @@
 
 						<!-- Nav -->
 							<nav id="nav">
-								<ul>
+								<ul style="display:flex">
 									<li class="current"><a href="${cp}/index.jsp">Home</a></li>
 									<li><a href="${cp}/expertlist.ep">전문가매칭</a></li>
 									<li>									
 										<a href="${cp}/u_boardlist.ub" class="icon solid fa-angle-down" style="pointer-events: none;">게시판</a>
-										<ul>
+										<ul class="drop_menu">
 											<li><a href="${cp}/u_boardlist.ub">전문가 찾기</a></li>
 											<li><a href="${cp}/faqlist.fa">FAQ게시판</a></li>
-											<li><a href="${cp}">리뷰게시판</a></li>
+											<li><a href="${cp}/reviewlist.rf">리뷰게시판</a></li>
 										</ul>
 									</li>
-									<li>
+									<li class="mypage">
 										<a href="${cp}/" class="icon solid fa-angle-down" style="pointer-events: none;">마이페이지</a>
-										<ul>
-											<li><a href="${cp}/">유저 정보</a></li>
-											<li><a href="${cp}/">전문가 정보</a></li>
+										<ul class="drop_menu">
+											<li class="mypage"><a href="${cp}/">유저 정보</a></li>
+											<c:if test="${not empty expertSession}">
+												<li class="expertpage"><a href="${cp}/">전문가 정보</a></li>
+											</c:if>
 										</ul>
-									</li>									
-									<c:if test="${empty sessionScope.loginUser}">
-									    <!-- 세션이 없을 때 (로그인되지 않은 상태) -->
-									    <li><a href="${cp}/app/user/user-login.jsp"><input type="button" value="로그인" id="login_btn"></a></li>
-									</c:if>
+										</li>									
 									<c:if test="${not empty sessionScope.loginUser}">
-									    <!-- 세션이 있을 때 (로그인된 상태) -->
-									    <li><a href="${cp}/expertok.ep"><input type="button" value="전문가등록" id="expert_btn"></a></li>
+									    <!-- 세션이 있을 때 (로그인된 상태) -->    
+									    <c:choose>
+									        <c:when test="${not empty expertSession}">
+									            <!-- 전문가 세션이 있을 때 -->
+									            <li><a href="${cp}/app/expert/expertChatList.jsp"><input type="button" value="전문가채팅" id="expert_chat"></a></li>						            
+									        </c:when>
+									        <c:otherwise>
+									            <!-- 전문가 세션이 없을 때 -->
+									            <li><a href="${cp}/app/expert/expertRegister.jsp"><input type="button" value="전문가등록" id="expert_btn"></a></li>
+									        </c:otherwise>
+									    </c:choose>
 									    <li><a href="${cp}/app/user/user-logout.jsp"><input type="button" value="로그아웃" id="logout_btn"></a></li>
+									    <li><p id="login_user" style="font-weight:bold">${sessionScope.loginUser}님</p></li>
+									</c:if>
+									<c:if test="${empty sessionScope.loginUser}"> 
+										<li><a href="${cp}/app/user/user-login.jsp"><input type="button" value="로그인" id="login_btn"></a></li>
 									</c:if>
 								</ul>
 							</nav>
@@ -79,7 +88,7 @@
 								<th>가능지역:</th>
 								<td>${expert.location}</td>
 							</tr>
-							<tr>
+							<tr style="vertical-align:middle; text-align:center;">
 								<th>지도</th>
 								<td><div id="map" style="width:300px; height:300px"></div></td>
 							</tr>
@@ -134,10 +143,10 @@
 					
 					<div class="btns">
 						<div class="chat_btn">
-							<button class="chating">1:1 채팅하기</button>
+							<a href="" class="chating" style="padding:10px 20px;">1:1 채팅하기</a>
 						</div>
 						<div class="review_btn">
-							<button class="review_write">리뷰쓰기</button>
+							<a href="${cp}/app/review/review_write.jsp?expert_idx=${expert.expert_idx}&expert_name=${expert.name}" class="review_write" style="padding:10px 20px;">리뷰쓰기</a>
 						</div>					
 					</div>
 					<c:if test="${not empty sessionScope.loginUser}">
@@ -159,9 +168,97 @@
 					            <span>${expert.totalCnt}</span>                    
 					        </div>              
 					    </div>
-
-
 				</section>
+				<div class="chat-container">
+				<c:if test="${!empty loginUser}">
+	                  <button id="chat-circle" class="icon solid fa-regular fa-comments major"><span class="note-num">0</span></button>
+	            </c:if>
+	                </div>
+	                <div id="chatbox" style="display: none;" >
+	                  <div id="friendslist">
+	                     <div id="topmenu">
+	                       <span class="friends"></span>
+	                     </div>
+	                        
+	                       <div id="friends">
+	                        <div class="friend">
+	                           <img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
+	                              <p>
+	                              <strong>임은정</strong>
+	                              </p>
+	                              <div class="status active">3</div>
+	                           </div>      
+	                              <div id="search">
+	                                 <input type="text" id="searchfield" value="Search" />
+	                              </div>         
+	                           </div>                
+	                        </div>  
+	                        
+	                        <div id="chatview" class="p1">      
+	                           <div id="profile">
+	                              <div id="close">
+	                                 <div class="cy"></div>
+	                                 <div class="cx"></div>
+	                              </div>
+	                              <p>임은정</p>
+	                           </div>
+	                           <div id="chat-messages">
+	                           <label>Thursday 02</label>
+	                              
+	                              <div class="message">
+	                                 <img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
+	                                 <div class="bubble">
+	                                 안녕하세요
+	                                    <div class="corner"></div>
+	                                    <span>3 min</span>
+	                                 </div>
+	                              </div>
+	                              
+	                              <div class="message right">
+	                                 <img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
+	                                 <div class="bubble">
+	                                    안녕하세요
+	                                    <div class="corner"></div>
+	                                    <span>1 min</span>
+	                                 </div>
+	                              </div>
+	                              
+	                              <div class="message">
+	                                 <img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
+	                                 <div class="bubble">
+	                                    안녕하세요
+	                                    <div class="corner"></div>
+	                                    <span>Now</span>
+	                                 </div>
+	                              </div>
+	                              
+	                              <div class="message right">
+	                                 <img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
+	                                 <div class="bubble">
+	                                    안녕하세요
+	                                    <div class="corner"></div>
+	                                    <span>1 min</span>
+	                                 </div>
+	                              </div>
+	                              
+	                              <div class="message">
+	                                 <img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
+	                                 <div class="bubble">
+	                                    안녕하세요
+	                                    <div class="corner"></div>
+	                                    <span>Now</span>
+	                                 </div>
+	                              </div>
+	                              
+	                           </div>
+	                        
+	                           <div id="sendmessage">
+	                           <input type="text" value="Send message..." />
+	                              <button id="send"></button>
+	                           </div>
+	                        </div>        
+	                     </div>  
+	                  </div>
 				
 				<!-- Footer -->
 				<footer id="footer">
@@ -218,6 +315,7 @@
 			<script src="${cp}/js/breakpoints.min.js"></script>
 			<script src="${cp}/js/util.js"></script>
 			<script src="${cp}/js/main.js"></script>
+			<script src="${cp}/js/chat.js"></script>
 			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=23697895f1f73fcadc63e0aa3f1d0bf9&libraries=services"></script>
 			<script>
 			
@@ -267,7 +365,6 @@
 		            center: new kakao.maps.LatLng(33.450701, 126.570667),
 		            level: 3 // 지도의 확대 레벨
 		        };  
-
 			    var map = new kakao.maps.Map(mapContainer, mapOption); 
 	
 			    var geocoder = new kakao.maps.services.Geocoder();
@@ -292,6 +389,8 @@
 			        } 
 			    });    
 		 });
+			
+			
 
 		</script>
 	</body>

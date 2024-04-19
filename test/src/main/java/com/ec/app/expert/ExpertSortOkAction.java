@@ -47,12 +47,15 @@ public class ExpertSortOkAction implements Action{
 	   	
 		List<ExpertDTO> list = null;
 		if(psort == 1) {
-			list = edao.getExpertSortByLike(startRow, pageSize);
+			list = edao.getExpertSortByRegister(startRow, pageSize);
 		}
 		else if(psort == 2) {
-			list = edao.getExpertSortByLowCost(startRow, pageSize);
+			list = edao.getExpertSortByLike(startRow, pageSize);
 		}
 		else if(psort == 3) {
+			list = edao.getExpertSortByLowCost(startRow, pageSize);
+		}
+		else if(psort == 4) {
 			list = edao.getExpertSortByHighCost(startRow, pageSize);
 		}
 		System.out.println(list);
@@ -60,8 +63,6 @@ public class ExpertSortOkAction implements Action{
 		session.setAttribute("psort", psort);
 		
 		 
-		 
-
 		 Transfer transfer = new Transfer();
 		 req.setAttribute("list", list); // 전문가 목록 데이터를 전달
 		 req.setAttribute("totalCnt", totalCnt); // 전체 전문가 수 전달
@@ -72,7 +73,9 @@ public class ExpertSortOkAction implements Action{
 		 req.setAttribute("psort", psort);
 	
 		 transfer.setRedirect(false);
-		 transfer.setPath("/app/expert/expertList.jsp");
+		 String queryString = String.format("?page=%d&psort=%d",page,psort);	
+			
+		 transfer.setPath("/app/expert/expertList.jsp"+queryString);
 		 return transfer;
 	}
 }

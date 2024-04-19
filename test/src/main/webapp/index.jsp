@@ -13,6 +13,7 @@
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 	<script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="${cp}/css/main.css" />
+<link rel="stylesheet" href="${cp}/css/chat.css" />
 </head>
 	<body class="is-preload">
 		<!-- Wrapper -->
@@ -29,48 +30,43 @@
 							<nav id="nav">
 								<ul style="display:flex">
 									<li class="current"><a href="${cp}/index.jsp">Home</a></li>
-									<li><a href="${cp}/expertlist.ep">전문가매칭</a></li>
+									<li><a href="${cp}/expertsort.ep?psort=1">전문가매칭</a></li>
 									<li>									
 										<a href="${cp}/u_boardlist.ub" class="icon solid fa-angle-down" style="pointer-events: none;">게시판</a>
-										<ul>
+										<ul class="drop_menu">
 											<li><a href="${cp}/u_boardlist.ub">전문가 찾기</a></li>
 											<li><a href="${cp}/faqlist.fa">FAQ게시판</a></li>
-											<li><a href="${cp}">리뷰게시판</a></li>
+											<li><a href="${cp}/reviewlist.rf">리뷰게시판</a></li>
 										</ul>
 									</li>
 									<li class="mypage">
 										<a href="${cp}/" class="icon solid fa-angle-down" style="pointer-events: none;">마이페이지</a>
-										<ul>
+										<ul class="drop_menu">
 											<li class="mypage"><a href="${cp}/">유저 정보</a></li>
-											<li class="expertpage"><a href="${cp}/">전문가 정보</a></li>
+											<c:if test="${not empty expertSession}">
+												<li class="expertpage"><a href="${cp}/">전문가 정보</a></li>
+											</c:if>
 										</ul>
-									</li>									
-									<c:if test="${empty sessionScope.loginUser}">
-									    <!-- 세션이 없을 때 (로그인되지 않은 상태) -->
-									    <li><a href="${cp}/app/user/user-login.jsp"><input type="button" value="로그인" id="login_btn"></a></li>
-									</c:if>
+										</li>									
 									<c:if test="${not empty sessionScope.loginUser}">
-									    <!-- 세션이 있을 때 (로그인된 상태) -->
-										<c:choose>
-										    <c:when test="${!empty sessionScope.loginUser}">
-										        <li><a href="${cp}/app/expert/expertRegister.jsp"><input type="button" value="전문가등록" id="expert_btn"></a></li>
-										    </c:when>
-										    <c:otherwise>
-										        <c:choose>
-										            <c:when test="${empty expert_idx}">
-										                <li><a href="${cp}/app/expert/expertRegister.jsp"><input type="button" value="전문가등록" id="expert_btn"></a></li>
-										            </c:when>
-										            <c:otherwise>
-										                <li><a href="${cp}/app/expert/expertChatList.jsp"><input type="button" value="전문가채팅" id="expert_chat"></a></li>
-										                <span class="note-num">3</span>
-										            </c:otherwise>
-										        </c:choose>
-										    </c:otherwise>
-										</c:choose>
+									    <!-- 세션이 있을 때 (로그인된 상태) -->    
+									    <c:choose>
+									        <c:when test="${not empty expertSession}">
+									            <!-- 전문가 세션이 있을 때 -->
+									            <li><a href="${cp}/app/expert/expertChatList.jsp"><input type="button" value="전문가채팅" id="expert_chat"></a></li>	
+									             <!-- <span class="note-num"></span>	 -->				            
+									        </c:when>
+									        <c:otherwise>
+									            <!-- 전문가 세션이 없을 때 -->
+									            <li><a href="${cp}/app/expert/expertRegister.jsp"><input type="button" value="전문가등록" id="expert_btn"></a></li>
+									        </c:otherwise>
+									    </c:choose>
 									    <li><a href="${cp}/app/user/user-logout.jsp"><input type="button" value="로그아웃" id="logout_btn"></a></li>
 									    <li><p id="login_user" style="font-weight:bold">${sessionScope.loginUser}님</p></li>
-									   
-									</c:if>								
+									</c:if>
+									<c:if test="${empty sessionScope.loginUser}"> 
+										<li><a href="${cp}/app/user/user-login.jsp"><input type="button" value="로그인" id="login_btn"></a></li>
+									</c:if>
 								</ul>
 							</nav>
 					</header>
@@ -80,8 +76,8 @@
 						<div class="content primary">
 							<header>
 								<h2>당신의 가족이니까 <br />
-								믿고 맡길 수 있게,</h1>
-								<p>애브리케어가 여러분의 소중한 여정을 함께 합니다.</p>
+								믿고 맡길 수 있게,</h2>
+								<p>에브리케어가 여러분의 소중한 여정을 함께 합니다.</p>
 							</header>
 							<div class='typing'><h1 class="text"></h1></div>
 							<ul class="actions special">							
@@ -116,12 +112,12 @@
 								<div class="review-box">
 									<div class="review-contents">
 										<div class="review1">
-											<h5>자녀보단 애브리케어를 불러 달라세요</h5>
+											<h5>자녀보단 에브리케어를 불러 달라세요</h5>
 											<p>직장과 먼 거리 때문에 방문하기가 힘든데 잘 도와주셔서 감사해요</p>
 											<p>❤❤❤❤❤</p>
 										</div>
 										<div class="review2">
-											<h5>자녀보단 애브리케어를 불러 달라세요</h5>
+											<h5>자녀보단 에브리케어를 불러 달라세요</h5>
 											<p>일년에 한번씩 내시경할때 항상 서비스 이용하고 있는데
 
 												너무 좋고 감사한 서비스 입니다.
@@ -130,19 +126,19 @@
 											<p>❤❤❤❤</p>
 										</div>
 										<div class="review3">
-											<h5>자녀보단 애브리케어를 불러 달라세요</h5>
+											<h5>자녀보단 에브리케어를 불러 달라세요</h5>
 											<p>병원동행서비스를 처음 받았는데요 친절하시고 환자가 안심할 수 있도록 잘해주시고 병원 진료 절차도 잘 알고 계셔서 많은 도움이 되었습니다.<br> 
 												앞으로도 위드메이트 서비스 이용을 계속 신청할 예정입니다. <br>
 												만족도 최고입니다!!!</p>
 											<p>❤❤❤❤❤</p>
 										</div>
 										<div class="review1">
-											<h5>자녀보단 애브리케어를 불러 달라세요</h5>
+											<h5>자녀보단 에브리케어를 불러 달라세요</h5>
 											<p>직장과 먼 거리 때문에 방문하기가 힘든데 잘 도와주셔서 감사해요</p>
 											<p>❤❤❤❤❤</p>
 										</div>
 										<div class="review2">
-											<h5>자녀보단 애브리케어를 불러 달라세요</h5>
+											<h5>자녀보단 에브리케어를 불러 달라세요</h5>
 											<p>일년에 한번씩 내시경할때 항상 서비스 이용하고 있는데
 
 												너무 좋고 감사한 서비스 입니다.
@@ -151,7 +147,7 @@
 											<p>❤❤❤❤</p>
 										</div>
 										<div class="review3">
-											<h5>자녀보단 애브리케어를 불러 달라세요</h5>
+											<h5>자녀보단 에브리케어를 불러 달라세요</h5>
 											<p>병원동행서비스를 처음 받았는데요 친절하시고 환자가 안심할 수 있도록 잘해주시고 병원 진료 절차도 잘 알고 계셔서 많은 도움이 되었습니다.<br> 
 												앞으로도 위드메이트 서비스 이용을 계속 신청할 예정입니다. <br>
 												만족도 최고입니다!!!</p>
@@ -175,7 +171,7 @@
 						</header>
 						<ul class="tabs">
 							<li>
-								<h3>Best1</h3>
+								<h3 id="title1">BEST<span class="extra">1</span></h3>
 								<div class="spotlight">
 									<ul>
 										<li>
@@ -202,7 +198,7 @@
 								<p style="text-align:center; font-size:24px; font-weight:bold" class="best_name1"></p>
 							</li>
 							<li>
-								<h3 id="title2">Best2</h3>
+								<h3 id="title2">BEST<span class="extra">2</span></h3>
 								<div class="spotlight">
 									<ul>
 										<li>
@@ -229,7 +225,7 @@
 								<p style="text-align:center; font-size:24px; font-weight:bold" class="best_name2"></p>
 							</li>
 							<li>
-								<h3 id="title3">Best3</h3>
+								<h3 id="title3">BEST<span class="extra">3</span></h3>
 								<div class="spotlight">
 									<ul>
 										<li>
@@ -350,128 +346,95 @@
 
 		
 					<div class="chat-container">
-							<button id="chat-circle" class="icon solid fa-regular fa-comments major"><span class="note-num">3</span></button>
-					</div>
-						<div id="chatbox" style="display: none;" >
-							<div id="friendslist">
-								<div id="topmenu">
-									<span class="friends"></span>
-									</div>
-									
-									<div id="friends">
-									<div class="friend">
-										<img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
-											<p>
-											<strong>임은정</strong>
-											</p>
-											<div class="status available"></div>
-										</div>
-										
-										<div class="friend">
-											<img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
-											<p>
-											<strong>임은정</strong>
-											</p>
-											<div class="status away"></div>
-										</div>
-										
-										<div class="friend">
-										<img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
-											<p>
-											<strong>임은정</strong>
-											</p>
-											<div class="status inactive"></div>
-										</div>
-										
-										<div class="friend">
-											<img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
-											<p>
-											<strong>임은정</strong>
-											</p>
-											<div class="status inactive"></div>
-										</div>
-										
-										<div class="friend">
-											<img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
-											<p>
-											<strong>임은정</strong>
-											</p>
-											<div class="status inactive"></div>
-										</div>
-										
-										<div id="search">
-										<input type="text" id="searchfield" value="Search" />
-										</div>
-										
-									</div>                
-									
-								</div>  
-								
-								<div id="chatview" class="p1">      
-									<div id="profile">
-										<div id="close">
-											<div class="cy"></div>
-											<div class="cx"></div>
-										</div>
-										<p>임은정</p>
-									</div>
-									<div id="chat-messages">
-									<label>Thursday 02</label>
-										
-										<div class="message">
-											<img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
-											<div class="bubble">
-											안녕하세요
-												<div class="corner"></div>
-												<span>3 min</span>
-											</div>
-										</div>
-										
-										<div class="message right">
-											<img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
-											<div class="bubble">
-												안녕하세요
-												<div class="corner"></div>
-												<span>1 min</span>
-											</div>
-										</div>
-										
-										<div class="message">
-											<img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
-											<div class="bubble">
-												안녕하세요
-												<div class="corner"></div>
-												<span>Now</span>
-											</div>
-										</div>
-										
-										<div class="message right">
-											<img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
-											<div class="bubble">
-												안녕하세요
-												<div class="corner"></div>
-												<span>1 min</span>
-											</div>
-										</div>
-										
-										<div class="message">
-											<img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
-											<div class="bubble">
-												안녕하세요
-												<div class="corner"></div>
-												<span>Now</span>
-											</div>
-										</div>
-										
-									</div>
-								
-									<div id="sendmessage">
-									<input type="text" value="Send message..." />
-										<button id="send"></button>
-									</div>
-								</div>        
-							</div>  
-						</div>
+				<c:if test="${!empty loginUser}">
+	                  <button id="chat-circle" class="icon solid fa-regular fa-comments major"><span class="note-num">0</span></button>
+	            </c:if>
+	                </div>
+	                <div id="chatbox" style="display: none;" >
+	                  <div id="friendslist">
+	                     <div id="topmenu">
+	                       <span class="friends"></span>
+	                     </div>
+	                        
+	                       <div id="friends">
+	                        <div class="friend">
+	                           <img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
+	                              <p>
+	                              <strong>임은정</strong>
+	                              </p>
+	                              <div class="status active">3</div>
+	                           </div>      
+	                              <div id="search">
+	                                 <input type="text" id="searchfield" value="Search" />
+	                              </div>         
+	                           </div>                
+	                        </div>  
+	                        
+	                        <div id="chatview" class="p1">      
+	                           <div id="profile">
+	                              <div id="close">
+	                                 <div class="cy"></div>
+	                                 <div class="cx"></div>
+	                              </div>
+	                              <p>임은정</p>
+	                           </div>
+	                           <div id="chat-messages">
+	                           <label>Thursday 02</label>
+	                              
+	                              <div class="message">
+	                                 <img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
+	                                 <div class="bubble">
+	                                 안녕하세요
+	                                    <div class="corner"></div>
+	                                    <span>3 min</span>
+	                                 </div>
+	                              </div>
+	                              
+	                              <div class="message right">
+	                                 <img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
+	                                 <div class="bubble">
+	                                    안녕하세요
+	                                    <div class="corner"></div>
+	                                    <span>1 min</span>
+	                                 </div>
+	                              </div>
+	                              
+	                              <div class="message">
+	                                 <img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
+	                                 <div class="bubble">
+	                                    안녕하세요
+	                                    <div class="corner"></div>
+	                                    <span>Now</span>
+	                                 </div>
+	                              </div>
+	                              
+	                              <div class="message right">
+	                                 <img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
+	                                 <div class="bubble">
+	                                    안녕하세요
+	                                    <div class="corner"></div>
+	                                    <span>1 min</span>
+	                                 </div>
+	                              </div>
+	                              
+	                              <div class="message">
+	                                 <img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
+	                                 <div class="bubble">
+	                                    안녕하세요
+	                                    <div class="corner"></div>
+	                                    <span>Now</span>
+	                                 </div>
+	                              </div>
+	                              
+	                           </div>
+	                        
+	                           <div id="sendmessage">
+	                           <input type="text" value="Send message..." />
+	                              <button id="send"></button>
+	                           </div>
+	                        </div>        
+	                     </div>  
+	                  </div>
 			
 				<!-- Footer -->
 					<footer id="footer">
@@ -514,7 +477,6 @@
 					</div>
 				</footer>
 			</div>
-
 		<!-- Scripts -->
 			<script> const cp = '${cp}';</script>
 			<script src="${cp}/js/jquery.min.js"></script>
@@ -528,6 +490,12 @@
 			<script src="${cp}/js/main.js"></script>
 			<script src="${cp}/js/chat.js"></script>
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+			
+<script>
+	const user_id = "${loginUser}";
+	console.log(user_id);
+			
+</script>
 <script>
 	$(document).ready(function () {
         $(".loginLink").click(function () {
@@ -615,7 +583,7 @@
 		            $("#resume" + i).text(expertList.resume); // 한 줄 소개
 		            $("#location" + i).text(expertList.location); // 희망 근무지역
 		            $(".profileImg"+i+" > img").attr("src",cp+"/file/"+expertList.original_name);
-		            $(".best_name" + i).text(expertList.name); // 희망 근무지역
+		            $(".best_name" + i).text(expertList.name); // 이름
 		            i++;
 		        });
 		    },
@@ -625,11 +593,8 @@
 		});
 	}
 
-	
-
-
-
 </script>
+
 
 </body>
 </html>

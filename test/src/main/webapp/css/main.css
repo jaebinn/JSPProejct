@@ -3378,7 +3378,7 @@ input, select, textarea {
 			}
 
 			#header.alt > nav {
-				top: 1rem;
+				top: 1rem; 
 				right: 1rem;
 			}
 
@@ -5238,6 +5238,10 @@ input, select, textarea {
 		overflow: hidden;
 		z-index: -1;
 	}
+	.drop_menu{
+		top:0;
+	}
+	
 
 	/* 1:1 梨꾪똿諛� */
 	.chat-container {
@@ -5278,12 +5282,12 @@ input, select, textarea {
       	margin-right: 20px; /* 원하는 간격으로 조정 */
       	z-index:1000;
       }
-      .note-num{
+     /*  .note-num{
       position : absolute;
       top:0;
       right:0;
       z-index:3;
-      }
+      }  */
 
 		#friendslist{
 		position:absolute;

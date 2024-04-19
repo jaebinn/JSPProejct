@@ -14,6 +14,10 @@
   	<typeAlias type="com.ec.model.dto.ExpertLicenseListDTO" alias="expertls"/>  	  	
   	<typeAlias type="com.ec.model.dto.ExpertCareerListDTO" alias="expertca"/>  	
   	<typeAlias type="com.ec.model.dto.Expert_file_indexesDTO" alias="expertfiledto"/>  	
+  	<typeAlias type="com.ec.model.dto.ChatDTO" alias="chatdto"/>  	
+  	<typeAlias type="com.ec.model.dto.Chat_detailDTO" alias="chatdetaildto"/>  	
+  	<typeAlias type="com.ec.model.dto.TempChatDTO" alias="tempchatdto"/>  	
+  	<typeAlias type="com.ec.model.dto.ReviewDTO" alias="reviewdto"/>  	
   	  	
   </typeAliases>
   <environments default="development">
@@ -36,6 +40,8 @@
     <mapper resource="com/ec/mapper/ExpertMapper.xml"/>    
     <mapper resource="com/ec/mapper/Like_cntMapper.xml"/>    
     <mapper resource="com/ec/mapper/MatchingMapper.xml"/>    
+    <mapper resource="com/ec/mapper/ChatMapper.xml"/>    
+    <mapper resource="com/ec/mapper/ReviewMapper.xml"/>    
   </mappers>
 </configuration>
 

@@ -12,52 +12,58 @@
 		<link rel="stylesheet" href="${cp}/css/register.css"/>
 	</head>
 	<body class="is-preload">
-
 		<!-- Wrapper -->
 			<div id="wrapper">
-
-				<!-- Header -->
-					<header id="header">
+				<header id="header" class="alt">
 
 						<!-- Logo -->
 							<div class="logo">
-								<a href="${cp}/index.jsp"><strong>everycare</strong> </a>
+								<a href="${cp}/index.jsp"><strong>everycare</strong></a>
 							</div>
 
 						<!-- Nav -->
 							<nav id="nav">
-								<ul>
+								<ul style="display:flex">
 									<li class="current"><a href="${cp}/index.jsp">Home</a></li>
 									<li><a href="${cp}/expertlist.ep">전문가매칭</a></li>
 									<li>									
 										<a href="${cp}/u_boardlist.ub" class="icon solid fa-angle-down" style="pointer-events: none;">게시판</a>
-										<ul>
+										<ul class="drop_menu">
 											<li><a href="${cp}/u_boardlist.ub">전문가 찾기</a></li>
 											<li><a href="${cp}/faqlist.fa">FAQ게시판</a></li>
-											<li><a href="${cp}">리뷰게시판</a></li>
+											<li><a href="${cp}/reviewlist.rf">리뷰게시판</a></li>
 										</ul>
 									</li>
-									<li>
+									<li class="mypage">
 										<a href="${cp}/" class="icon solid fa-angle-down" style="pointer-events: none;">마이페이지</a>
-										<ul>
-											<li><a href="${cp}/">유저 정보</a></li>
-											<li><a href="${cp}/">전문가 정보</a></li>
+										<ul class="drop_menu">
+											<li class="mypage"><a href="${cp}/">유저 정보</a></li>
+											<c:if test="${not empty expertSession}">
+												<li class="expertpage"><a href="${cp}/">전문가 정보</a></li>
+											</c:if>
 										</ul>
-									</li>									
-									<c:if test="${empty sessionScope.loginUser}">
-									    <!-- 세션이 없을 때 (로그인되지 않은 상태) -->
-									    <li><a href="${cp}/app/user/user-login.jsp"><input type="button" value="로그인" id="login_btn"></a></li>
-									</c:if>
+										</li>									
 									<c:if test="${not empty sessionScope.loginUser}">
-									    <!-- 세션이 있을 때 (로그인된 상태) -->
-									    <li><a href="${cp}/expertok.ep"><input type="button" value="전문가등록" id="expert_btn"></a></li>
+									    <!-- 세션이 있을 때 (로그인된 상태) -->    
+									    <c:choose>
+									        <c:when test="${not empty expertSession}">
+									            <!-- 전문가 세션이 있을 때 -->
+									            <li><a href="${cp}/app/expert/expertChatList.jsp"><input type="button" value="전문가채팅" id="expert_chat"></a></li>						            
+									        </c:when>
+									        <c:otherwise>
+									            <!-- 전문가 세션이 없을 때 -->
+									            <li><a href="${cp}/app/expert/expertRegister.jsp"><input type="button" value="전문가등록" id="expert_btn"></a></li>
+									        </c:otherwise>
+									    </c:choose>
 									    <li><a href="${cp}/app/user/user-logout.jsp"><input type="button" value="로그아웃" id="logout_btn"></a></li>
+									    <li><p id="login_user" style="font-weight:bold">${sessionScope.loginUser}님</p></li>
+									</c:if>
+									<c:if test="${empty sessionScope.loginUser}"> 
+										<li><a href="${cp}/app/user/user-login.jsp"><input type="button" value="로그인" id="login_btn"></a></li>
 									</c:if>
 								</ul>
 							</nav>
 					</header>
-					<!-- inner alt -->
-					<!-- Banner  -->
 					<section id="banner">
 						<div class="content primary">
 							<form action="${cp}/expertok.ep" method="post" name="expertAddForm" enctype="multipart/form-data">
@@ -65,10 +71,8 @@
 									<h2>전문가 등록</h2>
 									<h4>당신의 도움이 필요합니다.</h4>
 									<table id="info_box">
-										<tr>
-											<div id="imgArea" name="imgArea" onclick="uploadFile()">
-												프로필사진
-											</div>
+										<tr id="tr1">
+											<div id="imgArea" name="imgArea" onclick="uploadFile()"></div>
 											<input type="file" id="fileArea" name="fileArea" onchange="previewFile()">
 											<input type="hidden" id="orgFileName" name="orgFileName" value="">
 										</tr>
@@ -80,10 +84,10 @@
 										</tr>
 										<tr>
 											<td id="is_drivable">운전가능여부</td>
-										    <td colspan="3">
-										        <input type="button" id="is_drivable_yes" name="is_drivable_yes" value="가능" onclick="is_drivable('is_drivable_yes')">
+											<td colspan="3">
+												<input type="button" id="is_drivable_yes" name="is_drivable_yes" value="가능" onclick="is_drivable('is_drivable_yes')">
 												<input type="button" id="is_drivable_no" name="is_drivable_no" value="불가능" onclick="is_drivable('is_drivable_no')">
-										    </td>
+											</td>
 										</tr>
 										<tr>
 											<td id="location">근무가능지역</td>
@@ -92,9 +96,13 @@
 											</td>
 										</tr>
 										<tr>
-											<td id="available_time">근무가능시간</td>
-											<td colspan="3">
-												<input type="text" id="available_time_value" name="available_time_value" placeholder="Ex : 오전(6시~12시), 오후(12시~), ...">
+											<td>근무StartTime</td>
+											<td>
+												<input type="text" id="available_time_value1" name="available_time_value1" placeholder="Ex : 24시 표기법(09) 사용">
+											</td>
+											<td>근무EndTime</td>
+											<td>
+												<input type="text" id="available_time_value2" name="available_time_value2" placeholder="Ex : 24시 표기법(18) 사용">
 											</td>
 										</tr>
 										<tr>
@@ -112,19 +120,22 @@
 										<tr>
 											<td id="resume">자기소개</td>
 											<td colspan="3">
-												<textarea id="resume_value" name="resume_value" cols="30" rows="10"></textarea>
+												<textarea id="resume_value" name="resume_value" cols="30" rows="10" placeholder="300자 미만으로 입력"></textarea>
 											</td>
 										</tr>
 										<tr>
 											<td id="keyword">키워드</td>
 											<td colspan="3">
 												<div>
-													<div class="keyword_input">
-														<input type="text" id="keyword_value" name="keyword_value" placeholder="Ex : 자신을 나타내는 키워드" onkeyup="keywordKeyup();">																								
-														<input type="button" value="추가" id="addbutton" onclick="addKeyword();">
+													<input type="text" value="가능하신 업무의 키워드를 클릭해주세요!(1개 이상)" id="keywordinfo">
+													<div id="keyword_input">
+														<input type="button" value="베이비시터" id="keyword1" name="keyword1" onclick="choice('keyword1')">
+														<input type="button" value="학습시터" id="keyword2" name="keyword2" onclick="choice('keyword2')">
+														<input type="button" value="등하원도우미" id="keyword3" name="keyword3" onclick="choice('keyword3')">
+														<input type="button" value="병원동행" id="keyword4" name="keyword4" onclick="choice('keyword4')">
+														<input type="button" value="가사도우미" id="keyword5" name="keyword5" onclick="choice('keyword5')">
 													</div>
-													<div class="keyword_list" id="keyword_list"></div>
-													<input type="hidden" value="" name="keywordH" class="keywordH">
+													<input type="hidden" value="" name="keyWordList" class="keyWordList" id="keyWordList">
 												</div>
 											</td>
 										</tr>
@@ -167,17 +178,14 @@
 												<input type="button" value="삭제 하기" id="licenseDelete" name="licenseDelete" onclick="licencRowDelete()">
 											</td>
 										</tr>
-										</tr>
 									</table>
 									<div class="btn_area">
-										<input type="button" value="등록 완료" onclick="sendit()">
+										<input type="button" id="complete" value="등록 완료" onclick="sendit()">
 									</div>
+								</div>
 							</form>
 						</div>
-						<video src="images/banner.mp4" muted autoplay loop playsinline></video>
 					</section>
-
-				<!-- Footer -->
 					<footer id="footer">
 						<div class="inner">
 							<section>
@@ -217,11 +225,12 @@
 							<p>&copy; EveryCare. All rights reserved.</p>
 						</div>
 					</footer>
+				
 
 			</div>
 
 		<!-- Scripts -->
-			<script> const cp = '${cp}';</script>
+			<script>const cp = "${cp}"</script>
 			<script src="${cp}/js/jquery.min.js"></script>
 			<script src="${cp}/js/jquery.dropotron.min.js"></script>
 			<script src="${cp}/js/jquery.selectorr.min.js"></script>
@@ -237,6 +246,8 @@
 <script>
 	let i = 0; // 경력 추가버튼
 	let j = 0; // 자격증 추가버튼
+	var imgeUrl; // 프로필사진에 들어갈 변수
+	
 	const arKeyword = [];
 	// 운전여부 클릭시 이벤트
 	function is_drivable(elementId) {
@@ -244,19 +255,18 @@
 		var otherButtonId = (elementId === "is_drivable_yes") ? "is_drivable_no" : "is_drivable_yes";
 		var otherButton = document.getElementById(otherButtonId);
 
-      if (button.style.backgroundColor !== "slateblue") {
-        // 현재 클릭된 버튼을 초록색으로 변경하고
-        button.style.backgroundColor = "slateblue";
-        // 다른 버튼이 초록색이면 초기화
-        if (otherButton.style.backgroundColor === "slateblue") {
-          otherButton.style.backgroundColor = "";
+      if (!button.classList.contains("selected")) {
+        // 현재 클릭된 버튼에 selected 클래스추가
+        button.classList.add("selected");
+        // 다른 버튼에 selected 클래스가 부여되어 있다면 제거
+        if (otherButton.classList.contains("selected")) {
+          otherButton.classList.remove("selected");
         }
       } else {
-        // 클릭된 버튼이 이미 초록색이면 초기화
-        button.style.backgroundColor = "";
+        // 클릭된 버튼이 selected 클래스를 가지고 있다면 제거
+    	button.classList.remove("selected");
       }
-      console.log(otherButtonId);
-      
+      console.log(otherButtonId);  
     }
 		
 	// 경력입력란 추가
@@ -277,6 +287,8 @@
 		input.setAttribute("id","career_name"); // input id속성 지정 1
 		input.setAttribute("name","career_name"); // input name속성 지정 1
 		input.setAttribute("placeholder","Ex : 전 근무지명"); // placeholder속성 지정
+		newtd2.id = "line1";
+		newtd2.colSpan = 3;
 		newtd2.appendChild(input); // td2의 자식개체로 삽입
 		careerTr.appendChild(newtd1); // td1을 tr의 자식개체로 삽입
 		careerTr.appendChild(newtd2); // td2를 tr의 자식개체로 삽입
@@ -385,76 +397,32 @@
 	}
 	
 	// 키워드
-	
-	function addKeyword() {
+	function choice(elementId) {
+		var clickElement = document.getElementById(elementId);
+		var keyWordList = document.getElementById("keyWordList");
 		
-		const expertAddForm = document.expertAddForm;
-		const keyword_list = document.getElementsByClassName("keyword_list")[0];
-		const keyword_value = expertAddForm.keyword_value;
-		
-		if(keyword_value.value == "") {
-			alert("자신을 나타내는(능력,자격증 등)키워드를 입력해주세요!");
-			keyword_value.focus();
-			return;
-		}
-		
-		if(arKeyword.indexOf(keyword_value.value) != -1) {
-			alert("중복된 키워드입니다!");
-			keyword_value.focus();
-			keyword_value.value = "";
-			return;
-		}
-		
-		if(arKeyword.length == 5) {
-			alert("키워드는 5개 이하로 입력해주세요!")
-			return;
-		}
-		
-		const inputKw = document.createElement("span");
-		inputKw.classList = "keywordH";
-		inputKw.name = "keywordH";
-		inputKw.innerHTML = keyword_value.value;
-		arKeyword.push(keyword_value.value);
-		
-		const xBox = document.createElement("a");
-		xBox.classList = "xBox";
-		inputKw.appendChild(xBox);
-		inputKw.addEventListener('click',deletekeyword_value);
-		keyword_list.appendChild(inputKw);
-		
-		keyword_value.value = "";
-		keyword_value.focus();	
-	}
-	
-	// 키워드(엔터눌렀을때 추가(addKeyword))
-	function keywordKeyup() {
-		if(window.event.keyCode == 13) {
-			addKeyword();
-		}
-	}
-	
-	// 키워드 삭제 이벤트
-	function deletekeyword_value(e) {
-		let deleteNode = null;
-		if(e.target.classList == "xBox") {
-			deleteNode = e.target.parentNode;
+		if(clickElement.classList.contains("choice")) {
+			clickElement.classList.remove("choice");
 		} else {
-			deleteNode = e.target;
+			clickElement.classList.add("choice");
 		}
 		
-		let txt = deleteNode.innerText;
-		console.log(txt);
-		for(let i in arKeyword) {
-			if(arKeyword[i] == txt) {
-				arKeyword.splice(i,1);
-				break;
+		var choiceKeyWords = [];
+		// #keyword_input 안에 있는 모든 input태그들을 찾아옴
+		var buttons = document.querySelectorAll("#keyword_input input");
+		// buttons : 노드 리스트임
+		// buttons에 있는 각각의 버튼 요소들을 순회하며 클래스 choice를 가진 버튼의 값을 choiceKeyword배열에 추가
+		buttons.forEach(function(button) {
+			if(button.classList.contains("choice")) {
+				choiceKeyWords.push(button.value);
 			}
-		}
-		deleteNode.remove();
+		});
+		// choiceKeyWords의 요소들을 ,로 구분지어 keyWordList의 value에 삽입
+		keyWordList.value = choiceKeyWords.join(",");
 	}
+		
 	
 	// 파일 업로드
-	
 	// #fileArea 디스플레이를 none으로 해놓고 div박스클릭시 클릭되게 구현
     function uploadFile() {
         document.getElementById("fileArea").click();
@@ -467,9 +435,10 @@
         var imgArea =  document.getElementById("imgArea");
         var orgFileName = document.getElementById("orgFileName");
         var reader = new FileReader();
+        var imageUrl = "url('/images/basic.png')";
 
         if(file == undefined) {
-            imgArea.style.backgroundImage = "none";
+            imgArea.style.backgroundImage = imageUrl;
             orgFileName.value = "";
         } else {
         	// 업로드된 파일이 있다면
@@ -488,7 +457,7 @@
 		        }	
         	} else {
         		alert("유효하지 않은 파일형식 입니다!");
-                imgArea.style.backgroundImage = "none";
+                imgArea.style.backgroundImage = imageUrl;
                 orgFileName.value = "";
         	}
         }
@@ -497,8 +466,7 @@
     // 이미지 파일 클릭 시 파일 삭제
     document.getElementById("imgArea").addEventListener("click", function() {
         // 파일 영역을 초기화하고, 이미지 영역도 초기화
-        imgArea.style.backgroundImage = "none";
-        imgArea.textContent = "프로필 사진";
+        imgArea.style.backgroundImage = imageUrl;;
         fileArea.value = null;
     });
     
@@ -506,15 +474,14 @@
 	
 	function sendit() {
 		
-//		var cookieId = cookie.joinid.value;
 		const expertAddForm = document.expertAddForm;
 		var viewId = expertAddForm.e_id_value.value;
-		var driveableYes = document.getElementById("is_drivable_yes");
-		var driveableNo = document.getElementById("is_drivable_no");
+		var drivableYes = document.getElementById("is_drivable_yes");
+		var drivableNo = document.getElementById("is_drivable_no");
 		var location = document.getElementById("location_value")
 		var Pettern1 = /^[가-힣a-zA-Z\d\s]*$/; // 한글과 숫자,영어
-		var available_time = document.getElementById("available_time_value");
-		var keyword = document.getElementById("keyword_value");
+		var available_time_value1 = document.getElementById("available_time_value1");
+		var available_time_value2 = document.getElementById("available_time_value2");
 		var cost = document.getElementById("cost_value");
 		var account = document.getElementById("account");
 		var resume = document.getElementById("resume_value");
@@ -524,26 +491,20 @@
 		var license = document.getElementById("license_name");
 		var acquire = document.getElementById("acquire_date");
 		var Pettern2 = /^[0-9]+$/; // 숫자
-		var isDrivableYes = document.getElementById("is_drivable_yes").style.backgroundColor === "slateblue";
-		var isDrivableNo = document.getElementById("is_drivable_no").style.backgroundColor === "slateblue";
 		var Pettern3 = /^[가-힣0-9\s]+$/; // 한글, 숫자
-		var Pettern4 = /^[가-힣\s]{1,300}$/; // 한글 300자
+		var Pettern4 = /^[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9\s~`!@#$%^&*()-_=+\[\]{}|;:'",.<>\/?]{1,300}$/;
 		var pettern5 = /^[1-9]\d{7}$/; // 8자리수의 숫자를 입력받되 첫글자가 0이면 안됨
+		var pettern6 = /^\d{2}$/; // 정수 숫자 2개 입력받기
+		var keyWordList = document.getElementById("keyWordList");
 		
 		// 아이디
 		if(viewId == null || viewId == "") {
 			alert("로그인 후 등록이 가능합니다!");
 			return;
-		}
-		
-		// 쿠키로 가져와 저절로 들어가는 아이디부분을 바꿨을 경우 (readonly걸어놓을거임)
-//		if(viewId != cookiId) {
-//			alert("로그인 정보와 아이디가 일치하지 않습니다!");
-//			return;
-//		}
+		}		
 		
 		// 운전가능여부
-		if(!isDrivableYes && !isDrivableNo) {
+		if(!drivableYes && !drivableNo) {
 			alert("운전가능여부를 선택하지 않으셨습니다. 가능과 불가능 중 하나를 꼭 선택해주세요!");
 			return;
 		}
@@ -563,9 +524,37 @@
 		}
 		
 		// 근무가능시간
-		if(available_time.value.trim() === "" || available_time.value.trim() === null) {
-			alert("근무가능한 시간을 입력해주세요! Ex : 오전, 오후, 오전or오후 HH:MM");
-			available_time.focus();
+		if(available_time_value1.value.trim() === "" || available_time_value1.value.trim() === null) {
+			alert("근무를 시작 가능한 시간을 입력해주세요! Ex : 09 (24시 표기법을 사용하며 'HH'형태로 입력해주세요)");
+			available_time_value1.focus();
+			return;
+		}
+		
+		if(!pettern6.test(available_time_value1.value)) {
+			alert("근무를 시작 가능한 시간(정수 2글자)을 입력해주세요! Ex : 09 (24시 표기법을 사용하며, 'HH'형태로 입력해주세요)")
+			available_time_value1.value = "";
+			available_time_value1.focus();
+			return;
+		}
+		
+		if(available_time_value2.value.trim() === "" || available_time_value2.value.trim() === null) {
+			alert("몇시까지 근무가 가능한지 입력해주세요! Ex : 18 (HH 형태로 입력해주세요!)")
+			available_time_value2.focus();
+			return;
+		}
+		
+		if(!pettern6.test(available_time_value2.value)) {
+			alert("몇시까지 근무가 가능한지(정수 2글자) 입력해주세요! Ex : 09 (24시 표기법을 사용하며, 'HH'형태로 입력해주세요)")
+			available_time_value2.value = "";
+			available_time_value2.focus();
+			return;
+		}
+		
+		if(available_time_value1.value > available_time_value2.value) {
+			alert("24시 표기법을 사용하므로 시작시간이 끝낼(몇시까지 근무가능한지)시간보다 큰 숫자가 들어갈 수 없습니다.")
+			available_time_value1.value = "";
+			available_time_value2.value = "";
+			available_time_value1.focus();
 			return;
 		}
 		
@@ -606,25 +595,20 @@
 		
 		// 자기소개 한글입력제한과 글자 수 제한
 		if(!Pettern4.test(resume_value.value)) {
-			alert("자기소개에는 한글만 입력 가능하며 300자를 초과할 수 없습니다!")
+			alert("자기소개에는 최대 300자를 초과할 수 없습니다!")
 			resume_value.focus();
 			return;
 		}
 		
-		if(arKeyword.length == 0) {
-			alert("키워드는 적어도 1개 이상 입력해 주세요!");
-			documentgetElementById("keyword_value").focus();
+		// 키워드
+		if(keyWordList.value == null || keyWordList.value == "") {
+			alert("키워드는 적어도 1개 이상 선택해주세요!");
 			return;
 		}
 		
-		console.log("");
-		
-		const keywordTag = expertAddForm.keywordH;
-		keywordTag.value = arKeyword.join(",");
 		
 		alert("등록이 완료되었습니다!");
 		expertAddForm.submit();
 	}  
 </script>
-
 

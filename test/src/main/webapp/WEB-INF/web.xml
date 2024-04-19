@@ -52,6 +52,23 @@
   	<servlet-name>ExpertFrontController</servlet-name>
   	<url-pattern>*.ep</url-pattern>
   </servlet-mapping>
+  <servlet>
+  	<servlet-name>ChatFrontController</servlet-name>
+  	<servlet-class>com.ec.app.chat.ChatFrontController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ChatFrontController</servlet-name>
+  	<url-pattern>*.ch</url-pattern>
+  </servlet-mapping>
+   <servlet>
+  	<servlet-name>ReviewFrontController</servlet-name>
+  	<servlet-class>com.ec.app.review.ReviewFrontController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ReviewFrontController</servlet-name>
+  	<url-pattern>*.rf</url-pattern>
+  </servlet-mapping>
+  
    <servlet-mapping>
       <servlet-name>default</servlet-name>
       <url-pattern>*.js</url-pattern>

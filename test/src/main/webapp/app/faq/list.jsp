@@ -18,42 +18,55 @@
 	<div id="wrapper">
 		<!-- Header -->
 		<header id="header" class="alt">
-			<!-- Logo -->
-			<div class="logo">
+
+						<!-- Logo -->
+							<div class="logo">
 								<a href="${cp}/index.jsp"><strong>everycare</strong></a>
 							</div>
-			<!-- Nav -->
-			<nav id="nav">
-				<ul>
-					<li class="current"><a href="${cp}/index.jsp">Home</a></li>
-					<li><a href="${cp}/expertlist.ep">전문가매칭</a></li>
-					<li>									
-						<a href="${cp}/u_boardlist.ub" class="icon solid fa-angle-down">게시판</a>
-						<ul>
-							<li><a href="${cp}/u_boardlist.ub">전문가 찾기</a></li>
-							<li><a href="${cp}/faqlist.fa">FAQ게시판</a></li>
-							<li><a href="${cp}">리뷰게시판</a></li>
-						</ul>
-					</li>
-					<li>
-						<a href="${cp}/" class="icon solid fa-angle-down">마이페이지</a>
-							<ul>
-								<li><a href="${cp}/">유저 정보</a></li>
-								<li><a href="${cp}/">전문가 정보</a></li>
-							</ul>
-					</li>									
-					<c:if test="${empty sessionScope.loginUser}">
-					<!-- 세션이 없을 때 (로그인되지 않은 상태) -->
-					<li><a href="${cp}/app/user/user-login.jsp"><input type="button" value="로그인" id="login_btn"></a></li>
-					</c:if>
-					<c:if test="${not empty sessionScope.loginUser}">
-					<!-- 세션이 있을 때 (로그인된 상태) -->
-						<li><a href="${cp}/expertok.ep"><input type="button" value="전문가등록" id="expert_btn"></a></li>
-						<li><a href="${cp}/app/user/user-logout.jsp"><input type="button" value="로그아웃" id="logout_btn"></a></li>
-					</c:if>
-				</ul>
-			</nav>
-		</header>
+
+						<!-- Nav -->
+							<nav id="nav">
+								<ul style="display:flex">
+									<li class="current"><a href="${cp}/index.jsp">Home</a></li>
+									<li><a href="${cp}/expertlist.ep">전문가매칭</a></li>
+									<li>									
+										<a href="${cp}/u_boardlist.ub" class="icon solid fa-angle-down" style="pointer-events: none;">게시판</a>
+										<ul class="drop_menu">
+											<li><a href="${cp}/u_boardlist.ub">전문가 찾기</a></li>
+											<li><a href="${cp}/faqlist.fa">FAQ게시판</a></li>
+											<li><a href="${cp}/reviewlist.rf">리뷰게시판</a></li>
+										</ul>
+									</li>
+									<li class="mypage">
+										<a href="${cp}/" class="icon solid fa-angle-down" style="pointer-events: none;">마이페이지</a>
+										<ul class="drop_menu">
+											<li class="mypage"><a href="${cp}/">유저 정보</a></li>
+											<c:if test="${not empty expertSession}">
+												<li class="expertpage"><a href="${cp}/">전문가 정보</a></li>
+											</c:if>
+										</ul>
+										</li>									
+									<c:if test="${not empty sessionScope.loginUser}">
+									    <!-- 세션이 있을 때 (로그인된 상태) -->    
+									    <c:choose>
+									        <c:when test="${not empty expertSession}">
+									            <!-- 전문가 세션이 있을 때 -->
+									            <li><a href="${cp}/app/expert/expertChatList.jsp"><input type="button" value="전문가채팅" id="expert_chat"></a></li>						            
+									        </c:when>
+									        <c:otherwise>
+									            <!-- 전문가 세션이 없을 때 -->
+									            <li><a href="${cp}/app/expert/expertRegister.jsp"><input type="button" value="전문가등록" id="expert_btn"></a></li>
+									        </c:otherwise>
+									    </c:choose>
+									    <li><a href="${cp}/app/user/user-logout.jsp"><input type="button" value="로그아웃" id="logout_btn"></a></li>
+									    <li><p id="login_user" style="font-weight:bold">${sessionScope.loginUser}님</p></li>
+									</c:if>
+									<c:if test="${empty sessionScope.loginUser}"> 
+										<li><a href="${cp}/app/user/user-login.jsp"><input type="button" value="로그인" id="login_btn"></a></li>
+									</c:if>
+								</ul>
+							</nav>
+					</header>
 		<section id="banner">
 			<div class="content primary">
 				<header>

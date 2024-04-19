@@ -1,7 +1,15 @@
 form{
 	margin: 0;
 }
+#header.alt > .logo {
+	top: 0 !important;
+	left: 2rem;
+}
 
+#header.alt > nav {
+	top: 0 !important;
+	right: 1rem;
+}
 
 #wrapper > .main > header.expert_banner {
     background: url("/images/expert_banner.jpg") no-repeat;

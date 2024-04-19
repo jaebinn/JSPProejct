@@ -109,6 +109,13 @@ public class ExpertFrontController extends HttpServlet{
 				e.printStackTrace();
 			}
 			break;
+		case "/getNamebyExpert_idx.ep":
+	         try {
+	            new GetNameByExpert_idxAction().execute(req, resp);
+	         } catch (Exception e) {
+	            System.out.println("/getNamebyExpert_idx.ep : "+e);
+	         }
+	         break;
 		}
 		
 		if(transfer != null) {

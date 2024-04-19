@@ -163,7 +163,7 @@
 								<tr>
 									<td>
 										<c:if test="${startPage != 1}">
-											<a class="btn" href="${cp}/expertsort.ep?page=${startPage-1}&psort=${psort}">&lt;</a>
+											<a class="btn" href="${cp}/expertkeywordsort.ep?page=${startPage-1}&keyword=${keyword}">&lt;</a>
 										</c:if>
 										<c:forEach begin="${startPage}" end="${endPage}" var="i">
 										<c:choose>
@@ -171,12 +171,12 @@
 												<span class="nowPage">${i}</span>
 											</c:when>
 											<c:otherwise>
-												<a class="btn" href="${cp}/expertsort.ep?page=${i}&psort=${psort}">${i}</a>
+												<a class="btn" href="${cp}/expertkeywordsort.ep?page=${i}&keyword=${keyword}">${i}</a>
 											</c:otherwise>
 										</c:choose>
 										</c:forEach>
 										<c:if test="${endPage != totalPage}">
-											<a class="btn" href="${cp}/expertsort.ep?page=${endPage+1}&psort=${param.psort}">&gt;</a>
+											<a class="btn" href="${cp}/expertkeywordsort.ep?page=${endPage+1}&keyword=${keyword}">&gt;</a>
 										</c:if>
 									</td>
 								</tr>

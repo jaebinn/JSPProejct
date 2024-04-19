@@ -20,11 +20,11 @@ public class ExpertSearchkeywordSortOkAction implements Action{
 		ExpertDAO edao = new ExpertDAO();
 		//전체 게시글의 개수
 		long totalCnt = 0;
-		if(keyword == null || keyword.equals("")) {
-			totalCnt = edao.getExpertCnt();
+		if(keyword != null) {
+			totalCnt = edao.getSearchKeywordCnt(keyword);
 		}
 		else {
-			totalCnt = edao.getExpertCnt(keyword);
+			totalCnt = 0;
 		}
 		System.out.println(totalCnt);
 		//한 페이지에서 보여줄 게시글의 개수
@@ -64,7 +64,9 @@ public class ExpertSearchkeywordSortOkAction implements Action{
 		req.setAttribute("keyword", keyword);
 		
 		Transfer transfer = new Transfer();
-        transfer.setPath("/app/expert/expertList.jsp");
+		String queryString = String.format("?page=%d&keyword=%s", page, keyword);
+
+        transfer.setPath("/app/expert/expertKeywordList.jsp"+queryString);
         transfer.setRedirect(false);
         return transfer;
 	}

@@ -86,6 +86,13 @@ public class UserFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+		case "/getUserByUserId.us":
+	         try {
+	            transfer = new GetUserByUserId().execute(req, resp);
+	         } catch (Exception e) {
+	            System.out.println("/getUserByUserId.us : "+e);
+	         }
+	         break;
 		}
 		
 		if(transfer != null) {

@@ -52,13 +52,6 @@ table tbody tr:nth-child(2n + 1) {
 #careerAdd, #licenseAdd {
     margin-right: 20px !important;
 }
-.keywordH {
-    border: 2px solid orchid !important;
-    color: black !important;
-    padding: 5px !important;
-    margin: 5px 5px 5px 5px !important;
-    border-radius: 50px 50px 50px 50px / 50px 50px 50px 50px !important;
-}
 #keyword {
 	text-align: center !important;
     vertical-align: middle !important;
@@ -69,14 +62,14 @@ table tbody tr:nth-child(2n + 1) {
 #imgArea {
 	width: 120px !important;
 	height: 120px !important;
-	border: 1px solid black !important;
+	border: 1px solid white !important;
 	text-align: center !important;
 	line-height: 120px !important;
 	color: gray !important;
 	border-radius: 50% !important;
 	margin: 0 auto !important;
 	cursor: pointer !important;
-	background-image: url(/images/기본프사.png);
+	background-image: url(/images/basic.png);
 	background-size: cover !important;
 	background-position: center !important;
 }
@@ -86,18 +79,17 @@ table tbody tr:nth-child(2n + 1) {
 .box2 {
     background-color: #E2E2E2;
     border-radius: 50px 50px 50px 50px / 50px 50px 50px 50px !important;
+    padding: 50px 30px 0px 30px;
 }
 #addbutton {
     margin: 10px 0px 0px 0px !important;
-}
-#keyword_list {
-	margin-top: 10px;
 }
 #complete {
 	margin: 0px 0px 40px 0px;
 }
 #is_drivable_yes, #is_drivable_no, #addbutton, #careerAdd, #careerDelete,
-#licenseAdd, #licenseDelete, #complete {
+#licenseAdd, #licenseDelete, #complete, #keyword1, #keyword2, #keyword3,
+#keyword4, #keyword5 {
 	box-shadow: none;
 	border: 2px solid #1bcea5;
 }
@@ -107,6 +99,20 @@ h2 {
 #is_drivable_yes.selected,
 #is_drivable_no.selected {
   background-color: #BAB8B6 !important;
+}
+.choice {
+	background-color: #BAB8B6 !important;
+}
+#keywordinfo {
+    text-align: center !important;
+    border: none;
+}
+#resume_value.has-text {
+	background-color: lightblue;
+}
+#available_time {
+	vertical-align: middle !important;
+	text-align: center !important;
 }
 
 

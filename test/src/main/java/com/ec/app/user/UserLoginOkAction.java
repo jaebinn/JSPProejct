@@ -59,8 +59,8 @@ public class UserLoginOkAction implements Action{
 			
 			else if(Expert.getUser_id().equals(userid)) {
 				int expert_idx = udao.SelectExpertIdx(userid);
-				req.getSession().setAttribute("expert_idx", expert_idx);
-				System.out.println("전문가 번호 :: "+req.getSession().getAttribute("expert_idx"));
+				req.getSession().setAttribute("expertSession", expert_idx);
+				System.out.println("전문가 번호 :: "+req.getSession().getAttribute("expertSession"));
 				
 				req.getSession().setAttribute("loginUser", userid);
 				System.out.println("일반유저 세션값 확인"+req.getSession().getAttribute("loginUser"));
