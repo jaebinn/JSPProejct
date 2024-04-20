@@ -20,7 +20,7 @@ public class ReviewListOkAction implements Action{
 		
 		ReviewDAO rdao = new ReviewDAO();
 		
-		long totalCnt = rdao.getBoardCnt();
+		long totalCnt = rdao.getReviewCnt();
 		
 		//한 페이지에서 보여줄 게시글의 개수
 		int pageSize = 20;

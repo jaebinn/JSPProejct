@@ -52,7 +52,7 @@ table {
 }
 
 body {
-	/* -webkit-text-size-adjust: none; */
+	 -webkit-text-size-adjust: none; 
 }
 
 mark {
@@ -627,9 +627,10 @@ input, select, textarea {
 
 			input[type="checkbox"] + label:before,
 			input[type="radio"] + label:before {
+			/* ih */
 				border-radius: 0.5rem;
 				border: solid 1px;
-				content: '';
+				content: "";
 				display: inline-block;
 				font-size: 0.8rem;
 				height: 1.65rem;
@@ -643,8 +644,8 @@ input, select, textarea {
 
 		input[type="checkbox"]:checked + label:before,
 		input[type="radio"]:checked + label:before {
-			content: '\f00c';
-		}
+			content: "✔";
+		} 
 
 	input[type="checkbox"] + label:before {
 		border-radius: 0.5rem;
@@ -1057,12 +1058,14 @@ input, select, textarea {
 	table {
 		margin: 0 0 2rem 0;
 		width: 100%;
+		border-radius: 20px;
 	}
 
 		table tbody tr {
-			border: solid 1px;
+			/* border: solid 1px; */
 			border-left: 0;
 			border-right: 0;
+			border-radius: 20px;
 		}
 
 		table td {
@@ -2065,7 +2068,8 @@ input, select, textarea {
 			}
 
 			#wrapper > .main > header.accent1 {
-				background-color: #1bcea5;
+			/* sonny */
+				background-color: ivory;
 				color: rgba(255, 255, 255, 0.75);
 			}
 
@@ -2234,6 +2238,7 @@ input, select, textarea {
 
 				#wrapper > .main > header.accent1 table th {
 					color: #ffffff;
+					background-color: #1bcea5;
 				}
 
 				#wrapper > .main > header.accent1 table thead {
@@ -2415,6 +2420,7 @@ input, select, textarea {
 					box-shadow: 0 0 0 1px #ffffff;
 				}
 
+				
 				
 
 				#wrapper > .main > header.accent2 .formerize-placeholder {
@@ -3459,7 +3465,7 @@ input, select, textarea {
 	font-size: 65%;
 	font-weight: bold;
 	width:530px;
-	color : #1bcea5 !important;
+	color : #4CCD99 !important;
 }
 .pw_check span{
 	display: block;
@@ -3472,17 +3478,17 @@ input, select, textarea {
 	margin-left: 0px;
 }
 .pw_check .pct::before{
-	content:"✔";
+	/* content:"✔"; */
 	position: relative;
 	left:-5px;
 }
 .pw_check .pcf::before{
-	content:"✖";
+	/* content:"✖"; */
 	position: relative;
 	left:-5px;
 }
  .pct{
-	color:#1bcea5 !important;
+	color:#4CCD99 !important;
 } 
 .pcf{
 	color:black;
@@ -3492,6 +3498,86 @@ input, select, textarea {
 	color:black !important;
 } 
 .npcf{
-	color:#1bcea5;
+	color:#4CCD99;
 }
+
+td{
+	background-color: #4CCD99 !important;
 	
+	border: none;
+}
+th,#join-btn{
+	background-color: #4CCD99 !important;
+	border: none;
+}
+#join-btn{
+	margin-top: 0px;
+	float: right;
+}
+#login-btn{
+	background-color:#4CCD99 !important;
+}
+#userid-area , #userpw-area{
+	background-color: #4CCD99;
+}
+
+#botton-line{
+	border-bottom: 1px solid white !important;
+}
+#join-color{
+	background-color: #4CCD99 !important;
+	margin-right: 5px;
+}
+#join-btn{
+	background-color: #4CCD99 !important;
+	margin: 0 auto!important;
+}
+.btn_area{
+	float: right;
+	
+}
+#gender1{
+	float: left !important;
+}
+#gender2{
+	float: right !important;
+}
+#foreigner1{
+	float: left !important;
+}
+#foreigner2{
+	float: right !important;
+}
+.radio_item{
+	margin-top: 20px;
+}
+#check-btn{
+	margin-top: 10px;
+}
+.radius1,#result{
+	border-top-left-radius: 0.5rem !important;
+}
+.radius2,#result{
+	border-top-right-radius: 0.5rem !important;
+}
+.radius3, #last-radius{
+	border-bottom-left-radius: 0.5rem !important;
+	border-bottom-right-radius: 0.5rem !important;
+}
+#join-userid, #join-userpw{
+	width: 100px;
+	margin-left: 20px;
+}
+/* #gender1,#gender2,#foreigner1,#foreigner2 */
+
+/* #gender1 : onclick{
+	content:"✔";
+} */
+/* #last-radius{
+	border-bottom-left-radius: 0.5rem !important;
+	border-bottom-right-radius: 0.5rem !important;
+} */
+
+/* #join-btn{
+	background-color: #92B3B7 !important;
+} */

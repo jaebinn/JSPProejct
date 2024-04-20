@@ -68,9 +68,15 @@
                                type: 'POST',
                                data: { "expert_idx": expert_idx },
                                dataType: 'text',
-                               success: function (nameData) {
-                                   console.log("네임데이터 : " + nameData);
-                                   let nameElement = $('<strong>').text(nameData);
+                               success: function (data) {
+								   const userData = JSON.parse(data);
+    
+								    // 사용자 이름 가져오기
+								   console.log(userData);
+								   const userName = userData.user_name;
+								   const originalFile = userData.profile;
+                                   console.log("네임 : " + userName);
+                                   let nameElement = $('<strong>').text(userName);
 
                                    // 안읽은 채팅 개수 가져오기
                                    $.ajax({
@@ -81,7 +87,7 @@
                                            console.log("낫리드시엔트 : " + notReadCnt);
                                            const statusElement = $('<div class="status available">').text(notReadCnt);
                                            const friendElement = $('<div class="friend"></div>');
-                                           const imgElement = $('<img>').attr('src', 'https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg');
+                                           const imgElement = $('<img>').attr('src', '/file/'+originalFile);
                                            friendElement.append(imgElement, $('<p>').append(nameElement), statusElement);
                                            friendElement.attr('id', chat_idx);
                                            $("#friends").prepend(friendElement); // 여기서 추가
@@ -151,6 +157,7 @@
 
            $('.floatingImg').animate({
                'width': "68px",
+               'height': "68px",
                'left': '108px',
                'top': '20px'
            }, 200);
@@ -185,9 +192,9 @@
                            '</div>';
                   }else if(chat_detail.type === 'er'){
                      message = '<div class="message">' +
-                        '<img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />' +
+                        '<img src="/file/'+chat_detail.original_name+'" />' +
                         '<div class="bubble">' +
-                        '<a href="'+cp+'/reservation/reservation.jsp?'+chat_detail.chat_idx+'">'+chat_detail.contents+'</a>' +
+                        '<a href="'+cp+'/getreservationinfo.rv?chat_idx='+chat_detail.chat_idx+'">전문가가 예약링크를 보냈습니다</a>' +
                         '<div class="corner"></div>' +
                         '<span>' + regdate + '</span>' +
                         '</div>' +
@@ -195,7 +202,7 @@
                   } 
                   else {
                      message = '<div class="message">' +
-                           '<img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />' +
+                           '<img src="/file/'+chat_detail.original_name+'" />' +
                            '<div class="bubble">' +
                            chat_detail.contents +
                            '<div class="corner"></div>' +

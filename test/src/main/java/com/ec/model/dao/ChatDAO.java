@@ -28,7 +28,7 @@ private SqlSession ss;
    }
 
    public long checkChatRoom(ChatDTO chat) {
-      return ss.selectOne("Chat.chaekChatRoom", chat);
+      return ss.selectOne("Chat.checkChatRoom", chat);
    }
 
    public List<ChatDTO> getChatList(String user_id) {
@@ -66,4 +66,16 @@ private SqlSession ss;
    public boolean sendReservation(long chat_idx) {
       return ss.insert("Chat.sendReservation", chat_idx) == 1;
    }
+
+	public ChatDTO getChatInfo(Long chat_idx) {
+		return ss.selectOne("Chat.getChatInfo", chat_idx);
+	}
+
+	public String getExpertNameByID(Long chat_idx) {
+		return ss.selectOne("Chat.getExpertName",chat_idx);
+	}
+	public boolean openChatRoom(ChatDTO chat) {
+	      return ss.insert("Chat.insert",chat) == 1;
+	   }
+	
 }

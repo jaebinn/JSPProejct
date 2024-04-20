@@ -104,6 +104,13 @@ public class ChatFrontController extends HttpServlet {
             System.out.println("/sendReservation.ch : "+e);
          }
          break;
+      case "/openChatRoom.ch":
+          try {
+             transfer = new OpenChatRoom().execute(req,resp);
+          } catch (Exception e) {
+             System.out.println("/openChatRoom.ch : "+e);
+          }
+          break;   
       }
       if(transfer != null) {
          if(transfer.isRedirect()) {

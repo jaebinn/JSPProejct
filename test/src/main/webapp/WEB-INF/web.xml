@@ -68,6 +68,22 @@
   	<servlet-name>ReviewFrontController</servlet-name>
   	<url-pattern>*.rf</url-pattern>
   </servlet-mapping>
+   <servlet>
+  	<servlet-name>ReservationFrontController</servlet-name>
+  	<servlet-class>com.ec.app.reservation.ReservationFrontController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ReservationFrontController</servlet-name>
+  	<url-pattern>*.rv</url-pattern>
+  </servlet-mapping>
+   <servlet>
+  	<servlet-name>PaymentFrontController</servlet-name>
+  	<servlet-class>com.ec.app.payment.PaymentFrontController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>PaymentFrontController</servlet-name>
+  	<url-pattern>*.pm</url-pattern>
+  </servlet-mapping>
   
    <servlet-mapping>
       <servlet-name>default</servlet-name>

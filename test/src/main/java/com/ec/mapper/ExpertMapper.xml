@@ -184,8 +184,8 @@
 	</select>
 	<insert id="insertExpert_file_indexes" parameterType="expertfiledto">
   		insert into
-  		expert_file_indexes(system_name, original_name, is_license_identification, expert_idx)
-  		values(#{system_name},#{original_name},#{is_license_identification},#{expert_idx})
+  		expert_file_indexes(system_name, original_name, expert_idx)
+  		values(#{system_name},#{original_name},#{expert_idx})
   	</insert>
 	<select id="totalScore" parameterType="long" resultType="long">
 	    SELECT SUM(star_score)
@@ -209,5 +209,24 @@
       join user on expert.user_id= user.user_id
       where user.name = #{expert_name};
    </select>
-   
+   <select id="getExpertInfoByChat" resultType="expertdto" parameterType="long">
+   		select * from expert
+   		join chat on chat.expert_idx = expert.expert_idx
+   		where chat_idx = #{chat_idx}
+   </select>
+   <select id="getExpertPhone" resultType="string" parameterType="expertdto">
+      select user.tel_mobile 
+      from expert
+      join user on user.user_id = expert.user_id 
+      where expert_idx = #{expert_idx};
+   </select>
+   <select id="getAvailableTime" resultType="string" parameterType="long">
+   		select available_time from expert
+   		where expert_idx = #{expert_idx}
+   </select>
+   <select id="getProfile" resultType="string" parameterType="long">
+   		select original_name
+   		from expert_file_indexes
+   		where expert_idx = #{expert_idx}
+   </select>
 </mapper>

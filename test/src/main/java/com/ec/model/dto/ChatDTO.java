@@ -23,4 +23,6 @@ public class ChatDTO {
    public void setExpert_idx(long expert_idx) {
       this.expert_idx = expert_idx;
    }
+
+   
 }

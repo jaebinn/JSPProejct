@@ -26,6 +26,7 @@ public class GetChatDetailAction implements Action{
           System.out.println("Contents: " + detail.getContents());
           System.out.println("Regdate: " + detail.getRegdate());
           System.out.println("Chat_detail_num" +detail.getChat_detail_num());
+          System.out.println("Original_name" +detail.getOriginal_name());
       }
       Gson gson = new Gson();
       String json = gson.toJson(chat_detail);

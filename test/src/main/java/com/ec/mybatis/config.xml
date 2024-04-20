@@ -39,9 +39,10 @@
     <mapper resource="com/ec/mapper/UserMapper.xml"/>    
     <mapper resource="com/ec/mapper/ExpertMapper.xml"/>    
     <mapper resource="com/ec/mapper/Like_cntMapper.xml"/>    
-    <mapper resource="com/ec/mapper/MatchingMapper.xml"/>    
     <mapper resource="com/ec/mapper/ChatMapper.xml"/>    
-    <mapper resource="com/ec/mapper/ReviewMapper.xml"/>    
+    <mapper resource="com/ec/mapper/PaymentMapper.xml"/>   
+    <mapper resource="com/ec/mapper/ReviewMapper.xml"/>   
+     
   </mappers>
 </configuration>
 

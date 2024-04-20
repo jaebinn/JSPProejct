@@ -4,15 +4,15 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.ec.mybatis.SQLMapConfig;
 
-public class MatchingDAO {
+public class PaymentDAO {
 private SqlSession ss;
 	
-	public MatchingDAO() {
+	public PaymentDAO() {
 		ss = SQLMapConfig.getFactory().openSession(true);
 	}
 
-	public long getMatchingCnt() {
-		return ss.selectOne("Matching.matchingCnt");
+	public long getPaymentCnt() {
+		return ss.selectOne("Payment.paymentCnt");
 	}
 	
 	

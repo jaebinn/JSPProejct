@@ -7,6 +7,7 @@ public class Chat_detailDTO {
    private String contents;
    private String regdate;
    private String is_read;
+   private String original_name;
    
    public long getChat_idx() {
       return chat_idx;
@@ -45,6 +46,12 @@ public class Chat_detailDTO {
    public void setIs_read(String is_read) {
       this.is_read = is_read;
    }
+	public String getOriginal_name() {
+		return original_name;
+	}
+	public void setOriginal_name(String original_name) {
+		this.original_name = original_name;
+	}
    
    
 }

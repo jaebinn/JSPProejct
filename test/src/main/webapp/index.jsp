@@ -53,7 +53,7 @@
 									    <c:choose>
 									        <c:when test="${not empty expertSession}">
 									            <!-- 전문가 세션이 있을 때 -->
-									            <li><a href="${cp}/app/expert/expertChatList.jsp"><input type="button" value="전문가채팅" id="expert_chat"></a></li>	
+									            <li><a href="${cp}/app/expertChat/expertChatList.jsp"><input type="button" value="전문가채팅" id="expert_chat"></a></li>	
 									             <!-- <span class="note-num"></span>	 -->				            
 									        </c:when>
 									        <c:otherwise>
@@ -345,96 +345,51 @@
 
 
 		
-					<div class="chat-container">
-				<c:if test="${!empty loginUser}">
-	                  <button id="chat-circle" class="icon solid fa-regular fa-comments major"><span class="note-num">0</span></button>
-	            </c:if>
-	                </div>
-	                <div id="chatbox" style="display: none;" >
-	                  <div id="friendslist">
-	                     <div id="topmenu">
-	                       <span class="friends"></span>
-	                     </div>
-	                        
-	                       <div id="friends">
-	                        <div class="friend">
-	                           <img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
-	                              <p>
-	                              <strong>임은정</strong>
-	                              </p>
-	                              <div class="status active">3</div>
-	                           </div>      
-	                              <div id="search">
-	                                 <input type="text" id="searchfield" value="Search" />
-	                              </div>         
-	                           </div>                
-	                        </div>  
-	                        
-	                        <div id="chatview" class="p1">      
-	                           <div id="profile">
-	                              <div id="close">
-	                                 <div class="cy"></div>
-	                                 <div class="cx"></div>
-	                              </div>
-	                              <p>임은정</p>
-	                           </div>
-	                           <div id="chat-messages">
-	                           <label>Thursday 02</label>
-	                              
-	                              <div class="message">
-	                                 <img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
-	                                 <div class="bubble">
-	                                 안녕하세요
-	                                    <div class="corner"></div>
-	                                    <span>3 min</span>
-	                                 </div>
-	                              </div>
-	                              
-	                              <div class="message right">
-	                                 <img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
-	                                 <div class="bubble">
-	                                    안녕하세요
-	                                    <div class="corner"></div>
-	                                    <span>1 min</span>
-	                                 </div>
-	                              </div>
-	                              
-	                              <div class="message">
-	                                 <img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
-	                                 <div class="bubble">
-	                                    안녕하세요
-	                                    <div class="corner"></div>
-	                                    <span>Now</span>
-	                                 </div>
-	                              </div>
-	                              
-	                              <div class="message right">
-	                                 <img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
-	                                 <div class="bubble">
-	                                    안녕하세요
-	                                    <div class="corner"></div>
-	                                    <span>1 min</span>
-	                                 </div>
-	                              </div>
-	                              
-	                              <div class="message">
-	                                 <img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
-	                                 <div class="bubble">
-	                                    안녕하세요
-	                                    <div class="corner"></div>
-	                                    <span>Now</span>
-	                                 </div>
-	                              </div>
-	                              
-	                           </div>
-	                        
-	                           <div id="sendmessage">
-	                           <input type="text" value="Send message..." />
-	                              <button id="send"></button>
-	                           </div>
-	                        </div>        
-	                     </div>  
-	                  </div>
+					 <div class="chat-container">
+            <c:if test="${!empty loginUser}">
+                     <button id="chat-circle" class="icon solid fa-regular fa-comments major"><span class="note-num">0</span></button>
+               </c:if>
+                   </div>
+                   <div id="chatbox" style="display: none;" >
+                     <div id="friendslist">
+                        <div id="topmenu">
+                          <span class="friends"></span>
+                        </div>
+                           
+                          <div id="friends">
+                           <!-- <div class="friend">
+                              <img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />
+                                 <p>
+                                 <strong>임은정</strong>
+                                 </p>
+                                 <div class="status active">3</div>
+                              </div>  -->    
+                                  <div id="search">
+                                    <input type="text" id="searchfield" value="" />
+                                 </div>         
+                              </div>                
+                           </div>  
+                           
+                           <div id="chatview" class="p1">      
+                              <div id="profile">
+                                 <div id="close">
+                                    <div class="cy"></div>
+                                    <div class="cx"></div>
+                                 </div>
+                                 <p></p>
+                              </div>
+                              <div id="chat-messages">
+                              <label></label>                               
+                           
+                           	  </div>
+                           	  
+                              <div id="sendmessage">
+                              <input type="text" value="Send message..." />
+                                 <button id="send"></button>
+                              </div>
+                           </div>        
+                        </div>  
+                     </div>
 			
 				<!-- Footer -->
 					<footer id="footer">
@@ -492,9 +447,7 @@
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 			
 <script>
-	const user_id = "${loginUser}";
-	console.log(user_id);
-			
+	const user_id = "${loginUser}";	
 </script>
 <script>
 	$(document).ready(function () {
@@ -554,14 +507,19 @@
 	        .then(response => response.json())
 	        .then(data => {
 	            // 서버에서 받은 데이터를 변수에 할당
-	            const totalUsers = data.totalUsers;
-	            const expertCount = data.expertCount;
-	            const matchingCount = data.matchingCount;
-
+	          
+	            const totalUsers = data.split(",")[0]; //totalUsers
+	            const expertCount = data.split(",")[1]; //expertCount
+	            const paymentCount = data.split(",")[2]; //paymentCount
+	        
+				console.log(totalUsers);
+				console.log(expertCount);
+				console.log(paymentCount);
 	            // 각 카운터의 목표 수치 설정
 	            const max = totalUsers; // 총 가입자 수의 목표 수치
 	            const max1 = expertCount; // 메이트 수의 목표 수치
-	            const max2 = matchingCount; // 총 이용 건수의 목표 수치
+	            const max2 = paymentCount; // 총 이용 건수의 목표 수치
+	            
 				console.log(max);
 				console.log(max1);
 				console.log(max2);
@@ -591,7 +549,11 @@
 		        console.error('Error:'); // 요청이 실패한 경우 에러 메시지 출력
 		    }
 		});
+	    
 	}
+	   $(window).on('beforeunload', function() {
+	          stopUpdate = true;
+	   });
 
 </script>
 

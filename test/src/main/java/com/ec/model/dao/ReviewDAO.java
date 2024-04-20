@@ -16,7 +16,7 @@ public class ReviewDAO {
 		ss = SQLMapConfig.getFactory().openSession(true);
 	}
 
-	public long getBoardCnt() {
+	public long getReviewCnt() {
 		return ss.selectOne("Review.getReviewCnt");
 	}
 

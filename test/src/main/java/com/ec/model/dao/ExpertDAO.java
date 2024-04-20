@@ -131,10 +131,10 @@ public class ExpertDAO {
 		return ss.insert("Expert.insertExpert_file_indexes", expertfiledto) == 1;
 	}
 
-	public Expert_file_indexesDTO getProfile() {
-		return ss.selectOne("Expert.getProfile");
-	}
-
+//	public Expert_file_indexesDTO getProfile() {
+//		return ss.selectOne("Expert.getProfile");
+//	}
+	
 	public String getExpertLoction(Long expert_idx) {
 		return ss.selectOne("Expert.getLocation",expert_idx);
 	}
@@ -145,7 +145,18 @@ public class ExpertDAO {
 		return ss.selectOne("Expert.getExpertIdxByName", expert_name);
 	}
 
-	
+	public ExpertDTO getExpertInfoByChat(long chat_idx) {
+		return ss.selectOne("Expert.getExpertInfoByChat", chat_idx);
+	}
 
+	public String getExpertPhone(ExpertDTO expert) {
+		return ss.selectOne("Expert.getExpertPhone", expert);
+	}
+	public String getAvailableTime(long expert_idx) {
+		return ss.selectOne("Expert.getAvailableTime", expert_idx);
+	}
 
+	public String getProfile(long expert_idx) {
+		return ss.selectOne("Expert.getProfile", expert_idx);
+	}
 }

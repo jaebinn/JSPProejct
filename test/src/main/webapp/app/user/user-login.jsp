@@ -24,7 +24,8 @@
 
 			<!-- Logo -->
 			<div class="logo">
-				<a href="${cp}/index.jsp"><strong>everycare</strong></a>
+				<a href="/index.jsp"><strong>&nbsp;&nbsp;&nbsp;EveryCare</strong>
+					<span class="extra"></span></a>
 			</div>
 
 
@@ -37,44 +38,52 @@
 				<div id="wrap" class="login">
 					<form action="${cp}/userloginok.us" method="post" name="loginForm">
 						<table>
+
 							<tbody>
 								<tr>
-									<th>아이디</th>
-									<td><input type="text" name="user_id"
+									<th id="join-color" class="radius1"><div id="join-userid">아이디</div></th>
+									<td id="join-color" class="radius2"><input type="text" name="user_id"
 										value="${cookie.joinid.value}"></td>
 								</tr>
 								<tr>
-									<th>비밀번호</th>
-									<td><input type="password" name="pw"></td>
+									<th id="join-color"><div id="join-userpw">비밀번호</div></th>
+									<td id="join-color"><input type="password" name="pw"></td>
 								</tr>
 								<tr>
-									<td colspan="2">
+									<td colspan="2" id="join-color" class="radius3">
 										<div class="btn_area">
 											<input type="submit" value="로그인">
-										</div>
 
+										</div>
+										<div id="join-btn">
+											<a class="btn" href="user-join.jsp" id="join-color"><input
+												type="button" value="회원가입" id="join-color"></a>
+										</div>
 									</td>
 								</tr>
 							</tbody>
 						</table>
 					</form>
-					<a class="btn" href="user-join.jsp"><input type="submit" value="회원가입"></a>
+					<!-- <div id="join-btn">
+						<a class="btn" href="user-join.jsp" id="join-color"><input
+							type="submit" value="회원가입" id="join-color"></a>
+					</div> -->
 				</div>
 			</header>
 		</section>
 	</div>
 
 	<!-- Scripts -->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/jquery.dropotron.min.js"></script>
-	<script src="assets/js/jquery.selectorr.min.js"></script>
-	<script src="assets/js/jquery.scrollex.min.js"></script>
-	<script src="assets/js/jquery.scrolly.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
-	<script src="assets/js/user.js"></script>
+	<script src="${cp}/js/jquery.min.js"></script>
+	<script src="${cp}/js/jquery.dropotron.min.js"></script>
+	<script src="${cp}/js/jquery.selectorr.min.js"></script>
+	<script src="${cp}/js/jquery.scrollex.min.js"></script>
+	<script src="${cp}/js/jquery.scrolly.min.js"></script>
+	<script src="${cp}/js/browser.min.js"></script>
+	<script src="${cp}/js/breakpoints.min.js"></script>
+	<script src="${cp}/js/util.js"></script>
+	<script src="${cp}/js/main.js"></script>
+	<script src="${cp}/js/user.js"></script>
 	<script>
 		document.cookie = "joinid=; path=/;"
 		window.setTimeout(function() {

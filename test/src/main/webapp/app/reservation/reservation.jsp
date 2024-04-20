@@ -35,17 +35,26 @@
                     <span class="title_text" data-tst_booking_state="0">예약중</span>
                 </h3>
                 <div class="confirm_top_content">
-                    <p class="reservation_number" id="reservation_id"><span data-tst_rserv_no="0">${reservation.reservation_id}</span></p>
-                    <h4 class="tit" data-tst_resoc_name="0"><a href="전문가프로필창으로" class="expert_id">김사과</a></h4>
+                    <p class="reservation_number" id="reservation_id"><span data-tst_rserv_no="0">예약번호 : NO.${chat.chat_idx}</span></p>
+                    <h4 class="tit" data-tst_resoc_name="0"><a href="${cp}/app/expert/expertView.jsp?expert_idx=${chat.expert_idx}" class="expert_id">${expert_name}</a></h4>
                     <div class="detail_info">
                         <ul class="info_lst">
                             <li class="info_item">
                                 <div class="item_tit"><b>&lt;일정&gt;</b></div>
                                 <div class="item_desc">
                                     <div class="booked_date" data-tst_booking_date="0" id="reservation_time">
-										날짜: <input type="date" id="start_date" style="margin-right:20px">
-										시작시간: <input type="time" id="available_time start_time"/>					
-										종료시간: <input type="time" id="available_time end_time"/>											
+										날짜: <input type="date" id="service_day" style="margin-right:20px"> <!-- ex) 2024-04-20 -->
+										시작시간: 	<select id="start_date" style="margin-right:10px">
+												    <c:forEach var="hour" begin="${startTime}" end="${endTime}">
+												        <option value="${hour}">${hour}시</option>
+												    </c:forEach>
+												</select>	
+										종료시간: 	<select id="end_date">
+												    <c:forEach var="hour" begin="${startTime}" end="${endTime}">
+												        <option value="${hour}">${hour}시</option>
+												    </c:forEach>
+												</select>	
+										<input type="button" value="확인" id="confirmBtn"/>										
 									</div>
                                 </div>
                             </li>
@@ -54,11 +63,12 @@
                                     <span><b>&lt;분야&gt;</b></span>
                                 </div>
                                 <div class="item_desc" id="keyword_list">${expert.keyword_list}</div>
+                                <input type="text" id="select_keyword" value="" placeholder="원하는 분야를 입력하세요" />
                             </li>
                             <li class="info_item">
                                 <div class="item_tit"><b>&lt;요청&gt;</b></div>
                                 <div class="item_desc" id="reservation_detail">
-                                	<textarea style="resize:none;" cols=82></textarea>
+                                	<textarea style="resize:none;" cols=82 id="req" value=""></textarea>
                                 </div>
                             </li>
                         </ul>
@@ -73,7 +83,8 @@
                                 <div class="item_desc">
                                     <i class="ico_arr"></i>
                                     <div class="box_info"><span>예약이 확정되었습니다 !<br>
-                                        </span><span>예약정보를 꼼꼼히 기입해주세요 감사합니다 :)</span>
+                                     </span>
+                                        <span>예약정보를 꼼꼼히 기입해주세요 감사합니다 :)</span>
                                     </div>
                                 </div>
                             </li>
@@ -99,7 +110,7 @@
                                 <i class="fa-solid fa-chevron-down"></i>
                             </span>                    
                         </div>
-                        <div class="hidden" id="cost">금액: ${expert.cost}</div>
+                        <div class="hidden" id="cost"></div>
                     </a>
                 </h3>
             </div>
@@ -112,7 +123,7 @@
                                 <i class="fa-solid fa-chevron-down"></i>
                             </span>
                         </div>
-                        <div class="hidden" id="tel_mobile">${user.tel_mobile}</div>
+                        <div class="hidden" id="tel_mobile">${expert_phone}</div>
                     </a>
                 </h3>
             </div>
@@ -125,7 +136,8 @@
                                 <i class="fa-solid fa-chevron-down"></i>
                             </span>
                         </div>
-                        <div class="hidden" id="user_name">${user.user_name}</div>
+                        <div class="hidden" id="user_name">${user.name}<br>${user.tel_mobile}<br>${user.email}</div>
+
                     </a>
                 </h3>
             </div>
@@ -133,10 +145,13 @@
         </div>
         
     </div>
+    <script> const cp = "${cp}"</script>
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=23697895f1f73fcadc63e0aa3f1d0bf9"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=23697895f1f73fcadc63e0aa3f1d0bf9&libraries=services"></script>
     <script>
+    	
+    	
         var container = document.getElementById('map');
 			var options = {
 				center: new kakao.maps.LatLng(33.450701, 126.570667),
@@ -155,7 +170,43 @@
 			marker.setMap(map);
     </script>
     <script>
-        // 페이지가 로드될 때 숨겨진 요소의 높이를 0으로 설정합니다.
+	    document.addEventListener("DOMContentLoaded", function () {
+	        const keywordList = "${expert.keyword_list}".split(","); // keyword_list를 쉼표로 구분하여 배열로 변환
+	
+	        document.getElementById("select_keyword").addEventListener("blur", function () {
+	            const inputKeyword = this.value.trim(); // 입력된 키워드
+	
+	            // 입력된 키워드가 목록에 있는지 확인
+	            const keywordExists = keywordList.includes(inputKeyword);
+	
+	            // 목록에 없는 경우 알림창 표시
+	            if (!keywordExists && inputKeyword !== "") {
+	                alert("목록에 있는 키워드를 입력하세요.");
+	                this.value = ""; // 입력 필드 비우기
+	            }
+	        });
+	    });
+    	let cost = "${expert.cost}";
+	    document.querySelector("#confirmBtn").addEventListener('click', function(){
+	        let startTime = document.getElementById("start_date").value;
+	        let endTime = document.getElementById("end_date").value;
+			startTime = parseInt(startTime);
+			endTime = parseInt(endTime);
+			
+	        if(startTime > endTime || startTime == endTime){
+	        	alert("시작시간이 종료시간보다 크거나 같으면 안됩니다! 다시 입력해주세요");
+	        }
+	        else{
+		        let hour_gap = endTime - startTime;
+		        let pay = hour_gap * cost; 
+
+		        document.getElementById("cost").innerText = "금액: " + pay + "원";	
+		        alert("날짜가 입력되었습니다.")
+	        }
+			
+	    });
+    
+        
         document.addEventListener("DOMContentLoaded", function () {
             var hiddenDivs = document.querySelectorAll('.hidden');
             hiddenDivs.forEach(function (div) {
@@ -163,16 +214,13 @@
                 div.style.overflow = 'hidden';
             });
     
-            // 각 탭에 대한 클릭 이벤트를 설정합니다.
             var tabLinks = document.querySelectorAll('.tit_confirm_item a');
             tabLinks.forEach(function (link) {
                 link.addEventListener('click', function (event) {
-                    event.preventDefault(); // 링크의 기본 동작을 막습니다.
+                    event.preventDefault(); 
     
-                    // 현재 클릭된 탭의 부모 요소를 찾습니다.
                     var parentDiv = event.target.closest('.confirm_item_body');
     
-                    // 부모 요소에서 숨겨진 요소를 찾아 높이를 토글합니다.
                     var hiddenDiv = parentDiv.querySelector('.hidden');
                     if (hiddenDiv.style.height === '0px') {
                         hiddenDiv.style.height = hiddenDiv.scrollHeight + 'px';
@@ -182,39 +230,54 @@
                 });
             });
         });
+        
 		//결제 API 
-        const IMP = window.IMP;
+         const IMP = window.IMP;
         IMP.init("imp16375222");
 
         const button = document.querySelector(".common_bottom_btn");
         const onClickPay = async () => {
+        	
+        	let serviceDay = document.getElementById("service_day").value;
+        	let startTime = document.getElementById("start_date").value;
+        	let endTime = document.getElementById("end_date").value;
+        	let req = document.querySelector("#reservation_detail textarea").value;
+			
+        	let expert_name = "${expert_name}";
+         	let reservation_id = "${chat.chat_idx}"; 
+       		let keyword = document.getElementById("select_keyword");
+       		let select_keyword = keyword.value;
+       		let costText = document.getElementById("cost").innerText; // "금액: 65000원"과 같은 문자열
+       		let pay = parseInt(costText.match(/\d+/)[0]); //65000만 뺴오기
+	
+	       	console.log(pay);
+        	
             IMP.request_pay({
                     pg: "kakaopay",
                     pay_method: "card",
-                    name: "가사도우미",
-                    amount: "1원",
-                    merchant_uid: "ORD20231030-000003", //상품번호(예약번호로 받을 것)
-                    buyer_email : "apple@naver.com",
-                    buyer_name : "김사과",
-                    buyer_tel : "010-1111-1111",
-                    buyer_addr : "경기도 수원시",
+                    name: select_keyword,
+                    amount: pay+"원",
+                    merchant_uid: "ORD20231030-000021", //reservation_id로 받으면 됨
+
                 },function(res) {
 
                     // 결제검증
-                    $.ajax({
-                        type : "POST",
-                        url : "/verifyIamport/" + res.imp_uid
+                   $.ajax({
+			            type: "POST",
+			            url: cp+"/paymentInfo.pm",
+			            data: {
+			            	reservation_id: reservation_id,
+			                serviceDay: serviceDay,
+			                startTime: startTime,
+			                endTime: endTime,
+			                req: req,
+			                pay: pay,
+			                select_keyword: select_keyword,
+			                expert_name: expert_name			                
+			            }
                     }).done(function(data) {
-
-                        if(res.paid_amount == data.response.amount){
-                            alert("결제 및 결제검증완료");
-
-                            //결제 성공 시 비즈니스 로직
-
-                        } else {
-                            alert("결제 실패");
-                        }
-            
+                    	alert("결제가 완료되었습니다.")
+                    	window.location.href = "/index.jsp";
                     });
             });
         };
@@ -254,6 +317,8 @@
 	        } 
 	    });    
 	});
+	
+	
 </script>
 </body>
 </html>

@@ -29,7 +29,7 @@
 							<nav id="nav">
 								<ul style="display:flex">
 									<li class="current"><a href="${cp}/index.jsp">Home</a></li>
-									<li><a href="${cp}/expertlist.ep">전문가매칭</a></li>
+									<li><a href="${cp}/expertsort.ep?psort=1">전문가매칭</a></li>
 									<li>									
 										<a href="${cp}/u_boardlist.ub" class="icon solid fa-angle-down" style="pointer-events: none;">게시판</a>
 										<ul class="drop_menu">
@@ -52,7 +52,8 @@
 									    <c:choose>
 									        <c:when test="${not empty expertSession}">
 									            <!-- 전문가 세션이 있을 때 -->
-									            <li><a href="${cp}/app/expert/expertChatList.jsp"><input type="button" value="전문가채팅" id="expert_chat"></a></li>						            
+									            <li><a href="${cp}/app/expertChat/expertChatList.jsp"><input type="button" value="전문가채팅" id="expert_chat"></a></li>	
+									             <!-- <span class="note-num"></span>	 -->				            
 									        </c:when>
 									        <c:otherwise>
 									            <!-- 전문가 세션이 없을 때 -->
