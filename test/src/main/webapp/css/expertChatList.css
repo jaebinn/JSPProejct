@@ -59,7 +59,7 @@ img{ max-width:100%;}
 }
 .chat_list:hover{
   cursor: pointer;
-  background: #ebebeb;
+  background: #1bcea5;
 }
 .inbox_chat { height: 550px; overflow-y: scroll;}
 
@@ -132,6 +132,9 @@ img{ max-width:100%;}
   right: 0;
   top: 11px;
   width: 33px;
+}
+msg_send_btn i{
+	margin-left: 10px;
 }
 .messaging { padding: 0 0 50px 0;}
 .msg_history {

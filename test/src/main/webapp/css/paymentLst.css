@@ -1,0 +1,65 @@
+.content {
+	width: 60%;
+	margin: 0 auto;
+	height: 80%;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 20px 20px 20px !important;
+    background-color: #f7f7f7 !important;
+}
+table tbody tr:nth-child(2n + 1) {
+    background-color: transparent !important;
+}
+table {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    margin: 0px 0px 0px 0px !important;
+    width: 400px;
+    heigh: 400px;
+    padding: 10px 10px 10px 10px;
+}
+td {
+	padding: 5px !important;
+}
+#valueArea {
+	margin: 0 auto;
+	background-color: #E8E8E8;
+	border-radius: 10px;
+	width: fit-content;
+}
+#he {
+	background-color: #f7f7f7 !important;
+	height: 200px !important;
+	padding: 50px 0px 0px 0px !important;
+	display: flex;
+ 	flex-direction: column;
+ 	align-items: center;
+ 	justify-content: center;
+ 	text-align: center;
+}
+#icon {
+	width: 100px !important;
+	height: 100px !important;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#wrapper > .main > .inner.alt {
+	padding: 20px 0px 20px 0px !important;
+}
+p {
+	margin-bottom: 0px !important;
+}
+
+#pagenum {
+	width: 100%;
+	margin: 0 auto;
+    text-align: center;
+}
+
+#pagenumArea {
+	width: 100%;
+}
+hr {
+	border: 1px solid black;
+}

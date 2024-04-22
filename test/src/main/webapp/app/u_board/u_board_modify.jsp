@@ -4,12 +4,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Untitled</title>
+<title>everycare</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="${cp}/css/main.css" />
-<link rel="stylesheet" href="${cp}/css/u_boardupdate.css">
+<style>
+@charset "UTF-8";
+
+* {
+   margin: 0;
+   padding: 0;
+   outline: none;
+   box-sizing: border-box;
+   line-height: 1.5em;
+   font-size: 12px;
+   font-family: 'Pretendard-Regular';
+}
+
+.main {
+   margin-top: 15%;
+   margin: 15% auto 0;
+   padding: 0 10%;
+   width: 80%;
+   height: 80%;
+}
+
+a {
+   text-decoration: none;
+   border-bottom: none;
+}
+
+.write_top {
+   text-align: center;
+   font-size: 50px;
+   color: #1bcea5;
+}
+
+#boardForm {
+   margin-top: 30px;
+   box-shadow: 0 20px 20px rgba(0, 0, 0, .2), 0px 0px 50px
+      rgba(0, 0, 0, .2);
+   border-radius: 30px;
+}
+
+table th {
+   background-color: white !important;
+   font-weight: bold;
+}
+
+table td {
+   background-color: white !important;
+}
+
+textarea {
+   height: 400px;
+   resize: none;
+}
+
+
+
+</style>
 </head>
 <body class="is-preload">
 

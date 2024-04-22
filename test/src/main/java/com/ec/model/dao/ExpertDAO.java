@@ -159,4 +159,12 @@ public class ExpertDAO {
 	public String getProfile(long expert_idx) {
 		return ss.selectOne("Expert.getProfile", expert_idx);
 	}
+
+	public int getPaymentKey() {
+		return ss.selectOne("Expert.selectPaymentKey");
+	}
+
+	public boolean updatePaymentKey() {
+		return ss.update("Expert.updateKey") == 1;
+	}
 }

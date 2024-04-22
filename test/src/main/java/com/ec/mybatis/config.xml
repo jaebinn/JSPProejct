@@ -18,6 +18,7 @@
   	<typeAlias type="com.ec.model.dto.Chat_detailDTO" alias="chatdetaildto"/>  	
   	<typeAlias type="com.ec.model.dto.TempChatDTO" alias="tempchatdto"/>  	
   	<typeAlias type="com.ec.model.dto.ReviewDTO" alias="reviewdto"/>  	
+  	<typeAlias type="com.ec.model.dto.PaymentDTO" alias="paymentdto"/>  	
   	  	
   </typeAliases>
   <environments default="development">
@@ -42,6 +43,7 @@
     <mapper resource="com/ec/mapper/ChatMapper.xml"/>    
     <mapper resource="com/ec/mapper/PaymentMapper.xml"/>   
     <mapper resource="com/ec/mapper/ReviewMapper.xml"/>   
+  
      
   </mappers>
 </configuration>

@@ -6,14 +6,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>예약페이지</title>
+    <title>everycare</title>
     <script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="${cp}/css/reservation.css">
 </head>
 <body>
     <div class="wrap">
         <div class="top_title">
-            <a href="#" class="btn_back" title="이전 화면으로 이동">
+            <a href="${cp}/expertlist.ep" class="btn_back" title="이전 화면으로 이동">
                 <i class="fa-solid fa-arrow-left"></i>
             </a>
             <h2>
@@ -244,7 +244,7 @@
         	let req = document.querySelector("#reservation_detail textarea").value;
 			
         	let expert_name = "${expert_name}";
-         	let reservation_id = "${chat.chat_idx}"; 
+         	let payment_idx = "${chat.chat_idx}"; 
        		let keyword = document.getElementById("select_keyword");
        		let select_keyword = keyword.value;
        		let costText = document.getElementById("cost").innerText; // "금액: 65000원"과 같은 문자열
@@ -257,7 +257,7 @@
                     pay_method: "card",
                     name: select_keyword,
                     amount: pay+"원",
-                    merchant_uid: "ORD20231030-000021", //reservation_id로 받으면 됨
+                    merchant_uid: payment_idx, //payment_idx로 받으면 됨
 
                 },function(res) {
 
@@ -266,7 +266,7 @@
 			            type: "POST",
 			            url: cp+"/paymentInfo.pm",
 			            data: {
-			            	reservation_id: reservation_id,
+			            	payment_idx: payment_idx,
 			                serviceDay: serviceDay,
 			                startTime: startTime,
 			                endTime: endTime,
@@ -277,7 +277,7 @@
 			            }
                     }).done(function(data) {
                     	alert("결제가 완료되었습니다.")
-                    	window.location.href = "/index.jsp";
+                    	window.location.href = "/getpaymentlist.pm";
                     });
             });
         };

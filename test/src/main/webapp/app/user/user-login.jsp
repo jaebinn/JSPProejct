@@ -8,7 +8,7 @@
 
 <html>
 <head>
-<title>EveryCare-Login</title>
+<title>everycare</title>
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -51,13 +51,13 @@
 								</tr>
 								<tr>
 									<td colspan="2" id="join-color" class="radius3">
-										<div class="btn_area">
-											<input type="submit" value="로그인">
-
-										</div>
 										<div id="join-btn">
 											<a class="btn" href="user-join.jsp" id="join-color"><input
 												type="button" value="회원가입" id="join-color"></a>
+										</div>
+										<div class="btn_area" style="margin-left:10px">
+											<input type="submit" value="로그인">
+
 										</div>
 									</td>
 								</tr>

@@ -7,5 +7,41 @@
 	<select id="paymentCnt" resultType="long">
 		select count(*) from payment 
 	</select>
-	
+	<select id="getListCnt" resultType="long">
+		select count(*) from payment
+	</select>
+	<select id="getList" parameterType="hashmap" resultType="paymentdto">
+		select p.*, u.name
+		from payment p
+		join expert e on p.expert_idx = e.expert_idx
+		join user u on p.user_id = u.user_id
+		where p.user_id = #{loginUser}
+		order by payment_idx desc 
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+	<insert id="insertPayInfo" parameterType="paymentdto">
+		insert into payment values(#{payment_idx},#{user_id},#{expert_idx},#{expert_name},#{service_day},#{start_date},#{end_date},#{keyword},#{req},#{pay})
+	</insert>
+	<select id="getPaymentDetail" parameterType="long" resultType="paymentdto">
+	   SELECT 	  
+	       p.payment_idx,
+	       p.user_id,
+	       p.expert_idx,
+	       p.expert_name,
+	       p.service_day,
+	       p.start_date,
+	       p.end_date,
+	       p.keyword,
+	       p.req,
+	       p.pay,
+	       u.tel_mobile AS tel_mobile
+	   FROM 
+	       payment p
+	   JOIN 
+	       expert e ON p.expert_idx = e.expert_idx
+	   JOIN 
+	       user u ON e.user_id = u.user_id
+	   WHERE 
+	       p.payment_idx = #{payment_idx}
+	</select>
 </mapper>

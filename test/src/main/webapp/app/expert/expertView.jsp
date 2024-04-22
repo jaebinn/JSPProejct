@@ -5,7 +5,7 @@
 <!DOCTYPE HTML>
 <html>
    <head>
-      <title>에브리케어</title>
+      <title>everycare</title>
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
       <script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>

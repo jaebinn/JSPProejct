@@ -16,6 +16,13 @@ public class ReviewListOkAction implements Action{
 	@Override
 	public Transfer execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		String temp = req.getParameter("page");
+		String starParam = req.getParameter("star");
+		int star = 0; // 기본값으로 설정
+
+		// starParam이 null이 아닌 경우에만 정수로 변환
+		if (starParam != null && !starParam.isEmpty()) {
+		    star = Integer.parseInt(starParam);
+		}
 		int page = temp == null || temp.equals("") ? 1 : Integer.parseInt(temp);
 		
 		ReviewDAO rdao = new ReviewDAO();
@@ -43,7 +50,7 @@ public class ReviewListOkAction implements Action{
 		
 		int startRow = (page-1)*pageSize;
 		List<ReviewDTO> list = rdao.getList(startRow, pageSize);
-		
+		System.out.println(list);
 		//오늘 날짜 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String now = sdf.format(new Date());
@@ -56,6 +63,7 @@ public class ReviewListOkAction implements Action{
 		req.setAttribute("startPage", startPage);
 		req.setAttribute("endPage", endPage);
 		req.setAttribute("page", page);
+		req.setAttribute("star", star);
 		
 		Transfer transfer = new Transfer();
 		transfer.setRedirect(false);

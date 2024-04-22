@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ec.action.Action;
 import com.ec.action.Transfer;
 import com.ec.model.dao.RatingDAO;
+import com.ec.model.dao.ReviewDAO;
 import com.google.gson.Gson;
 
 public class ExpertRatingOkAction implements Action {
@@ -16,7 +17,7 @@ public class ExpertRatingOkAction implements Action {
     public Transfer execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Long expert_idx = Long.parseLong(req.getParameter("expert_idx"));
 
-        RatingDAO rdao = new RatingDAO();
+        ReviewDAO rdao = new ReviewDAO();
         Long totalScore = rdao.getExpertRatingScore(expert_idx); // 총 점수를 가져오기
         int totalUser = rdao.getExpertCntByRatingUser(expert_idx); // 해당 전문가의 별점을 남긴 유저의 수
         

@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>user mypage temp</title>
+    <title>everycare</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/fontawesome-all.min.css">
     <style>

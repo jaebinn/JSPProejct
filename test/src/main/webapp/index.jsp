@@ -111,14 +111,35 @@
 								<h5>Review</h5>
 								<div class="review-box">
 									<div class="review-contents">
-										<div class="review1">
-											<h5>자녀보단 에브리케어를 불러 달라세요</h5>
-											<p>직장과 먼 거리 때문에 방문하기가 힘든데 잘 도와주셔서 감사해요</p>
+										<!-- <div class="review1">
+											<h5 id="title">자녀보단 에브리케어를 불러 달라세요</h5>
+											<p id="detail">직장과 먼 거리 때문에 방문하기가 힘든데 잘 도와주셔서 감사해요</p>
 											<p>❤❤❤❤❤</p>
 										</div>
 										<div class="review2">
-											<h5>자녀보단 에브리케어를 불러 달라세요</h5>
-											<p>일년에 한번씩 내시경할때 항상 서비스 이용하고 있는데
+											<h5 id="title">자녀보단 에브리케어를 불러 달라세요</h5>
+											<p id="detail">일년에 한번씩 내시경할때 항상 서비스 이용하고 있는데
+
+												너무 좋고 감사한 서비스 입니다.
+												
+												올해도 잘 부탁드리겠습니다.</p>
+											<p>❤❤❤❤</p>
+										</div>
+										<div class="review3">
+											<h5 id="title">자녀보단 에브리케어를 불러 달라세요</h5>
+											<p id="detail">병원동행서비스를 처음 받았는데요 친절하시고 환자가 안심할 수 있도록 잘해주시고 병원 진료 절차도 잘 알고 계셔서 많은 도움이 되었습니다.<br> 
+												앞으로도 위드메이트 서비스 이용을 계속 신청할 예정입니다. <br>
+												만족도 최고입니다!!!</p>
+											<p>❤❤❤❤❤</p>
+										</div>
+										<div class="review1">
+											<h5 id="title">자녀보단 에브리케어를 불러 달라세요</h5>
+											<p id="detail">직장과 먼 거리 때문에 방문하기가 힘든데 잘 도와주셔서 감사해요</p>
+											<p>❤❤❤❤❤</p>
+										</div>
+										<div class="review2">
+											<h5 id="title">자녀보단 에브리케어를 불러 달라세요</h5>
+											<p id="detail">일년에 한번씩 내시경할때 항상 서비스 이용하고 있는데
 
 												너무 좋고 감사한 서비스 입니다.
 												
@@ -131,31 +152,10 @@
 												앞으로도 위드메이트 서비스 이용을 계속 신청할 예정입니다. <br>
 												만족도 최고입니다!!!</p>
 											<p>❤❤❤❤❤</p>
-										</div>
-										<div class="review1">
-											<h5>자녀보단 에브리케어를 불러 달라세요</h5>
-											<p>직장과 먼 거리 때문에 방문하기가 힘든데 잘 도와주셔서 감사해요</p>
-											<p>❤❤❤❤❤</p>
-										</div>
-										<div class="review2">
-											<h5>자녀보단 에브리케어를 불러 달라세요</h5>
-											<p>일년에 한번씩 내시경할때 항상 서비스 이용하고 있는데
-
-												너무 좋고 감사한 서비스 입니다.
-												
-												올해도 잘 부탁드리겠습니다.</p>
-											<p>❤❤❤❤</p>
-										</div>
-										<div class="review3">
-											<h5>자녀보단 에브리케어를 불러 달라세요</h5>
-											<p>병원동행서비스를 처음 받았는데요 친절하시고 환자가 안심할 수 있도록 잘해주시고 병원 진료 절차도 잘 알고 계셔서 많은 도움이 되었습니다.<br> 
-												앞으로도 위드메이트 서비스 이용을 계속 신청할 예정입니다. <br>
-												만족도 최고입니다!!!</p>
-											<p>❤❤❤❤❤</p>
-										</div>
+										</div> -->
 									</div>
 								</div>
-									<a href="#" class="button">More</a>
+									<a href="${cp}/app/review/review_list.jsp" class="button">More</a>
 							</div>
 						</div>
 
@@ -478,6 +478,7 @@
             }
         });
     });
+
 	const counter = ($counter, max) => {
 		let now = max;
 		
@@ -549,6 +550,28 @@
 		        console.error('Error:'); // 요청이 실패한 경우 에러 메시지 출력
 		    }
 		});
+	    //실시간 리뷰 받아오기
+	    $.ajax({
+	        url: '/getreviews.rf', 
+	        type: 'GET',
+	        dataType: 'json',
+	        success: function(reviews) {
+	            let i =1;
+	            reviews.forEach(function(review, index) {
+	                var reviewHtml = 
+	                '<div class="review"'+i+' style="text-algin: center">'+
+	                '<h5 id="title">'+review.title+'</h5>'+
+	                '<p id="detail">'+review.detail+'</p>'+
+	                '<p>❤❤❤❤❤</p>'+
+	                '</div>';
+	                $('.review-contents').append(reviewHtml);
+	                i++;
+	            });
+	        },
+	        error: function() {
+	            console.error('리뷰 데이터를 가져오는 데 실패했습니다.');
+	        }
+	    });
 	    
 	}
 	   $(window).on('beforeunload', function() {

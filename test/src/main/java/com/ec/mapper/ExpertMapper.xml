@@ -188,12 +188,12 @@
   		values(#{system_name},#{original_name},#{expert_idx})
   	</insert>
 	<select id="totalScore" parameterType="long" resultType="long">
-	    SELECT SUM(star_score)
-	    FROM rating
+	    SELECT SUM(star)
+	    FROM review
 	    WHERE expert_idx = #{expert_idx}
 	</select>
 	<select id="getExpertCntByRatingUser" resultType="int" parameterType="long">
-		select count(*) from rating where expert_idx = #{expert_idx};
+		select count(*) from review where expert_idx = #{expert_idx};
 	</select>
 	<select id="getLocation" parameterType="long" resultType="string">
 		select location from expert where expert_idx = #{expert_idx} 

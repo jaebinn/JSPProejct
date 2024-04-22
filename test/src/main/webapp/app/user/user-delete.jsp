@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원탈퇴 페이지</title>
+<title>everycare</title>
 <link rel="stylesheet" href="${cp}/css/newstyle.css" />
 </head>
 <body>

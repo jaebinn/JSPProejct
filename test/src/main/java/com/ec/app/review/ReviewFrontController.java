@@ -59,6 +59,13 @@ public class ReviewFrontController extends HttpServlet {
 				System.out.println("/reviewupdate.rf : " + e);
 			}
 			break;
+		case "/getreviews.rf":
+			try {
+				transfer = new ReviewsGetOkAction().execute(req, resp);
+			} catch (Exception e) {
+				System.out.println("/getreviews.rf : " + e);
+			}
+			break;
 		case "/review.rf":
 			try {
 				transfer = new ReviewUpdateOkAction().execute(req, resp);

@@ -171,8 +171,8 @@
                      <div class="input_msg_write">
                         <input type="text" class="write_msg"
                            placeholder="Type a message" />
-                        <button class="msg_send_btn" type="button">
-                           <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                        <button class="msg_send_btn" type="button" >
+                           <i class="fa fa-paper-plane-o" aria-hidden="true" style="color: white;"></i>
                         </button>
                      </div>
                   </div>
@@ -555,7 +555,12 @@
       $(document).on("click", ".msg_send_btn", function(){
          sendmsg();
       })
-      
+       $(document).on("keypress", ".input_msg_write", function(e){
+          if(e.which == 13){ // 13은 엔터키의 keyCode
+              e.preventDefault(); // 기본 엔터키 동작을 막기
+              sendmsg();
+          }
+      });
       //로딩할떄 비우고 채팅룸리스트 띄워주기
       $(document).ready(function(){ 
          $(".msg_history").empty();

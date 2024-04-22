@@ -16,11 +16,10 @@ public class ExpertGetInfoOkAction implements Action {
     public Transfer execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         ExpertDAO edao = new ExpertDAO();
         List<ExpertDTO> expertList = edao.getLikeTopThree();
-
         Gson gson = new Gson();
         String jsonData = gson.toJson(expertList);
         System.out.println(jsonData);
-        resp.setContentType("application/json");
+        resp.setContentType("text/plain");
         resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(jsonData);
         

@@ -4,13 +4,100 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Untitled</title>
+<title>everycare</title>
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="${cp}/css/main.css" />
-<link rel="stylesheet" href="${cp}/css/u_boardview.css">
+<style>
+@charset "UTF-8";
+
+* {
+   margin: 0;
+   padding: 0;
+   outline: none;
+   box-sizing: border-box;
+   line-height: 1.5em;
+   font-size: 12px;
+   font-family: 'Pretendard-Regular';
+}
+
+.main {
+   margin-top: 15%;
+   margin: 15% auto 0;
+   padding: 0 10%;
+   width: 80%;
+   height: 80%;
+}
+
+a {
+   text-decoration: none;
+   border-bottom: none;
+}
+
+.board_area {
+   margin-top: 30px;
+   border-radius: 30px;
+}
+
+table th {
+   background-color: white !important;
+   font-weight: bold;
+}
+
+table td {
+   background-color: white !important;
+}
+
+
+#banner .content {
+   background: url("/images/u_boa_banner.jpg");
+   background-position: center;
+   background-size: cover;
+   height: 500px;
+}
+
+.content-area {
+   width: 100%;
+}
+
+.board_area {
+   border: 1px solid #D5D5D5;
+   border-collapse: collapse;
+}
+
+.comment_box {
+   height: 400px;
+}
+
+input, textarea {
+   border: none !important;
+   resize: none;
+}
+
+input, .comment_box:active {
+   pointer-events: none;
+}
+
+table>tbody>tr {
+   background-color: #fff !important;
+   border: none;
+}
+
+.btn_area {
+   text-align: right;
+}
+.btn_area a {
+   margin-left: 20px;
+}
+.write {
+   border: 1px solid #D5D5D5 !important;
+}
+.main>table tr th {
+   text-align: center !important;
+}
+</style>
 </head>
 <body class="is-preload">
 

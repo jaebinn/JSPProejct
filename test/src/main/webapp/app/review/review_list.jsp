@@ -30,15 +30,15 @@ a {
    border-bottom: none;
 }
 
-input[type="button"] {
+/* input[type="button"] {
    box-shadow: none;
-}
+} */
 
 input[type="button"]:hover {
    background-color: initial;
 }
 
-input[type="button"], .close_btn, .edit-container a {
+.close_btn, .edit-container a {
    color: #3b3b3b !important;
    font-size: 15px;
 }
@@ -176,7 +176,7 @@ input[type="button"], .close_btn, .edit-container a {
 }
 
 .star {
-   font-size: 30px;
+   font-size: 15px;
    pointer: cursor;
    color: #FFD438;
 }
@@ -247,18 +247,17 @@ input[type="button"], .close_btn, .edit-container a {
             <header class="banner-header">
                <h1>이용 후기</h1>
             </header>
-            <ul class="actions special">
+         <!--    <ul class="actions special">
                <li><a href=${cp}/app/review/review_write.jsp?page=${page}
                   class="button large wide scrolly">후기 작성하기</a></li>
-            </ul>
+            </ul> -->
          </div>
       </section>
-
       <!-- Section -->
       <section id="one" class="main">
 
          <div class="review-num">
-            <span>건</span>
+            <span>${list.size()}건</span>
          </div>
          <table class="board-area">
             <thead>
@@ -280,35 +279,46 @@ input[type="button"], .close_btn, .edit-container a {
                            <!--번호 -->
                            <td>${review.review_idx}</td>
 
+
                            <!--타이틀/내용  -->
                            <td>
                               <div class="title-tog" onclick="toggleContent(event)">
                                  ${review.title} <span class="fa-solid fa-chevron-down"></span>
                                  <div class="contents">${review.detail}
-                                    <div class="edit-container">
-                                       <input type="button" id="open_btn" value="수정" /> <a
-                                          href="${cp}/reviewupdate.rf?review_idx=${review.review_idx}&page=${param.page}">
-                                       </a> <a
-                                          href="${cp}/reviewdelete.rf?review_idx=${review.review_idx}&page=${param.page}">삭제</a>
-                                    </div>
 
+                                    <c:if test="${sessionScope.loginUser == review.user_id}">
 
+                                       <div class="edit-container">
+                                          <input type="button" class="open_btn" value="수정" /> <a
+                                             href="${cp}/reviewupdate.rf?review_idx=${review.review_idx}&page=${param.page}">
+                                          </a> <a
+                                             href="${cp}/reviewdelete.rf?review_idx=${review.review_idx}&page=${param.page}">삭제</a>
+                                       </div>
+                                    </c:if>
 
                                     <!--수정  -->
-                                    <form id="updateForm" method="post" name="updateForm"
+                                    <form class="updateForm" method="post" name="updateForm"
                                        action="${cp}/reviewupdate.rf">
+                                       <input type="hidden" name="review_idx"
+                                          value="${review.review_idx}"> <input type="hidden"
+                                          name="page" value="${param.page}">
                                        <div class="modal">
                                           <div id="editbox" style="display: none;">
                                              <table border="1">
                                                 <tr>
+                                                   <td colspan="3"><input style="text-align: center;"
+                                                      type="text" name="user_id" maxlength="50"
+                                                      value="${review.user_id}" readonly></td>
+                                                </tr>
+                                                <tr>
                                                    <th style="text-align: center;">제목</th>
                                                    <td colspan="2"><input type="text" name="title"
-                                                      maxlength="50" placeholder="제목을 입력하세요"></td>
+                                                      maxlength="50" placeholder="제목을 입력하세요" value=""></td>
                                                 </tr>
                                                 <tr>
                                                    <th style="text-align: center;">별점</th>
                                                    <td colspan="2">
-                                                      <div class="star_rating">
+                                                      <div class="starupdate" data-value="">
                                                          <span class="star on fa-regular fa-star" name="star"
                                                             value="1"></span> <span
                                                             class="star fa-regular fa-star" name="star"
@@ -318,7 +328,8 @@ input[type="button"], .close_btn, .edit-container a {
                                                             class="star fa-regular fa-star" name="star"
                                                             value="4"></span> <span
                                                             class="star fa-regular fa-star" name="star"
-                                                            value="5"></span>
+                                                            value="5"></span> <input type="hidden"
+                                                            id="star_score" name="star_score" value="" />
                                                       </div>
                                                    </td>
                                                 </tr>
@@ -329,30 +340,33 @@ input[type="button"], .close_btn, .edit-container a {
                                                 </tr>
                                                 <tr>
                                                    <th></th>
-                                                   <td><a href="javascript:sendit();"> <input
-                                                         type="button" value="등록"></a>
-                                                      <button class="close_btn" value="닫기"
-                                                         onclick="update_close()">닫기</button></td>
+                                                   <td><input type="button" value="등록"
+                                                      onclick="sendit()"></td>
+                                                   <td><button class="close_btn" value="닫기" onclick="closebtn(); return false;">닫기</button></td>
                                                 </tr>
                                              </table>
                                           </div>
                                        </div>
                                     </form>
                                  </div>
+                              </div>
                            </td>
                            <!--전문가 -->
-                           <td>${review.expert_idx}</td>
+                           <td>${review.expert_name}</td>
                            <!--작성자 -->
                            <td>${review.name}${review.user_id}</td>
                            <!--별점  -->
-                           <td>${review.star}</td>
+                           <td class=score>
+                              <div class="star_rating" data-value="${review.star}"></div>
+                           </td>
+
                            <!--작성일  -->
                            <td><c:set var="now" value="${now}" /> <c:choose>
                                  <c:when
                                     test="${fn:substring(review.regdate, 0, 10) == fn:substring(now, 0, 10)}">
                                     <fmt:parseDate value="${review.regdate}"
                                        pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate" />
-                                    <fmt:formatDate value="${parsedDate}" pattern="HH:mm" />
+                                    <fmt:formatDate value="${parsedDate}" pattern="MM-dd HH:mm" />
                                  </c:when>
                                  <c:otherwise>
                                     <fmt:parseDate value="${review.regdate}"
@@ -458,10 +472,25 @@ input[type="button"], .close_btn, .edit-container a {
    <script>
       // 수정 폼 제출
       function sendit() {
-         const updateForm = document.getElementById('updateForm');
+         const updateForm = document.querySelector('.updateForm'); // 이 부분을 추가해야 함
+         // 유효성 검사
          updateForm.submit();
       }
 
+      // 수정 버튼 클릭 시 수정팝업 오픈
+      $(document).ready(function() {
+         $(".open_btn").click(function() {
+            $(this).closest('.contents').find("#editbox").fadeIn(); // #editbox로 변경
+         });
+      });
+
+      
+      // 팝업 닫기 함수
+      function closebtn() {
+          // 팝업 닫기
+          $("#editbox").fadeOut();
+      }
+          
       // 제목을 클릭하면 해당 콘텐츠를 토글
       function toggleContent(event) {
          // 클릭한 요소가 타이틀 영역인 경우에만 toggle 실행
@@ -471,17 +500,43 @@ input[type="button"], .close_btn, .edit-container a {
                   : 'none';
          }
       }
-      // 수정 버튼 클릭 시 수정팝업 오픈
-      $(document).ready(function() {
-         $(".open_btn").click(function() {
-            $("#editbox").fadeIn();
+
+      // 페이지가 로드될 때 실행되는 함수
+      document.addEventListener("DOMContentLoaded", function() {
+         // 모든 별점을 표시하는 요소를 찾아서 처리
+         var starElements = document.querySelectorAll('.star_rating');
+         starElements.forEach(function(element) {
+            var starValue = parseInt(element.getAttribute('data-value'));
+            starUpdate(element, starValue);
          });
       });
 
-      // 리뷰 별점 활성화 
-      //'far'와 'fas'는 Font Awesome 아이콘 클래스
+      // 별점 업데이트
+      function starUpdate(element, starValue) {
+         // 별 아이콘을 추가할 div 요소를 가져옴
+         var starDiv = element;
+
+         // 별 아이콘을 추가 (최대 5개까지)
+         for (var i = 1; i <= 5; i++) {
+            var starIcon = document.createElement('span');
+            starIcon.classList.add('star', 'fa', 'fa-star');
+            if (i <= starValue) {
+               starIcon.classList.add('fas'); // 활성화된 별 아이콘은 filled 별 아이콘으로 표시
+            } else {
+               starIcon.classList.add('far'); // 비활성화된 별 아이콘은 빈 별 아이콘으로 표시
+            }
+            starDiv.appendChild(starIcon); // div 요소에 별 아이콘 추가
+
+            // 별점 값에 따라 활성화된 별 아이콘만 생성하고 나머지는 생략
+            if (i == starValue) {
+               break;
+            }
+         }
+      }
+
+      // 클릭한 별까지만 활성화되도록 설정
       $(document).ready(function() {
-         $('.star_rating > .star').click(function() {
+         $('.modal .starupdate > .star').click(function() {
             var clickedStarIndex = $(this).index();
             var stars = $(this).parent().children('.star');
 
@@ -495,6 +550,15 @@ input[type="button"], .close_btn, .edit-container a {
                   $(this).removeClass('fas').addClass('far');
                }
             });
+
+            // 별점 값 가져오기
+            var starValue = clickedStarIndex + 1;
+
+            // 모달 내의 starValue 업데이트
+            $(this).closest('.modal').find('.starupdate').attr('data-value', starValue);
+
+            // 별점 값 hidden input에 설정
+            $(this).closest('.modal').find('#star_score').val(starValue);
          });
       });
    </script>

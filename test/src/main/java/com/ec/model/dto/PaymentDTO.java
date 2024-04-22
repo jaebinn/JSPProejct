@@ -4,12 +4,14 @@ public class PaymentDTO {
 	private long payment_idx;
 	private String user_id;
 	private long expert_idx;
+	private String expert_name;
 	private String service_day;
 	private String start_date;
 	private String end_date;
 	private String keyword;
 	private String req;
 	private int pay;
+	private String tel_mobile;
 	
 	public long getPayment_idx() {
 		return payment_idx;
@@ -28,6 +30,13 @@ public class PaymentDTO {
 	}
 	public void setExpert_idx(long expert_idx) {
 		this.expert_idx = expert_idx;
+	}
+	
+	public String getExpert_name() {
+		return expert_name;
+	}
+	public void setExpert_name(String expert_name) {
+		this.expert_name = expert_name;
 	}
 	public String getService_day() {
 		return service_day;
@@ -64,6 +73,12 @@ public class PaymentDTO {
 	}
 	public void setPay(int pay) {
 		this.pay = pay;
+	}
+	public String getTel_mobile() {
+		return tel_mobile;
+	}
+	public void setTel_mobile(String tel_mobile) {
+		this.tel_mobile = tel_mobile;
 	}
 	
 	

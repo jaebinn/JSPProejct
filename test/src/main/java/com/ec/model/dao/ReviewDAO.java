@@ -26,7 +26,9 @@ public class ReviewDAO {
 		datas.put("pageSize", pageSize);
 		return ss.selectList("Review.getList", datas);
 	}
-
+	public List<ReviewDTO> getReviews() {
+		return ss.selectList("Review.selectReviews");
+	}
 	public boolean insertReview(ReviewDTO review) {
 
 		return ss.insert("Review.insert", review) == 1;
@@ -43,5 +45,12 @@ public class ReviewDAO {
 	public boolean updateReview(ReviewDTO review) {
 		return ss.update("Review.update", review) == 1;
 	}
+	public Long getExpertRatingScore(Long expert_idx) {
+		return ss.selectOne("Expert.totalScore", expert_idx);
+	}
+	public int getExpertCntByRatingUser(Long expert_idx) {
+		return ss.selectOne("Expert.getExpertCntByRatingUser", expert_idx);
+	}
 
+	
 }

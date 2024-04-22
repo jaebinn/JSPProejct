@@ -9,6 +9,7 @@ public class ReviewDTO {
 	private long expert_idx;
 	private int star;
 	private String regdate;
+	private String expert_name;
 	
 
 	public long getReview_idx() {
@@ -75,5 +76,15 @@ public class ReviewDTO {
 	public void setExpert_idx(long expert_idx) {
 		this.expert_idx = expert_idx;
 	}
+
+	public String getExpert_name() {
+		return expert_name;
+	}
+
+	public void setExpert_name(String expert_name) {
+		this.expert_name = expert_name;
+	}
+	
+	
 
 }

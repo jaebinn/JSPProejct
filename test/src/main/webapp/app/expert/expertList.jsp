@@ -5,7 +5,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>에브리케어</title>
+		<title>everycare</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
@@ -15,7 +15,6 @@
 	<body class="is-preload">
 		<!-- Wrapper -->
 			<div id="wrapper">
-
 				<!-- Header -->
 					<div id="wrapper">
 				<!-- Header -->
@@ -242,6 +241,18 @@
 			<script src="${cp}/js/util.js"></script>
 			<script src="${cp}/js/main.js"></script>
 			<script>
+			const loginUser = "${loginUser}"; 
+			$(document).ready(function() {
+			    if (!loginUser) {
+			   		$(".expert_list .li01 a").on("click", function(event) {
+			        	// 로그인하지 않은 경우
+				        event.preventDefault(); 
+				        alert("로그인 후 이용해주세요."); 
+				        window.location.href = "${cp}/app/user/user-login.jsp"; 
+			    	});
+			    }
+			});
+
 			function toggleSphereSelection() {
 		        var layerSphere = document.getElementById('layer_sphere');
 		        if (layerSphere.style.display === 'none' || layerSphere.style.display === '') {
@@ -313,10 +324,6 @@
 			        });
 			    });
 			});
-
-
-
-
 
 		</script>
 </body>

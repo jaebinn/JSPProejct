@@ -4,12 +4,107 @@
 <!DOCTYPE html>
 <html>
 <head>
-		<title>Untitled</title>
+		<title>everycare</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="${cp}/css/main.css" />
-        <link rel="stylesheet" href="${cp}/css/u_boardwrite.css">
+<style>
+@charset "UTF-8";
+
+* {
+   margin: 0;
+   padding: 0;
+   outline: none;
+   box-sizing: border-box;
+   line-height: 1.5em;
+   font-size: 12px;
+   font-family: 'Pretendard-Regular';
+}
+
+.main {
+   margin-top: 15%;
+   margin: 15% auto 0;
+   padding: 0 10%;
+   width: 80%;
+   height: 80%;
+}
+
+a {
+   text-decoration: none;
+   border-bottom: none;
+}
+
+.write_top {
+   text-align: center;
+   font-size: 50px;
+   color: #1bcea5;
+}
+
+#boardForm {
+   margin-top: 30px;
+   box-shadow: 0 20px 20px rgba(0, 0, 0, .2), 0px 0px 50px
+      rgba(0, 0, 0, .2);
+   border-radius: 30px;
+}
+
+table th {
+   background-color: white !important;
+   font-weight: bold;
+}
+
+table td {
+   background-color: white !important;
+}
+
+.file-area {
+   float: right;
+   margin-right: 100px;
+}
+
+.file-area input[type="button"] {
+   box-shadow: none;
+}
+
+.file-area input[type="button"]:hover {
+   background-color: initial;
+}
+
+.btn-area {
+   width: 100%;
+   height: 100px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.btn-area>tbody {
+   width: 50%;
+}
+
+.btn-area>tbody>tr {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: #fff !important;
+   border: none;
+}
+
+.thumbnail {
+   width: 100px;
+   height: 100px;
+   object-fit: cover;
+   margin-left: 50px;
+}
+
+#th-file {
+   text-align: center;
+}
+
+.main>table tr th {
+   text-align: center !important;
+}
+</style>
 	</head>
 	<body class="is-preload">
 
@@ -72,7 +167,14 @@
 				<!-- Section -->
 					<section id="one" class="main">
                         <form id="boardForm" method="post" name="boardForm" action="${cp}/u_boardwrite.ub" enctype="multipart/form-data">
-                            <table border="1">
+                        	
+					            <div class="write_top">
+					               <span class="fa-regular fa-pen-to-square"></span>
+					               <h3>전문가 찾기</h3>
+					            </div>
+					
+					
+					            <table class="write">
                                 <tr>
                                     <th style="text-align: center;">제목</th>
                                     <td colspan="2">

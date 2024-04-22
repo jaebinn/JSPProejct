@@ -245,7 +245,7 @@
                                  const message = '<div class="message">' +
                                               '<img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />' +
                                               '<div class="bubble">' +
-                                              Last_chat_detail.contents +
+                                              Last_chat_detail.contents +  
                                               '<div class="corner"></div>' +
                                               '<span>' + regdate + '</span>' +
                                               '</div>' +
@@ -256,7 +256,7 @@
                                 const message = '<div class="message">' +
                                        '<img src="https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg" />' +
                                        '<div class="bubble">' +
-                                       '<a href="'+cp+'/reservation.jsp?'+chat_detail.chat_idx+'">'+chat_detail.contents+'</a>' +
+                                       '<a href="'+cp+'/reservation.jsp?'+chat_detail.chat_idx+'">전문가가 예약메세지를 보냈습니다</a>' +
                                        '<div class="corner"></div>' +
                                        '<span>' + regdate + '</span>' +
                                        '</div>' +
@@ -387,79 +387,6 @@
       });
    }
    
-   //setTimeout(userChatGetNotReadCnt,1000,user_id);
    
-  
-
-             
-      /*        let websocket; */
-       /* // WebSocket 연결 및 메시지 처리 코드
-       websocket = new WebSocket('ws://localhost:9090/chating/'+user_id);
-       
-       websocket.onerror = function(event) {
-         console.error('WebSocket 연결 오류:', event.target.url);
-       };
-      
-      
-       websocket.onopen = function(event) {
-         console.log("WebSocket 연결 성공");
-       };
-      
-       websocket.onmessage = function(event) {
-         console.log(event.data);
-           const data = event.data.split(":");
-           const receiverId = data[0];
-           console.log(receiverId);
-           const messageContent = data[1];
-           console.log(messageContent);
-           const currentTime = data[3]; // 받아온 문자열 형태의 시간 정보
-           const currentDate = new Date(currentTime); // Date 객체로 변환
-         
-           // 날짜 및 시간 출력 로직 추가
-           const currentYear = currentDate.getFullYear();
-           const currentMonth = currentDate.getMonth() + 1;
-           const currentDay = currentDate.getDate();
-           const currentHour = currentDate.getHours();
-           const currentMinute = currentDate.getMinutes();
-         
-           // 현재 날짜와 메시지 날짜가 동일한 경우
-           let outputDate = "";
-           if (
-            currentYear === messageYear &&
-               currentMonth === messageMonth &&
-               currentDay === messageDay
-           ) {
-            outputDate = getAmPmHour(messageHour) + "시 " + messageMinute + "분";
-           } else {
-            outputDate = getMonthDayString(messageMonth, messageDay) + ", " + getAmPmHour(messageHour) + "시 " + messageMinute + "분";
-               // 만약 올해와 메시지 년도가 다를 경우 년도 정보도 추가
-               if (currentYear !== messageYear) {
-               outputDate = messageYear + "년 " + outputDate;
-               }
-           }
-         
-           //소켓 메세지 구별해서 돔 구현
-           const messageArea = $("#chat-messages");
-           if (receiverId !== $("#userId").val()) {
-            messageArea.append("<div class='message'><img src='https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg'><div class='bubble'>"+messageContent+"</div><div class='corner'><span>"+outputDate+"</span></div></div>");
-           } else {
-            messageArea.append("<div class='message right'><img src='https://i.pinimg.com/564x/4b/f3/2a/4bf32ae5f06735b1d83174e9c90a385b.jpg'><div class='bubble'>"+messageContent+"</div><div class='corner'><span>"+outputDate+"</span></div></div>");
-           }
-       };
-      
-       //소켓 보내기
-       $("#send").click(function() {
-         const recipientUserId = $("#recipientUserId").val(); // <-- 세션아이디
-           const messageContent = $(".bubble").text();
-           const currentDate = new Date();
-           let type= 'u';
-           if(expertsession != null){
-            type = 'e';
-           }
-         
-           // 메시지에 시간 정보를 포함하여 보냄
-           const message = recipientUserId + ":" + messageContent + ":" + type + ":" + currentDate + "";
-           websocket.send(message);
-       }); */      
    
    

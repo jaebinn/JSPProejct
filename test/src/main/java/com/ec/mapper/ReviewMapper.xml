@@ -5,9 +5,12 @@
 <mapper namespace="Review">
 	<insert id="insert" parameterType="reviewdto">
 		insert into
-		review(title,detail,user_id,expert_idx,star)
-		values(#{title},#{detail},#{user_id},#{expert_idx},#{star})
+		review(title,detail,user_id,expert_idx,expert_name,star)
+		values(#{title},#{detail},#{user_id},#{expert_idx},#{expert_name},#{star})
 	</insert>
+	<select id="selectReviews" resultType="reviewdto">
+		select title, detail from review
+	</select>
 	<select id="getReviewCnt" resultType="long">
 		select count(*) from review
 	</select>
@@ -38,6 +41,7 @@
 		delete from review where
 		review_idx = #{review_idx};
 	</delete>
+	
 </mapper>
 
 
