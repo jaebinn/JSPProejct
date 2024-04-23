@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.ec.model.dto.ExpertCareerListDTO;
 import com.ec.model.dto.ExpertDTO;
 import com.ec.model.dto.ExpertLicenseListDTO;
+import com.ec.model.dto.ExpertOnlyDTO;
 import com.ec.model.dto.Expert_file_indexesDTO;
 import com.ec.mybatis.SQLMapConfig;
 
@@ -166,5 +167,45 @@ public class ExpertDAO {
 
 	public boolean updatePaymentKey() {
 		return ss.update("Expert.updateKey") == 1;
+	}
+	
+	//expertinfo.jsp -----------------------------------------------------------------
+	
+	// 키워드 넣기
+	public boolean updateKeywordList(ExpertOnlyDTO dto) {
+		return 1 == ss.update("Expert.updateKeyword_list", dto);
+	}
+	
+	// 파일 가져오기
+	public Expert_file_indexesDTO getFullProfileByExpertIdx(long expert_idx) {
+		return ss.selectOne("Expert.selectProfile", expert_idx);
+	}
+	
+	// expert_idx로 파일 삭제
+	public boolean deleteFileByExpertIdx(long expert_idx) {
+		return 1 == ss.delete("Expert.deleteProfile", expert_idx);
+	}
+	
+	// 전문가 마이페이지용
+	// 트랜잭션 적용
+	
+	//한 행 ExpertOnlyDTO로 받아오기
+	public ExpertOnlyDTO getExpertRowById(SqlSession tsss, String user_id) {
+		return tsss.selectOne("Expert.getExpertFull", user_id);
+	}
+
+	//main block 업데이트
+	public boolean updateMainForm(SqlSession tsss, ExpertOnlyDTO eodto) {
+		return 1 == tsss.update("Expert.updateMain", eodto);
+	}
+	
+	//resume block 업데이트
+	public boolean updateResumeForm(ExpertOnlyDTO eodto) {
+		return 1 == ss.update("Expert.updateResume", eodto);
+	}
+	
+	//etcinfo block 업데이트
+	public boolean updateEtcinfoForm(ExpertOnlyDTO eodto) {
+		return 1 == ss.update("Expert.updateEtcinfo", eodto);
 	}
 }

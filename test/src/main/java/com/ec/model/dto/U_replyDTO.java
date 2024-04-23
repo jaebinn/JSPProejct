@@ -7,6 +7,8 @@ public class U_replyDTO {
 	private String contents;
 	private String updatechk;
 	private String regdate;
+	private String name;
+	private long expert_idx;
 	
 	public long getU_reply_idx() {
 		return u_reply_idx;
@@ -43,6 +45,18 @@ public class U_replyDTO {
 	}
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public long getExpert_idx() {
+		return expert_idx;
+	}
+	public void setExpert_idx(long expert_idx) {
+		this.expert_idx = expert_idx;
 	}
 	
 	

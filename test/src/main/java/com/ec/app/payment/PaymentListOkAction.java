@@ -41,7 +41,7 @@ public class PaymentListOkAction implements Action {
 		PaymentDAO pdao = new PaymentDAO();
 		
 		// 전체 게시글의 개수
-		Long totalCnt = pdao.getPaymentListCnt();
+		Long totalCnt = pdao.getPaymentListCnt(loginUser);
 		System.out.println(totalCnt);
 		
 		// 한 페이지에서 보여줄 게시글의 개수

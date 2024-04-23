@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>everycare</title>
+<link rel="icon" href="${cp}/images/everycare.ico" />
 <script src="https://kit.fontawesome.com/1924b51539.js"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" href="${cp}/css/paymentDetail.css">
@@ -22,7 +23,7 @@
 				<a href="${cp}/index.jsp" class="title"> <i
 					class="fa-solid fa-house"></i> <span>everycare</span></a>
 			</h2>
-			<a href="#" class="btn_my"> <span title="내 예약">MY</span>
+			<a href="${cp}/userinfo.us" class="btn_my"> <span title="내 예약">MY</span>
 			</a>
 		</div>
 		<div class="page_inner">

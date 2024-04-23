@@ -25,6 +25,9 @@ public class U_FileDAO {
 	public List<U_FileDTO> getFiles(long board_idx) {
 		return ss.selectList("U_File.getFiles",board_idx);
 	}
+	public String getUFiles(Long expert_idx) {
+		return ss.selectOne("U_File.getUFiles",expert_idx);
+	}
 }
 
 

@@ -12,6 +12,9 @@
 	<select id="getFiles" parameterType="long" resultType="u_filedto">
 		select * from u_file_indexes where board_idx=#{board_idx}
 	</select>
+	<select id="getUFiles" parameterType="long" resultType="String">
+		select system_name from expert_file_indexes where Expert_idx=#{Expert_idx}
+	</select>
 </mapper>
 
 

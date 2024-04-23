@@ -7,9 +7,13 @@
 	<select id="paymentCnt" resultType="long">
 		select count(*) from payment 
 	</select>
-	<select id="getListCnt" resultType="long">
-		select count(*) from payment
+	<select id="getListCnt" resultType="long" parameterType="string">
+		select count(*) from payment where user_id = #{loginUser}
 	</select>
+	<select id="getListExpertCnt" resultType="long" parameterType="long">
+		select count(*) from payment where expert_idx = #{expert_idx}
+	</select>
+	
 	<select id="getList" parameterType="hashmap" resultType="paymentdto">
 		select p.*, u.name
 		from payment p
@@ -44,4 +48,13 @@
 	   WHERE 
 	       p.payment_idx = #{payment_idx}
 	</select>
+	<select id="getExpertList" parameterType="hashmap" resultType="paymentdto">
+      select p.*, u.name
+      from payment p
+      join expert e on p.expert_idx = e.expert_idx
+      join user u on p.user_id = u.user_id
+      where p.expert_idx = #{expert_idx}
+      order by payment_idx desc 
+      LIMIT #{startRow}, #{pageSize}
+   </select>
 </mapper>

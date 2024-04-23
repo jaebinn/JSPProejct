@@ -33,7 +33,6 @@ a {
 /* input[type="button"] {
    box-shadow: none;
 } */
-
 input[type="button"]:hover {
    background-color: initial;
 }
@@ -52,7 +51,7 @@ input[type="button"]:hover {
 }
 
 #banner .content {
-   margin-top: 6%;
+   margin-top: 5%;
    background:
       url("https://cdn.pixabay.com/photo/2019/10/30/15/45/thumbs-up-4589867_1280.jpg");
    background-position: center;
@@ -179,6 +178,20 @@ input[type="button"]:hover {
    font-size: 15px;
    pointer: cursor;
    color: #FFD438;
+   float: left;
+}
+
+.starupdate>.star {
+   font-size: 30px;
+   float: left;
+}
+
+table td>.close_btn {
+   padding: 0;
+}
+
+.updatesend {
+   float: center;
 }
 </style>
 </head>
@@ -247,7 +260,7 @@ input[type="button"]:hover {
             <header class="banner-header">
                <h1>이용 후기</h1>
             </header>
-         <!--    <ul class="actions special">
+            <!--    <ul class="actions special">
                <li><a href=${cp}/app/review/review_write.jsp?page=${page}
                   class="button large wide scrolly">후기 작성하기</a></li>
             </ul> -->
@@ -306,14 +319,18 @@ input[type="button"]:hover {
                                           <div id="editbox" style="display: none;">
                                              <table border="1">
                                                 <tr>
-                                                   <td colspan="3"><input style="text-align: center;"
+                                                   <td colspan="2"><input
+                                                      style="text-align: center; font-weight: bold;"
                                                       type="text" name="user_id" maxlength="50"
                                                       value="${review.user_id}" readonly></td>
+                                                   <td><button class="close_btn fa-solid fa-xmark"
+                                                         value="닫기" onclick="closebtn();"></button></td>
                                                 </tr>
                                                 <tr>
                                                    <th style="text-align: center;">제목</th>
                                                    <td colspan="2"><input type="text" name="title"
-                                                      maxlength="50" placeholder="제목을 입력하세요" value=""></td>
+                                                      maxlength="50" placeholder="제목을 입력하세요"
+                                                      value="${review.title}"></td>
                                                 </tr>
                                                 <tr>
                                                    <th style="text-align: center;">별점</th>
@@ -336,13 +353,13 @@ input[type="button"]:hover {
                                                 <tr>
                                                    <th style="text-align: center;">내용</th>
                                                    <td colspan="2"><textarea name="detail" rows="5"
-                                                         style="resize: none;"></textarea></td>
+                                                         style="resize: none;">${review.detail}</textarea></td>
                                                 </tr>
                                                 <tr>
                                                    <th></th>
-                                                   <td><input type="button" value="등록"
-                                                      onclick="sendit()"></td>
-                                                   <td><button class="close_btn" value="닫기" onclick="closebtn(); return false;">닫기</button></td>
+                                                   <td><input type="button" class="updatesend"
+                                                      value="등록" onclick="sendit(form)"></td>
+                                                   <td></td>
                                                 </tr>
                                              </table>
                                           </div>
@@ -470,13 +487,19 @@ input[type="button"]:hover {
    <script src="${cp}/js/util.js"></script>
    <script src="${cp}/js/main.js"></script>
    <script>
-      // 수정 폼 제출
-      function sendit() {
-         const updateForm = document.querySelector('.updateForm'); // 이 부분을 추가해야 함
-         // 유효성 검사
-         updateForm.submit();
+      function sendit(form) {
+         var updateForm = form; // 수정 폼 요소를 가져옴
+         updateForm.submit(); // 수정 내용을 서버로 전송
       }
-
+      $(document).ready(
+            function() {
+               $(".open_btn").click(
+                     function() {
+                        var editForm = $(this).closest('.contents')
+                              .find("form.updateForm"); // 수정 폼 요소를 선택
+                        editForm.fadeIn(); // 선택된 수정 폼을 보여줌
+                     });
+            });
       // 수정 버튼 클릭 시 수정팝업 오픈
       $(document).ready(function() {
          $(".open_btn").click(function() {
@@ -485,12 +508,23 @@ input[type="button"]:hover {
       });
 
       
-      // 팝업 닫기 함수
-      function closebtn() {
-          // 팝업 닫기
-          $("#editbox").fadeOut();
-      }
-          
+      // 팝업 닫기 버튼 클릭 시 수정 팝업 닫기
+      $(document).ready(function() {
+          $(".close_btn").click(function() {
+              $(this).closest('.modal').fadeOut(); // 수정 팝업 닫기
+          });
+      });
+      
+      // 팝업 닫기 버튼 클릭 시 수정 팝업 닫기
+      $(document).ready(function() {
+          $(".close_btn").click(function(event) {
+              event.preventDefault(); // 폼 제출 이벤트를 막습니다.
+              $(this).closest('.modal').fadeOut(); // 수정 팝업 닫기
+          });
+      });
+      
+      
+      
       // 제목을 클릭하면 해당 콘텐츠를 토글
       function toggleContent(event) {
          // 클릭한 요소가 타이틀 영역인 경우에만 toggle 실행
@@ -500,17 +534,23 @@ input[type="button"]:hover {
                   : 'none';
          }
       }
-
-      // 페이지가 로드될 때 실행되는 함수
-      document.addEventListener("DOMContentLoaded", function() {
-         // 모든 별점을 표시하는 요소를 찾아서 처리
-         var starElements = document.querySelectorAll('.star_rating');
-         starElements.forEach(function(element) {
-            var starValue = parseInt(element.getAttribute('data-value'));
-            starUpdate(element, starValue);
+      
+      var star = ${star};
+         // 페이지 로드 시 실행되는 함수
+         $(document).ready(function() {
+             // 모든 별점 요소를 찾아서 처리
+             var starElements = document.querySelectorAll('.star_rating');
+             starElements.forEach(function(element, index) {
+                var starValue = parseInt(element.getAttribute('data-value'));
+                 starUpdate(element, starValue); // 별점 업데이트 함수 호출
+             });
+      
+             // 1부터 star까지의 별을 활성화하도록 설정
+             $('.modal .starupdate > .star:nth-child(-n+' + star + ')')
+                 .addClass('fas').removeClass('far');
          });
-      });
-
+		
+		
       // 별점 업데이트
       function starUpdate(element, starValue) {
          // 별 아이콘을 추가할 div 요소를 가져옴
@@ -535,32 +575,38 @@ input[type="button"]:hover {
       }
 
       // 클릭한 별까지만 활성화되도록 설정
-      $(document).ready(function() {
-         $('.modal .starupdate > .star').click(function() {
-            var clickedStarIndex = $(this).index();
-            var stars = $(this).parent().children('.star');
+      $(document).ready(
+            function() {
+               $('.modal .starupdate > .star').click(
+                     function() {
+                        var clickedStarIndex = $(this).index();
+                        var stars = $(this).parent().children('.star');
 
-            // 클릭한 별과 그 이전 별들을 활성화 처리합니다.
-            stars.each(function(index) {
-               if (index <= clickedStarIndex) {
-                  $(this).addClass('active');
-                  $(this).removeClass('far').addClass('fas');
-               } else {
-                  $(this).removeClass('active');
-                  $(this).removeClass('fas').addClass('far');
-               }
+                        // 클릭한 별과 그 이전 별들을 활성화 처리합니다.
+                        stars.each(function(index) {
+                           if (index <= clickedStarIndex) {
+                              $(this).addClass('active');
+                              $(this).removeClass('far').addClass(
+                                    'fas');
+                           } else {
+                              $(this).removeClass('active');
+                              $(this).removeClass('fas').addClass(
+                                    'far');
+                           }
+                        });
+
+                        // 별점 값 가져오기
+                        var starValue = clickedStarIndex + 1;
+
+                        // 모달 내의 starValue 업데이트
+                        $(this).closest('.modal').find('.starupdate')
+                              .attr('data-value', starValue);
+
+                        // 별점 값 hidden input에 설정
+                        $(this).closest('.modal').find('#star_score')
+                              .val(starValue);
+                     });
             });
-
-            // 별점 값 가져오기
-            var starValue = clickedStarIndex + 1;
-
-            // 모달 내의 starValue 업데이트
-            $(this).closest('.modal').find('.starupdate').attr('data-value', starValue);
-
-            // 별점 값 hidden input에 설정
-            $(this).closest('.modal').find('#star_score').val(starValue);
-         });
-      });
    </script>
 </body>
 </html>

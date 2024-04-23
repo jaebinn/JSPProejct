@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>everycare</title>
+<link rel="icon" href="${cp}/images/everycare.ico" />
 <link rel="stylesheet" href="${cp}/css/newstyle.css" />
 </head>
 <body>
@@ -19,8 +20,6 @@
 					<span class="extra"></span></a>
 			</div>
 
-
-
 		</header>
 
 		<!-- Section -->
@@ -33,7 +32,7 @@
 							<tr>
 								<th>아이디</th>
 								<td><input type="text" name="user_id"
-									value="" placeholder="아이디를 입력하세요"></td>
+									value="${loginUser}" placeholder="아이디를 입력하세요"></td>
 							</tr>
 							<tr>
 								<th>비밀번호</th>

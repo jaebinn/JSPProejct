@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>everycare</title>
+    <link rel="icon" href="${cp}/images/everycare.ico" />
     <script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="${cp}/css/reservation.css">
 </head>
@@ -21,7 +22,7 @@
                     <i class="fa-solid fa-house"></i>
                     <span>everycare</span></a>
             </h2>
-                <a href="#" class="btn_my">
+                <a href="${cp}/userinfo.us" class="btn_my">
                     <span title="내 예약">MY</span>
                 </a>
         </div>
@@ -257,7 +258,7 @@
                     pay_method: "card",
                     name: select_keyword,
                     amount: pay+"원",
-                    merchant_uid: payment_idx, //payment_idx로 받으면 됨
+                    merchant_uid: 100+payment_idx, //payment_idx로 받으면 됨
 
                 },function(res) {
 

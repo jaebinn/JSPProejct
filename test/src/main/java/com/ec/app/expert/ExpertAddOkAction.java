@@ -207,7 +207,7 @@ public class ExpertAddOkAction implements Action{
 //		System.out.println("fileDTO"+expertfiledto.getOriginal_name());
 //		System.out.println("fileDTO"+expertfiledto.getExpert_idx());
 		
-		session.setAttribute("loginUser_expert", expert_idx);
+		session.setAttribute("expertSession", expert_idx);
 		
 		Transfer transfer = new Transfer();
 		transfer.setRedirect(true);

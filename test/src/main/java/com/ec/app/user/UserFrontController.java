@@ -93,6 +93,30 @@ public class UserFrontController extends HttpServlet {
 	            System.out.println("/getUserByUserId.us : "+e);
 	         }
 	         break;
+  		//유저 마이페이지
+  		case "/userinfo.us":
+  			try {
+  				transfer = new UserInfoViewOkAction().execute(req, resp);
+  			} catch (Exception e) {
+  				e.printStackTrace();
+  			}
+  			break;
+  		//유저 마이페이지 수정 Ajax
+  		case "/update.us":
+  			try {
+  				transfer = new UserInfoUpdateOkAction().execute(req, resp);
+  			} catch (Exception e) {
+  				e.printStackTrace();
+  			}
+  			break;
+  		//유저 마이페이지 사용자 특이사항(user.user_etc) 수정 Ajax
+  		case "/etc.us":
+  			try {
+  				transfer = new UserInfoEtcUpdateOkAction().execute(req, resp);
+  			} catch(Exception e) {
+  				e.printStackTrace();
+  			}
+  			break;
 		}
 		
 		if(transfer != null) {

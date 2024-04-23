@@ -7,4 +7,59 @@
   		insert into expert_career_list(expert_idx, career_name, start_time, end_time)
   		values(#{expert_idx},#{career_name},#{start_time},#{end_time})
   	</insert>
+	
+  	<!-- expertinfo.jsp 경력 리스트 뽑기 -->
+  	<select id="getRowsListByIdx" parameterType="long" resultType="expertca">
+  		SELECT
+  			*
+  		FROM
+  			expert_career_list
+  		WHERE
+  			expert_idx = #{expert_idx}
+  	</select>
+  	
+  	<!-- expertinfo.jsp 경력 insert -->
+  	<insert id="insertRow" parameterType="expertcludto">
+  		INSERT INTO expert_career_list
+  			(expert_idx, career_name, start_time, end_time)
+  		VALUES
+  			(#{expert_idx},#{career_name},#{start_time},#{end_time})
+  	</insert>
+  	
+  	<!-- 경력 update -->
+  	<update id="updateRow" parameterType="expertcludto">
+  		UPDATE 
+  			expert_career_list
+  		SET
+  			career_name = #{new_career_name},
+  			start_time = #{start_time},
+  			end_time = #{end_time}
+  		WHERE
+  			expert_idx = #{expert_idx}
+  		AND
+  			career_name = #{career_name}
+  	</update>
+  	<!-- 경력 update 하지만 Date만 -->
+  	<update id="updateRowButNotName" parameterType="expertcludto">
+  		UPDATE 
+  			expert_career_list
+  		SET
+  			start_time = #{start_time},
+  			end_time = #{end_time}
+  		WHERE
+  			expert_idx = #{expert_idx}
+  		AND
+  			career_name = #{career_name}
+  	</update>
+  	
+  	<!-- 경력 delete -->
+  	<delete id="deleteRow" parameterType="expertcludto">
+  		DELETE
+  		FROM 
+  			expert_career_list
+  		WHERE
+  			expert_idx = #{expert_idx}
+  		AND
+  			career_name = #{career_name}
+  	</delete>  	
   </mapper>

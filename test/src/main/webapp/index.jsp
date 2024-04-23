@@ -11,6 +11,7 @@
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
+	 <link rel="icon" href="${cp}/images/everycare.ico" />
 	<script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="${cp}/css/main.css" />
 <link rel="stylesheet" href="${cp}/css/chat.css" />
@@ -39,15 +40,17 @@
 											<li><a href="${cp}/reviewlist.rf">리뷰게시판</a></li>
 										</ul>
 									</li>
+									<c:if test="${not empty loginUser}">
 									<li class="mypage">
 										<a href="${cp}/" class="icon solid fa-angle-down" style="pointer-events: none;">마이페이지</a>
 										<ul class="drop_menu">
-											<li class="mypage"><a href="${cp}/">유저 정보</a></li>
+											<li class="mypage"><a href="${cp}/userinfo.us">유저 정보</a></li>
 											<c:if test="${not empty expertSession}">
-												<li class="expertpage"><a href="${cp}/">전문가 정보</a></li>
+												<li class="expertpage"><a href="${cp}/expertinfo.ep">전문가 정보</a></li>
 											</c:if>
 										</ul>
-										</li>									
+										</li>	
+									</c:if>							
 									<c:if test="${not empty sessionScope.loginUser}">
 									    <!-- 세션이 있을 때 (로그인된 상태) -->    
 									    <c:choose>
@@ -171,6 +174,7 @@
 						</header>
 						<ul class="tabs">
 							<li>
+							<a href="" id="link_profile1">
 								<h3 id="title1">BEST<span class="extra">1</span></h3>
 								<div class="spotlight">
 									<ul>
@@ -196,8 +200,10 @@
 									</ul>
 								</div>
 								<p style="text-align:center; font-size:24px; font-weight:bold" class="best_name1"></p>
+								</a>
 							</li>
-							<li>
+							<li>		
+								<a href="" id="link_profile2">			
 								<h3 id="title2">BEST<span class="extra">2</span></h3>
 								<div class="spotlight">
 									<ul>
@@ -223,8 +229,10 @@
 									</ul>
 								</div>
 								<p style="text-align:center; font-size:24px; font-weight:bold" class="best_name2"></p>
+								</a>
 							</li>
 							<li>
+								<a href="" id="link_profile3">
 								<h3 id="title3">BEST<span class="extra">3</span></h3>
 								<div class="spotlight">
 									<ul>
@@ -245,11 +253,12 @@
 										</li>
 										<li>
 											<h4>희망근무지역</h4>
-											<p id="career_name3"></p>
+											<p id="location3"></p>
 										</li>
 									</ul>
 								</div>
 								<p style="text-align:center; font-size:24px; font-weight:bold" class="best_name3"></p>
+								</a>
 							</li>
 						</ul>
 					</section>
@@ -543,6 +552,7 @@
 		            $("#location" + i).text(expertList.location); // 희망 근무지역
 		            $(".profileImg"+i+" > img").attr("src",cp+"/file/"+expertList.original_name);
 		            $(".best_name" + i).text(expertList.name); // 이름
+		            $("#link_profile"+i).attr("href",cp+"/expertview.ep?expert_idx="+expertList.expert_idx);
 		            i++;
 		        });
 		    },
@@ -559,7 +569,7 @@
 	            let i =1;
 	            reviews.forEach(function(review, index) {
 	                var reviewHtml = 
-	                '<div class="review"'+i+' style="text-algin: center">'+
+	                '<div class="review"'+i+'>'+
 	                '<h5 id="title">'+review.title+'</h5>'+
 	                '<p id="detail">'+review.detail+'</p>'+
 	                '<p>❤❤❤❤❤</p>'+

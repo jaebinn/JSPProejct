@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>everycare</title>
+<link rel="icon" href="${cp}/images/everycare.ico" />
 <link rel="stylesheet" href="${cp}/css/newstyle.css" />
 </head>
 <body>

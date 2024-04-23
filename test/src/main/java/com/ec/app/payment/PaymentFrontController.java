@@ -52,6 +52,20 @@ public class PaymentFrontController extends HttpServlet {
 	            System.out.println("/paymentDetailView.pm : "+e);
 	         }
 	         break;
+		   case "/getexpertPaymentlist.pm" :      
+		         try {
+		            transfer = new GetExpertPaymentlist().execute(req, resp);
+		         } catch (Exception e) {
+		            System.out.println("/getexpertPaymentlist.pm : "+e);
+		         }
+		         break;
+		      case "/expertPaymentDetailView.pm":
+		            try {
+		               transfer = new ExpertPaymentDetailView().execute(req,resp);
+		            } catch (Exception e) {
+		               System.out.println("/expertPaymentDetailView.pm : "+e);
+		            }
+		            break;
 		}
 		
 		if(transfer != null) {

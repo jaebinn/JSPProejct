@@ -11,6 +11,7 @@
 <meta charset="utf-8" />
 <meta name="viewport"
    content="width=device-width, initial-scale=1, user-scalable=no" />
+   <link rel="icon" href="${cp}/images/everycare.ico" />
 <script src="https://kit.fontawesome.com/1924b51539.js"
    crossorigin="anonymous"></script>
 <link rel="stylesheet" href="${cp}/css/main.css" />
@@ -39,20 +40,23 @@
 						<li><a href="${cp}/faqlist.fa">FAQ게시판</a></li>
 						<li><a href="${cp}/reviewlist.rf">리뷰게시판</a></li>
 					</ul></li>
-				<li class="mypage"><a href="${cp}/"
-					class="icon solid fa-angle-down" style="pointer-events: none;">마이페이지</a>
-					<ul class="drop_menu">
-						<li class="mypage"><a href="${cp}/">유저 정보</a></li>
-						<c:if test="${not empty expertSession}">
-							<li class="expertpage"><a href="${cp}/">전문가 정보</a></li>
-						</c:if>
-					</ul></li>
+				<c:if test="${not empty loginUser}">
+					<li class="mypage"><a href="${cp}/"
+						class="icon solid fa-angle-down" style="pointer-events: none;">마이페이지</a>
+						<ul class="drop_menu">
+							<li class="mypage"><a href="${cp}/userinfo.us">유저 정보</a></li>
+							<c:if test="${not empty expertSession}">
+								<li class="expertpage"><a href="${cp}/expertinfo.ep">전문가
+										정보</a></li>
+							</c:if>
+						</ul></li>
+				</c:if>
 				<c:if test="${not empty sessionScope.loginUser}">
 					<!-- 세션이 있을 때 (로그인된 상태) -->
 					<c:choose>
 						<c:when test="${not empty expertSession}">
 							<!-- 전문가 세션이 있을 때 -->
-							<li><a href="${cp}/app/expert/expertChatList.jsp"><input
+							<li><a href="${cp}/app/expertChat/expertChatList.jsp"><input
 									type="button" value="전문가채팅" id="expert_chat"></a></li>
 							<!-- <span class="note-num"></span>	 -->
 						</c:when>

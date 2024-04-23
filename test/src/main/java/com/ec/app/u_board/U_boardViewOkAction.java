@@ -25,7 +25,7 @@ public class U_boardViewOkAction implements Action{
 			  ubdao.updateReadCount(board_idx);
 			  u_board.setReadcount(u_board.getReadcount()+1); 
 		  }
-		 
+		
 		U_FileDAO ufdao = new U_FileDAO();
 		U_replyDAO urdao = new U_replyDAO();
 		

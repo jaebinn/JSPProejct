@@ -18,9 +18,13 @@ private SqlSession ss;
 	public long getPaymentCnt() {
 		return ss.selectOne("Payment.paymentCnt");
 	}
-	public Long getPaymentListCnt() {
-		return ss.selectOne("Payment.getListCnt");
+	public Long getPaymentListCnt(String loginUser) {
+		return ss.selectOne("Payment.getListCnt", loginUser);
 	}
+	public Long getPaymentListCnt(long expert_idx) {
+		return ss.selectOne("Payment.getListExpertCnt", expert_idx);
+	}
+	
 	
 	public List<PaymentDTO> getPaymentList(int startRow, int pageSize, String loginUser) {
 		HashMap<String, Object> datas = new HashMap<String, Object>();
@@ -37,6 +41,13 @@ private SqlSession ss;
 	public PaymentDTO getPaymentDetail(long payment_idx) {
 	      return ss.selectOne("Payment.getPaymentDetail", payment_idx);
 	 }
+	public List<PaymentDTO> getPaymentList(int startRow, int pageSize, long expert_idx) {
+	      HashMap<String, Object> datas = new HashMap<String, Object>();
+	      datas.put("startRow", startRow);
+	      datas.put("pageSize", pageSize);
+	      datas.put("expert_idx", expert_idx);
+	      return ss.selectList("Payment.getExpertList",datas);
+	   }
 }
 	
 

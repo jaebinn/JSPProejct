@@ -3581,3 +3581,15 @@ th,#join-btn{
 /* #join-btn{
 	background-color: #92B3B7 !important;
 } */
+#gender1{
+	float: left !important;
+}
+#gender2{
+	float: right !important;
+}
+#foreigner1{
+	float: left !important;
+}
+#foreigner2{
+	float: right !important;
+}

@@ -116,6 +116,38 @@ public class ExpertFrontController extends HttpServlet{
 	            System.out.println("/getNamebyExpert_idx.ep : "+e);
 	         }
 	         break;
+  		//전문가 마이페이지
+  		case "/expertinfo.ep":
+  			try {
+  				transfer = new ExpertInfoViewOkAction().execute(req, resp);
+  			} catch(Exception e) {
+  				e.printStackTrace();
+  			}
+  			break;
+  		//전문가 수정
+  		case "/expertinfo/update/fm.ep":
+  			try {
+  				transfer = new ExpertInfoViewFormUpdateOkAction().execute(req, resp);
+  			} catch(Exception e) {
+  				e.printStackTrace();
+  			}
+  			break;
+  		//전문가 경력/자격증 수정
+  		case "/expertinfo/update/aj.ep":
+  			try {
+  				new ExpertInfoViewAjaxUpdateOkAction().execute(req, resp);
+  			} catch(Exception e) {
+  				e.printStackTrace();
+  			}
+  			break;
+  		//전문가 파일 업로드
+  		case "/expertinfo/update/fl.ep":
+  			try {
+  				new ExpertInfoViewFileUpdateOkAction().execute(req, resp);
+  			} catch(Exception e) {
+  				e.printStackTrace();
+  			}
+  			break;
 		}
 		
 		if(transfer != null) {

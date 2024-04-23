@@ -9,6 +9,7 @@
 		<title>everycare</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="icon" href="${cp}/images/everycare.ico" />
 		<script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="${cp}/css/main.css"/>
 		<link rel="stylesheet" href="${cp}/css/paymentLst.css"/>
@@ -41,6 +42,7 @@
 									 	<c:forEach var="i" begin="0" end="${list.size() - 1}">
 									 		<c:set var="p" value="${list[i]}"/>
 									 		<div id=valueArea>
+									 		<a href="${cp}/paymentDetailView.pm?payment_idx=${p.payment_idx}">
 								 				<table>
 								 					<tr>
 								 						<td>매칭번호</td>
@@ -67,6 +69,7 @@
 								 						<td>${p.start_date} ~ ${p.end_date}</td>
 								 					</tr>
 								 				</table>
+								 				</a>
 								 				<hr>
 									 		</div>
 									 		<br>

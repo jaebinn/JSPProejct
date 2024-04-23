@@ -22,8 +22,8 @@ public class UserDAO {
 	public UserDTO getUserByPw(String pw) {
 		return ss.selectOne("User.select",pw);
 	}
-	public int deleteUser(String userid) {
-		return ss.delete("User.delete-user",userid);
+	public boolean deleteUser(String userid) {
+		return ss.delete("User.delete-user",userid)==1;
 	}
 	public int deleteExpert(String userid) {
 		return ss.delete("User.delete-expert",userid);
@@ -41,9 +41,64 @@ public class UserDAO {
 	public UserDTO SelectExpert(String userid) {
 		return ss.selectOne("User.select_expert", userid);
 	}
-	public int SelectExpertIdx(String userid) {
+	public Long SelectExpertIdx(String userid) {
 		return ss.selectOne("User.select_expert_idx", userid);
 	}
+	public Long SelectboardIdx(String userid) {
+		return ss.selectOne("User.select_board_idx",userid);
+	}
+	
+	//트랜잭션
+	// 서비스 클래스에서 SqlSession을 받아 사용함
+	
+	//Userinfo.jsp 수정
+	
+	//select - id값 문자열로 레코드 하나 가져오기
+	public UserDTO getUserRowByID(SqlSession tsss, String user_id) {
+		return tsss.selectOne("User.select", user_id);
+	}
+	
+	//update - default block 수정
+	public boolean changeUserRow_inDefaultForm(SqlSession tsss, UserDTO userdto) {
+		return 1 == tsss.update("User.update_DefaultBlock", userdto);
+	}
+	
+	//update - contacts block 수정
+	public boolean changeUserRow_inContactsForm(SqlSession tsss, UserDTO userdto) {
+		return 1 == tsss.update("User.update_ContactsBlock", userdto);
+	}
+	
+	//update - addr block 수정
+	public boolean changeUserRow_inAddrForm(SqlSession tsss, UserDTO userdto) {
+		return 1 == tsss.update("User.update_AddrBlock", userdto);
+	}
+	
+	//update - pw block 수정(password 수정)
+	public boolean changeUserRow_inPwForm(SqlSession tsss, UserDTO userdto) {
+		return 1 == tsss.update("User.update_PasswordBlock", userdto);
+	}
+	
+	//update - user.user_etc 수정(키워드 수정)
+	public boolean changeUserRow_userEtc(SqlSession tsss, UserDTO userdto) {
+		return 1 == tsss.update("User.update_UserEtc", userdto);
+	}
+
+	//Expertinfo.jsp 수정
+	
+	//update - main block 수정
+	public boolean updateMainForm(SqlSession tsss, UserDTO udto) {
+		return 1 == tsss.update("User.updateMain", udto);
+	}
+	//update - main block + pw 수정
+	public boolean updateMainFormIncludePW(SqlSession tsss, UserDTO udto) {
+		return 1 == tsss.update("User.updateMainPlusPW", udto);
+	}
+	//update - contacts block 수정
+	public boolean updateContactsForm(UserDTO udto) {
+		return 1 == ss.update("User.updateContacts", udto);
+	}
+
+	
 }
 
 

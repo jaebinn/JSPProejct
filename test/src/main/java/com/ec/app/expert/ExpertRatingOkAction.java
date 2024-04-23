@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ec.action.Action;
 import com.ec.action.Transfer;
-import com.ec.model.dao.RatingDAO;
 import com.ec.model.dao.ReviewDAO;
 import com.google.gson.Gson;
 

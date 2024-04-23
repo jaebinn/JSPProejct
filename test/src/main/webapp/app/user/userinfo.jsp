@@ -5,10 +5,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
     <title>everycare</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/fontawesome-all.min.css">
+    <script src="http://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="${cp}/css/main.css">
+    <link rel="stylesheet" href="${cp}/css/fontawesome-all.min.css">
     <style>
         html {
             font-size: 16px;
@@ -18,6 +19,11 @@
             margin: 0 0 4rem 0;
             text-align: center;
         }
+
+        #wrapper>.main>.inner.alt {
+            padding-top: 0!important;
+        }
+
         /* .content 위쪽 영역 넘기기 */
             .inner-content-div-headbtn {
                 margin-top: -3rem;
@@ -104,18 +110,168 @@
             .btn-for-findzipcode {
                 padding: 0 1.1rem;
             }
+
+        /* 비밀번호 폼 inner wrapper */
+        /* 폼 inner wrapper 영역 조절 */
+            .pw-form-inner-wrapper {
+                margin-left: 5%;
+                margin-right: 5%;
+                width: 90%;
+            }
+        /* p태그 초기화하기 */
+            .pw-form-inner-wrapper>p {
+                margin-top: 0.5rem;
+                margin-bottom: 0.2rem;
+                text-align: left;
+                font-size: 0.8rem;
+            }
+        /* input border 조금만 더 진하게 */
+            .pw-form-inner-wrapper>input[type=password] {
+                border-color: #dfdfdf;
+            }
+
+        /* 개인정보 페이지 <-> 이용 내역 페이지 inner-nav 네비바 */
+            div.inner-nav {
+                width: 100%;
+                height: 3rem;
+                text-align: center;
+                background-color: #fff;
+            }
+            div.inner-nav>ul {
+                list-style: none;
+                padding: 0; margin: 0;
+            }
+            div.inner-nav>ul>li {
+                position: relative;
+                display: inline-block;
+                margin: 0 1.5rem;
+                padding: 0;
+                height: 3rem;
+                line-height: 3.25rem;
+            }
+            div.inner-nav>ul>li>a {
+                overflow: hidden;
+                display: block;
+                height: inherit;
+                line-height: inherit;
+                border-bottom: 0;
+                color: #3b3b3b;
+            }
+            /* 네비바 요소 사이 간격 띄우기 */
+            div.inner-nav>ul>li:first-child {
+                margin-right: 3rem;
+            }
+            div.inner-nav>ul>li:last-child {
+                margin-left: 3rem;
+            }
+        
+        /* 사용자 특이사항 블럭(keyword-block) 관련 */
+            /* td 폭 조절 */
+                #keyword-block thead>tr>th:first-child,
+                #keyword-block tbody>tr>td:first-child,
+                #keyword-block tfoot>tr>td:first-child {
+                    width: 77%;
+                }
+                #keyword-block thead>tr>th:last-child,
+                #keyword-block tbody>tr>td:last-child,
+                #keyword-block tfoot>tr>td:last-child {
+                    width: 23%;
+                }
+            /* 삭제/적용 버튼 크기 조정 */
+                #keyword-block a.button.modified-btn {
+                    width: 5rem;
+                    height: 2rem;
+                    line-height: 2rem;
+                    padding: 0 0.5rem;
+                }
+            /* 적용 버튼 위치 조정(밑으로 내리기) */
+                #keyword-block thead a.button.modified-btn {
+                    margin-bottom: -0.5rem;
+                }
+       	/*헤더 관련*/
+       	header.accent1 {
+       		margin-top: 1.5rem;
+       		padding: 3rem 0 0.5rem 0!important;
+       	}
     </style>
 </head>
 <body>
-    <div id="wrapper">
+    <div id="wrapper">  
         <!-- 헤더 위치 -->
+					<header id="header" class="alt">
+
+						<!-- Logo -->
+							<div class="logo">
+								<a href="${cp}/index.jsp"><strong>everycare</strong></a>
+							</div>
+
+						<!-- Nav -->
+							<nav id="nav">
+								<ul style="display:flex">
+									<li class="current"><a href="${cp}/index.jsp">Home</a></li>
+									<li><a href="${cp}/expertsort.ep?psort=1">전문가매칭</a></li>
+									<li>									
+										<a href="${cp}/u_boardlist.ub" class="icon solid fa-angle-down" style="pointer-events: none;">게시판</a>
+										<ul class="drop_menu">
+											<li><a href="${cp}/u_boardlist.ub">전문가 찾기</a></li>
+											<li><a href="${cp}/faqlist.fa">FAQ게시판</a></li>
+											<li><a href="${cp}/reviewlist.rf">리뷰게시판</a></li>
+										</ul>
+									</li>
+									<li class="mypage">
+										<a href="${cp}/" class="icon solid fa-angle-down" style="pointer-events: none;">마이페이지</a>
+										<ul class="drop_menu">
+											<li class="mypage"><a href="${cp}/userinfo.us">유저 정보</a></li>
+											<c:if test="${not empty expertSession}">
+												<li class="expertpage"><a href="${cp}/expertinfo.ep">전문가 정보</a></li>
+											</c:if>
+										</ul>
+										</li>									
+									<c:if test="${not empty sessionScope.loginUser}">
+									    <!-- 세션이 있을 때 (로그인된 상태) -->    
+									    <c:choose>
+									        <c:when test="${not empty expertSession}">
+									            <!-- 전문가 세션이 있을 때 -->
+									            <li><a href="${cp}/app/expertChat/expertChatList.jsp"><input type="button" value="전문가채팅" id="expert_chat"></a></li>	
+									             <!-- <span class="note-num"></span>	 -->				            
+									        </c:when>
+									        <c:otherwise>
+									            <!-- 전문가 세션이 없을 때 -->
+									            <li><a href="${cp}/app/expert/expertRegister.jsp"><input type="button" value="전문가등록" id="expert_btn"></a></li>
+									        </c:otherwise>
+									    </c:choose>
+									    <li><a href="${cp}/app/user/user-logout.jsp"><input type="button" value="로그아웃" id="logout_btn"></a></li>
+									    <li><p id="login_user" style="font-weight:bold">${sessionScope.loginUser}님</p></li>
+									</c:if>
+									<c:if test="${empty sessionScope.loginUser}"> 
+										<li><a href="${cp}/app/user/user-login.jsp"><input type="button" value="로그인" id="login_btn"></a></li>
+									</c:if>
+								</ul>
+							</nav>
+					</header>
+
         <section class="main alt">
             <header class="accent1">
                 <h1>개인정보 관리</h1>
-                <p>
-                    ${userdto.name}님 환영합니다
+                <p id="header-text">
+                    환영합니다 ${userdto.name}님
                 </p>
             </header>
+            <!-- 내부 네비바 -->
+            <div class="inner-nav">
+                <ul>
+                    <li style="white-space: nowrap;">
+                        <a href="${cp}/userinfo.us">개인정보 관리</a>
+                    </li>
+                    <li style="white-space: nowrap;">
+                        <a href="${cp}/getpaymentlist.pm">이용 내역 확인</a>
+                    </li>
+                    <li style="white-space: nowrap;">
+                        <a href="${cp}/app/user/user-delete.jsp">회원 탈퇴하기</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- 내부 네비바 끝 -->
             <div class="inner alt">
                 <div class="content">
                     <!-- 개인정보 나열 공간 -->
@@ -131,12 +287,8 @@
                                         <tbody>
                                             <tr>
                                                 <td>ID</td>
-                                                <!-- 폼 open 시 hidden -->
-                                                <td id="id-display" class="default-display">${userdto.user_id}</td>
-                                                <!-- 폼 close 시 hidden -->
-                                                <td id="id-inputbox" class="default-info-input this-is-hidden">
-                                                    <input type="text" name="userid" id="id-input">
-                                                </td>
+                                                <!-- USER ID는 수정할 수 없음 -->
+                                                <td id="id-display">${userdto.user_id}</td>
                                             </tr>
                                             <tr>
                                                 <td>이름</td>
@@ -148,12 +300,36 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td>국적</td>
+                                                <!-- 폼 open 시 hidden -->
+                                                <td id="national-display" class="default-display">
+                                                    <c:choose>
+                                                		<c:when test="${userdto.gender eq 'M-K' || userdto.gender eq 'W-K'}">내국인</c:when>
+                                                		<c:when test="${userdto.gender eq 'M-F' || userdto.gender eq 'W-F'}">외국인</c:when>
+                                                		<c:otherwise>??</c:otherwise>
+                                                	</c:choose>
+                                                </td>
+                                                <!-- 폼 close 시 hidden -->
+                                                <td id="national-inputbox" class="default-info-input this-is-hidden">
+                                                    <div class="row gtr-uniform">
+                                                        <div class="col-6 col-12-xsmall">
+                                                            <input type="radio" name="usernational" id="national-k" value="K">
+                                                            <label for="national-k">내국인</label>
+                                                        </div>
+                                                        <div class="col-6 col-12-xsmall">
+                                                            <input type="radio" name="usernational" id="national-f" value="F">
+                                                            <label for="national-f">외국인</label>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td>성별</td>
                                                 <!-- 폼 open 시 hidden -->
                                                 <td id="sex-display" class="default-display">
                                                 	<c:choose>
-                                                		<c:when test="${userdto.gender eq 'M'}">남성</c:when>
-                                                		<c:when test="${userdto.gender eq 'W'}">여성</c:when>
+                                                		<c:when test="${userdto.gender eq 'M-K' || userdto.gender eq 'M-F'}">남성</c:when>
+                                                		<c:when test="${userdto.gender eq 'W-K' || userdto.gender eq 'W-F'}">여성</c:when>
                                                 		<c:otherwise>??</c:otherwise>
                                                 	</c:choose>
                                                 </td>
@@ -172,23 +348,23 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>생년월일</td>
+                                                <td>나이</td>
                                                 <!-- 폼 open 시 hidden -->
-                                                <td id="birth-display" class="default-display">${userdto.birth}</td>
+                                                <td id="birth-display" class="default-display">${userdto.age}</td>
                                                 <!-- 폼 close 시 hidden -->
                                                 <td id="birth-inputbox" class="default-info-input this-is-hidden">
-                                                    <input type="text" name="userbirth" id="birth-input" placeholder="ex) 2000-01-01 형태로 입력">
+                                                    <input type="text" name="userbirth" id="birth-input">
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </form>
                                 <!-- 폼 open 시 hidden -->
-                                <div class="inner-content-div-fitbtn-limiter-m8r bottom-margin-inserter">
+                                <div id="default-btn-div" class="inner-content-div-fitbtn-limiter-m8r bottom-margin-inserter">
                                     <a id="formopener-btn-default" class="button primary fit small" style="cursor: pointer;">기본 정보 수정하기</a>
                                 </div>
                                 <!-- 폼 close 시 hidden -->
-                                <ul class="actions fit small this-is-hidden">
+                                <ul id="default-btn-ul" class="actions fit small this-is-hidden">
                                     <li>
                                         <a id="formsubmit-btn-default" class="button primary fit small" style="cursor: pointer;">수정 적용하기</a>
                                     </li>
@@ -198,30 +374,92 @@
                                 </ul>
                             </div>
                             <!-- 기본 정보 끝 -->
-                            <!-- 전문가 가입 홍보 -->
-                            <div class="inner-content-div">
-                                <h3>오늘 에브리케어 전문가가 되세요</h3>
-                                <p>
-                                    대충 홍보글 Lorem ipsum dolor sit amet, consectetr
-                                    <br>
-                                    adipisicing elit. Dolorem sint rerum expedita,
-                                    <br>
-                                    ex perspiciatis odio velit impedit molestiae sed
-                                    <br>
-                                    ipsum provident soluta distinctio tempore non cupiditate
-                                    <br>
-                                    tempora vero possimus deserunt?
-                                </p>
-                                <div class="inner-content-div-fitbtn-limiter-m2r bottom-margin-inserter">
-                                    <a href="#" class="button primary fit" style="cursor: pointer;">에브리케어 전문가 가입하기</a>
-                                </div>
+                            <!-- 사용자 특이사항 -->
+                            <div id="keyword-block" class="inner-content-div">
+                                <h3>사용자 특이사항</h3>
+                                <table class="info-table" style="text-align: left;">
+                                    <thead>
+                                        <tr>
+                                            <th>나를 설명할 수 있는 키워드를 입력해주세요</th>
+                                            <th><a id="keyword-submit-btn" class="button modified-btn" style="cursor: pointer;">적용하기</a></th>
+                                        </tr>
+                                    </thead>
+                                    <!-- 동적생성 구역 -->
+                                    <tbody id="dynamic-area">
+	                                    <c:if test="${!keywordsList.isEmpty()}">
+	                                    	<c:forEach var="keyword" items="${keywordsList}">
+	                                    		<tr>
+	                                   				<td>${keyword}</td>
+	                                          		<td><a class="button modified-btn keyword-delete-btn" style="cursor: pointer;">삭제</a></td>
+	                                    		</tr>
+	                                    	</c:forEach>
+	                                    </c:if>
+                                    </tbody>
+                                    <!-- 동적생성 구역 끝 -->
+                                    <tfoot>
+                                        <tr>
+                                            <td><input type="text" id="keyword-input" placeholder="키워드 입력"></td>
+                                            <td><a id="keyword-add-btn" class="button primary" style="cursor: pointer;">추가</a></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                             </div>
+                            <!-- 사용자 특이사항 끝 -->
+                            <!-- 전문가 가입 홍보 -->
+                            <!-- 사용자가 이미 전문가인 경우 마이페이지 링크를 건다 -->
+                            <c:choose>
+                            	<c:when test="${not empty expertSession}">
+                            		<div class="inner-content-div">
+                            			<h3>전문가 마이페이지를 찾으시나요?</h3>
+		                                <div class="inner-content-div-fitbtn-limiter-m2r bottom-margin-inserter">
+		                                    <a href="${cp}/expertinfo.ep" class="button fit" style="cursor: pointer;">전문가 정보 수정하기</a>
+		                                </div>
+                            		</div>
+                            	</c:when>
+                            	<c:otherwise>
+		                            <div class="inner-content-div">
+		                                <h3>오늘 에브리케어 전문가가 되세요</h3>
+		                                <p>
+		                                    대충 홍보글 Lorem ipsum dolor sit amet, consectetr
+		                                    <br>
+		                                    adipisicing elit. Dolorem sint rerum expedita,
+		                                    <br>
+		                                    ex perspiciatis odio velit impedit molestiae sed
+		                                    <br>
+		                                    ipsum provident soluta distinctio tempore non cupiditate
+		                                    <br>
+		                                    tempora vero possimus deserunt?
+		                                </p>
+		                                <div class="inner-content-div-fitbtn-limiter-m2r bottom-margin-inserter">
+		                                    <a href="${cp}/app/expert/expertRegister.jsp" class="button primary fit" style="cursor: pointer;">에브리케어 전문가 가입하기</a>
+		                                </div>
+		                            </div>
+	                            </c:otherwise>
+                            </c:choose>
                             <!-- 전문가 가입 끝 -->
                         </div>
                         <!-- content 좌측 끝 -->
 
                         <!-- content 우측 -->
                         <div class="col-6 col-12-medium">
+                            <!-- 비밀번호 -->
+                            <div id="password-block" class="inner-content-div">
+                                <h3>비밀번호 변경하기</h3>
+                                <form id="update-password-info" name="update_password_info" method="post">
+                                    <div class="pw-form-inner-wrapper">
+                                        <p>기존 비밀번호</p>
+                                        <input type="password" name="existing_userpw" id="existing-pw-input" placeholder="기존 비밀번호를 입력해주세요">
+                                        <p>신규 비밀번호</p>
+                                        <input type="password" name="modified_userpw" id="modified-pw-input" placeholder="8-64문자, 숫자/특수문자가 있어야 합니다">
+                                        <p>신규 비밀번호 확인</p>
+                                        <input type="password" name="modified_userpw_check" id="modified-pw-check-input" placeholder="비밀번호 확인은 신규 비밀번호와 동일해야 합니다">
+                                    </div>
+                                </form>
+                                <div class="inner-content-div-fitbtn-limiter-m8r bottom-margin-inserter">
+                                    <a id="formsubmit-btn-password" class="button primary fit small" style="cursor: pointer;">비밀번호 변경하기</a>
+                                </div>
+                            </div>
+                            <!-- 비밀번호 끝 -->
                             <!-- 연락처 -->
                             <div id="contacts-block" class="inner-content-div">
                                 <h3>연락처</h3>
@@ -259,11 +497,11 @@
                                     </table>
                                 </form>
                                 <!-- 폼 open 시 hidden -->
-                                <div class="inner-content-div-fitbtn-limiter-m8r bottom-margin-inserter">
+                                <div id="contacts-btn-div" class="inner-content-div-fitbtn-limiter-m8r bottom-margin-inserter">
                                     <a id="formopener-btn-contacts" class="button primary fit small" style="cursor: pointer;">연락처 수정하기</a>
                                 </div>
                                 <!-- 폼 close 시 hidden -->
-                                <ul class="actions fit small this-is-hidden">
+                                <ul id="contacts-btn-ul" class="actions fit small this-is-hidden">
                                     <li>
                                         <a id="formsubmit-btn-contacts" class="button primary fit small" style="cursor: pointer;">수정 적용하기</a>
                                     </li>
@@ -285,7 +523,6 @@
                                                 <td id="zip-display" class="addr-display">${userdto.zipcode }</td>
                                                 <!-- 폼 close 시 hidden -->
                                                 <td id="zip-inputbox" class="addr-info-input this-is-hidden">
-                                                    <!-- 씨발 우편번호API 필요함!!!!!!!!!!!!!!!!! -->
                                                     <!-- td 좌우 2등분을 위한 div -->
                                                     <div class="row gtr-uniform">
                                                         <!-- 우편번호 input -->
@@ -330,10 +567,10 @@
                                     </table>
                                 </form>
                                 <!-- 폼 open 시 hidden -->
-                                <div class="inner-content-div-fitbtn-limiter-m8r bottom-margin-inserter">
+                                <div id="addr-btn-div" class="inner-content-div-fitbtn-limiter-m8r bottom-margin-inserter">
                                     <a id="formopener-btn-addr" class="button primary fit small" style="cursor: pointer;">주소 수정하기</a>
                                 </div>
-                                <ul class="actions fit small this-is-hidden">
+                                <ul id="addr-btn-ul" class="actions fit small this-is-hidden">
                                     <li>
                                         <a id="formsubmit-btn-addr" class="button primary fit small" style="cursor: pointer;">수정 적용하기</a>
                                     </li>
@@ -355,7 +592,60 @@
             <!-- inner alt 끝 -->
         </section>
         <!-- 푸터 위치 -->
+		<footer id="footer">
+			<div class="inner">
+				<section>
+					<h3>EveryCare</h3>
+					<p>EveryCare는 사용자들의 개인 정보와 상담 내용을 철저히 보호하며, 안전한 결제 시스템을 통해 사용자들이 안심하고 서비스를 이용할 수 있도록 최선을 다하고 있습니다.</p>
+					<ul class="icons">
+						<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+					</ul>
+				</section>
+				<section class="narrow">
+					<h4>EveryCare SNS</h4>
+					<ul class="links">
+						<li><a href="#">인스타그램</a></li>
+						<li><a href="#">페이스북</a></li>
+						<li><a href="#">유튜브</a></li>
+					</ul>
+				</section>
+				<section class="narrow">
+					<h4>EveryCare 오픈채팅</h4>
+					<ul class="links">
+						<li><a href="#">링크</a></li>
+						<li><a href="#">Vulputate tristique</a></li>
+						<li><a href="#">Ultrices nulla</a></li>
+						<li><a href="#">Cursus sed magna</a></li>
+						<li><a href="#">Sed lectus donec</a></li>
+					</ul>
+				</section>
+				<section>
+					<h3>고객센터</h3>
+					<p>EveryCare 고객센터는 여러분의 궁금증이나 문의사항에 친절하고 신속하게 대응해 드립니다. 저희 팀은 24시간 365일 연중무휴로 운영되며, 다음과 같은 서비스를 제공합니다.<p>
+					<p><a href="#" class="major">(000) 000-0000</a></p>
+				</section>
+			</div>
+			<div class="copyright">
+				<p>&copy; EveryCare. All rights reserved.</p>
+			</div>
+		</footer>
+
     </div>
+    <!-- Scripts -->
+			<script> const cp = '${cp}';</script>
+			<script src="${cp}/js/jquery.min.js"></script>
+			<script src="${cp}/js/jquery.dropotron.min.js"></script>
+			<script src="${cp}/js/jquery.selectorr.min.js"></script>
+			<script src="${cp}/js/jquery.scrollex.min.js"></script>
+			<script src="${cp}/js/jquery.scrolly.min.js"></script>
+			<script src="${cp}/js/browser.min.js"></script>
+			<script src="${cp}/js/breakpoints.min.js"></script>
+			<script src="${cp}/js/util.js"></script>
+			<script src="${cp}/js/main.js"></script>
+			<script src="${cp}/js/chat.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </body>
 <!-- 카카오 주소찾기 API -->
 <!-- 
@@ -363,6 +653,34 @@
  -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+
+    const DEFAULT_BLOCK = {
+        display: {
+            user_id: document.getElementById("id-display"),
+            name: document.getElementById("name-display"),
+            national: document.getElementById("national-display"),
+            sex: document.getElementById("sex-display"),
+            birth: document.getElementById("birth-display")
+        },
+        inputbox: {
+            name: document.getElementById("name-inputbox"),
+            national: document.getElementById("national-inputbox"),
+            sex: document.getElementById("sex-inputbox"),
+            birth: document.getElementById("birth-inputbox")
+        },
+        input: {
+            name: document.getElementById("name-input"),
+            national_k: document.getElementById("national-k"),
+            national_f: document.getElementById("national-f"),
+            sex_male: document.getElementById("sex-male"),
+            sex_female: document.getElementById("sex-female"),
+            birth: document.getElementById("birth-input")
+        },
+        openBtn: document.getElementById("formopener-btn-default"),
+        submitBtn: document.getElementById("formsubmit-btn-default"),
+        cancelBtn: document.getElementById("formcancel-btn-default")
+    };
+
     //===============================================================================================================
     //메모
     /*
@@ -380,6 +698,19 @@
          + 추가
         이거 HTML 보면 지금은 Table에 불러온 값과 input이 좆되게 섞여있음
         이걸 걍... Table을 두개 만들어두는건 어떨까 싶음
+    */
+
+    //===============================================================================================================
+    //참조
+    /*
+        240412 1123
+        password-block(비밀번호 변경 블럭)의 경우 폼 open/cancel이 없음
+        긍게 뭐 밑에 uniFormOpenCancel... 같은 함수는 안 쓸거임
+
+        240417 1045
+        파일 병합쪽으로 문제가 생겨서 java.sql.Date 형식의 birth 값을 다시 int 의 age로 바꾸기로 함
+        근데 페이지 뒤집어가면서 모든 birth-*를 age-*로 바꾸기는 좀... 힘드니
+        일단은 실제 값(JSON쪽 등)과 유효성 쪽만 수정할것임
     */
 
     //===============================================================================================================
@@ -430,15 +761,216 @@
     //===============================================================================================================
     //이벤트 등록
 
-    // open/cancel 버튼
+    // open/cancel/submit 버튼
     for(let i = 0; i < 3; i++) {
         document.getElementById(FORM_OPENED_BTN_ID[i]).addEventListener("click", uniFormOpenCancel_btnClickEvent);
         document.getElementById(FORM_CANCEL_BTN_ID[i]).addEventListener("click", uniFormOpenCancel_btnClickEvent);
         document.getElementById(FORM_SUBMIT_BTN_ID[i]).addEventListener("click", uniFormSubmit_btnClickEvent);
     }
 
+    // 비밀번호 폼 submit 버튼
+    document.getElementById("formsubmit-btn-password").addEventListener("click", pwFormSubmit_btnClickEvent);
+
     // 카카오 주소찾기 API 버튼
     document.getElementById("kakao-postbtn").addEventListener("click", kakaoPostcode);
+
+    //===============================================================================================================
+    // 사용자 특이사항 처리용 함수들
+    // 변수 선언 등도 일단 여기다 전부 모아둠
+    /*
+        일단 각 키워드는 18글자까지 입력 가능, 한글만 가능, 초성 불가능 정도로만 받을거임
+    */
+
+    // 동적생성 구역 - tbody
+    const grandParentOfKeywords = document.getElementById("dynamic-area");
+    // 동적생성 구역 tr 요소 리스트
+    //deprecated - 쓰지 말것
+    // const keywordElementList = document.getElementById("dynamic-area").children;
+    // submit 버튼
+    const keywordSubmitBtn = document.getElementById("keyword-submit-btn");
+    // add 버튼
+    const keywordAddBtn = document.getElementById("keyword-add-btn");
+    // 키워드 input
+    const keywordInput = document.getElementById("keyword-input");
+
+    // 우선 삭제버튼에 이벤트를 할당
+    setDeleteEventToList(grandParentOfKeywords.children);
+
+    //삭제버튼 이벤트 할당 함수
+    function setDeleteEventToList(children) {
+        for(let ele of children) {
+            ele.getElementsByClassName("keyword-delete-btn")[0].addEventListener("click", (event) => {
+                event.target.parentElement.parentElement.remove();
+            });
+        }
+    }
+    function setDeleteEvent(element) {
+        element.addEventListener("click", (event) => {
+            event.target.parentElement.parentElement.remove();
+        });
+
+        //연속적인 처리를 위해 반환값 선언
+        return element;
+    }
+
+    //추가버튼 이벤트 할당
+    keywordAddBtn.addEventListener("click", addKeyword);
+    // 엔터키로도 입력할 수 있게 해둠
+    keywordInput.addEventListener("keydown", (event) => {
+        if(event.key === "Enter") {
+            addKeyword();
+        }
+    });
+    
+    //추가버튼 이벤트 함수
+    function addKeyword() {
+        const inpVal = keywordInput.value;
+        if(/^(?=.*[가-힣a-zA-Z])[가-힣a-zA-Z0-9!@#$%^&*\-=_+ ]{1,18}$/g.test(inpVal)) {
+            duplicateFlag = true;
+            for(let existTr of grandParentOfKeywords.children) {
+                if(inpVal == existTr.children[0].innerHTML) {
+                    duplicateFlag = false;
+                    break;
+                }
+            }
+            if(duplicateFlag) {
+                createKeyword(inpVal);
+                //input을 비워준다
+                keywordInput.value = "";
+            } else {
+                printAlert("중복된 키워드가 존재합니다");
+            }
+        } else {
+            printAlert("키워드는 최대 18글자까지, 한글/영어/특수문자(!@#$%^&*-=_+) 만 입력 가능하며 특수문자만 입력할 수는 없습니다");
+        }
+    }
+
+    //실제로 tr요소 추가하는 함수
+    function createKeyword(inpVal) {
+        const newTr = document.createElement("tr");
+        const valTd = newTr.appendChild(document.createElement("td"));
+        valTd.innerHTML = inpVal;
+        const btnTd = newTr.appendChild(document.createElement("td"));
+        const btnAnchor = btnTd.appendChild(document.createElement("a"));
+        btnAnchor.classList.add("button", "modified-btn", "keyword-delete-btn");
+        btnAnchor.style.cursor = "pointer";
+        btnAnchor.innerHTML = "삭제";
+        setDeleteEvent(btnAnchor);
+        grandParentOfKeywords.appendChild(newTr);
+    }
+
+    //submit 하기
+    // 폼 문제때문에 Ajax로 보내기는 할 건데 최대한 단순하게 보낼거임
+    // JSON 안 쓴다
+
+    //submit버튼 이벤트 할당
+    keywordSubmitBtn.addEventListener("click", sendKeywordByAjax);
+
+    //submit 이벤트 함수 - Ajax 처리
+    function sendKeywordByAjax() {
+        //일단 문자열을 꾸린다
+        let reqVal = "isEmpty:";
+        if(grandParentOfKeywords.children.length < 1) {
+            //키워드가 없는 경우
+            reqVal += "true";
+        } else {
+            //키워드가 있는 경우
+            reqVal += "false";
+
+            for(let ele of grandParentOfKeywords.children) {
+                reqVal += "," + ele.children[0].innerHTML;
+            }
+
+        }
+
+        //Ajax 로직
+        const xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function() {
+            switch(xhr.readyState) {
+                case XMLHttpRequest.OPENED:
+                    break;
+                case XMLHttpRequest.DONE:
+                    if(xhr.status === 200) {
+                        if(xhr.responseText != null) {
+                            //송수신 성공
+                            console.log("receive good");
+                            //값 받고 배열로 쪼개기
+                            const respVal = xhr.responseText.split(",");
+                            console.log(respVal);
+                            //백단서 실패?
+                            if(respVal.shift().split(":")[1] === "false") {
+                                //실패한 경우
+                                switch(respVal[1].split(":")[1]) {
+                                    case "empty":
+                                        console.log("empty");
+                                        break;
+                                    case "emptyorblank":
+                                        console.log("empty or blank only");
+                                        break;
+                                    case "valifail":
+                                        console.log("validation fail");
+                                        break;
+                                    case "dbfail":
+                                        console.log("db fail");
+                                        break;
+                                }
+                            } else {
+                                //성공한 경우
+                                console.log("backend good");
+                                console.log(xhr.responseText);
+                                console.log(respVal);
+                                //값 존재여부 확인
+                                if(respVal.shift().split(":")[1] === "true") {
+                                    // 값이 없으면(모든 키워드 삭제시) tbody 자손요소 삭제까지만 함
+                                    refreshKeywords(respVal, false);
+                                } else {
+                                    // 값이 있을때
+                                    refreshKeywords(respVal, true);
+                                }
+                                printAlert("키워드가 수정되었습니다");
+                            }
+                        } else {
+                            //수신값이 null
+
+                        }
+                    } else {
+                        //송수신 실패 - 404 등
+                        console.log("404 or...");
+                    }
+                    break;
+            }
+        };
+
+        xhr.open("POST", "update/etc.us", true);
+        xhr.setRequestHeader("Context-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+        xhr.send(reqVal);
+    }
+
+    //업데이트 성공시 클라 업데이트하는 함수
+    function refreshKeywords(respVal, doesAddTr) {
+        console.log(grandParentOfKeywords.children);
+        //우선 기존 tbody 안 tr들을 싹 다 지운다
+        // - 수정 적용시 기존 tr요소들이 제대로 안 지워지던 문제
+        //      찾아보니까 children은 HTMLCollection 객체인데
+        //      임마는 Live 한 친구라서 수정사항이 바로 적용되기에
+        //      반복문에 넣기가 거시기하다고함 - 특히 순회하면서 삭제할때ㅇㅇ
+        // 참조
+        // https://velog.io/@husbumps/for...of-%EB%A1%9C-HTMLCollection%EC%9D%84-%EC%88%9C%ED%9A%8C%ED%95%98%EB%A9%B4%EC%84%9C-DOM%EC%A1%B0%EC%9E%91-%EC%8B%9C-%EC%A3%BC%EC%9D%98%ED%95%A0-%EC%A0%90
+        // 근데 이거 아마 웬만해서는 클라에 남아있던 값(tr)이랑 실제 DB 기입된 값이 다른 경우가 거의 없을거임
+        // 걍 안전빵으로 지우게 해둥ㅁ
+
+        for(let trEle of Array.from(grandParentOfKeywords.children)) {
+            trEle.remove();
+        }
+
+        if(doesAddTr) {
+            //그 다음 받아온 값으로 새로 만들어 채운다
+            for(let val of respVal) {
+                createKeyword(val);
+            }
+        }
+    }
 
     //===============================================================================================================
     // uniForm*_btnClickEvent() - 공통 함수들
@@ -521,8 +1053,20 @@
         값을 td 서 input 으로 옮기는 각 폼별로 각기 다른
         과정을 수행할 수 없음 - 없지는 않겠지만 힘들거임
         따라서 이 아래의 함수들로 분리시켜놓음
+
+        중요 - 240415
+        default서 ID는 이제 수정 불가능함
     */
     // 기본정보 - default 폼 오프너 함수
+    
+    /*
+                    dp      inp
+        ID          0       -
+        name        1       0
+        national    2       1
+        gender      3       2
+        age         4       3
+    */
     function defaultFormValueTransporter() {
         // 기존 값 불러오기(td)
         const valTdArr = document.getElementById("default-block").getElementsByClassName("default-display");
@@ -530,38 +1074,29 @@
         // input<td 가져오기 - input을 가져오는게 아님!
         const inputTdArr = document.getElementById("default-block").getElementsByClassName("default-info-input");
 
-        // input들 공개하기 전에 우선 값부터 옮기자
-        // 반복 횟수는 그냥 하드코딩으로 박음 어짜피 여기서 뭘 추가하려하면 어떻게 해왔던간에 코드 전부 뜯어고쳐야함
-        for(let i = 0; i < 4; i++) {
-            if(i < 2) {
-                // ID, 이름은 그냥 옮긴다
-                inputTdArr[i].children[0].value = valTdArr[i].innerHTML;
-            } else if(i == 2) {
-                // 성별은 값을 체크해 적절한 input에 checked를 부여함
-                // 성별값 검증은 안함 - 검증은 백이 해야지
-                // 일단 "남성", "여성" 외의 값이 오면 체크를 풀게 해둠
-                const genderChecker = valTdArr[i].innerHTML.trim();
-                console.log(valTdArr[i].innerHTML);
-                console.log("genderChecker : " + genderChecker);
-                if(genderChecker == "남성") {
-                    document.update_default_info.usersex[0].checked = true;
-                } else if(genderChecker == "여성") {
-                    document.update_default_info.usersex[1].checked = true;
-                } else {
-                    document.update_default_info.usersex[0].checked = false;
-                    document.update_default_info.usersex[1].checked = false;
-                }
-            } else {
-                // 생년월일은 좀 복잡함
-                // 일단 대시("-")로 잘라 배열에 저장함
-                const birthArr = valTdArr[i].innerHTML.split("-");
-                // 먼저 각 배열 요소의 길이 검증
-                if(birthArr.length == 3 && birthArr[0].length == 4 && birthArr[1].length == 2 && birthArr[2].length == 2) {
-                    // 값 검증은 안함 ㅅㅂ
-                    document.update_default_info.userbirth.value = valTdArr[i].innerHTML;
-                }
-            }
+        //값 옮기기
+        // 이름
+        inputTdArr[0].children[0].value = valTdArr[0].innerHTML;
+        // 국적
+        if(valTdArr[1].innerHTML.trim() === "내국인") {
+            document.update_default_info.usernational[0].checked = true;
+        } else if(valTdArr[1].innerHTML.trim() === "외국인") {
+            document.update_default_info.usernational[1].checked = true;
+        } else {
+            document.update_default_info.usernational[0].checked = false;
+            document.update_default_info.usernational[1].checked = false;
         }
+        // 성별
+        if(valTdArr[2].innerHTML.trim() == "남성") {
+            document.update_default_info.usersex[0].checked = true;
+        } else if(valTdArr[2].innerHTML.trim() == "여성") {
+            document.update_default_info.usersex[1].checked = true;
+        } else {
+            document.update_default_info.usersex[0].checked = false;
+            document.update_default_info.usersex[1].checked = false;
+        }
+        // 나이
+        inputTdArr[3].children[0].value = valTdArr[3].innerHTML;
     }
 
     // 연락처 - contacts 폼 오프너 함수
@@ -574,14 +1109,16 @@
         //값 옮기기
         // 전화번호의 경우 "-"(대시) 는 지워서 옮길거임
         for(let i = 0; i < valTd.length; i++) {
-            //전화번호는 -를 없앤다
+            //전화번호는 -를 없애지 않는다
             if(i < 2) {
-                const tel = valTd[i].innerHTML.split("-");
-                inputTd[i].children[0].value = "";
-                for(let telEle of tel) {
-                    inputTd[i].children[0].value += telEle;
-                }
-            } 
+                // const tel = valTd[i].innerHTML.split("-");
+                // inputTd[i].children[0].value = "";
+                // for(let telEle of tel) {
+                //     inputTd[i].children[0].value += telEle;
+                // }
+                const tel = valTd[i].innerHTML;
+                inputTd[i].children[0].value = tel;
+            }
             // 이메일은 그냥 옮긴다
             else {
                 inputTd[i].children[0].value = valTd[i].innerHTML;
@@ -611,19 +1148,258 @@
     }
 
     //===============================================================================================================
+    //유효성 체크(정규식)
+
+    //공통 유효성 체크 함수
+    // 테스트 통과 성공시 isSuccess=true 필드를 담은 객체를,
+    // 실패시 isSuccess=false와 failedReasonArray=[ new ValidationFailedReason(elementName, failedReason), ... ] 필드의 객체를 반환함
+    function uniValidationChecker(formElement) {
+        const inpArr = formElement.getElementsByTagName("input");
+        const validationResult = {
+            isSuccess: true,
+            failedReasonArray: []
+        };
+
+        // 비밀번호 외의 폼
+        if(formElement.id != "update-password-info") {
+            for(let i = 0; i < inpArr.length; i++) {
+                if(inpArr[i].type == "text" || inpArr[i].type == "email") {
+                    switch(inpArr[i].name) {
+                    // case "userid":
+                    //     if(!/^(?!^[!@#$%^&*\-=_+])[a-zA-Z0-9!@#$%^&*=\-_+]{4,32}$/g.test(inpArr[i].value)) {
+                    //         validationResult.isSuccess = false;
+                    //         validationResult.failedReasonArray.push(new ValidationFailedReason(inpArr[i].name, "regexfail"));
+                    //     }
+                    //     break;
+                    // 유저ID는 삭제함
+                    case "username":
+                        if(!/^[가-힣]{1,}$/g.test(inpArr[i].value)) {
+                            validationResult.isSuccess = false;
+                            validationResult.failedReasonArray.push(new ValidationFailedReason(inpArr[i].name, "이름은 한글로만 이루어져야 합니다"));
+                        }
+                        break;
+                    // case "userbirth":
+                    //     //우선 java.sql.Date와 호환 가능한 문자열인지 확인
+                    //     /*
+                    //     일단 임의로 성인만 가입 가능하게 설정함
+                    //     성인의 기준은 올해 기준 만 19세 이상부터로 함
+                    //     - 의견 : 만 14세?
+                    //         만 14세로 가기로 함
+                    //             대충 올해기준으로 만 14세가 될 수 있으면 오케이
+                    //     */
+                        
+                    //     // 윤년, 달 각각의 최대 일수는 정규식으로 체크하지 않음
+                    //     // 유효한 값 범위 : 1900-01-01 ~ 2099-12-31
+                    //     if(/^(19\d{2}|20\d{2})-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/g.test(inpArr[i].value)) {
+                    //         //Date 객체를 통해 입력값이 유효한지 다시 확인
+                    //         // 일단 입력값을 3등분한다
+                    //         const splitArr = inpArr[i].value.split("-");
+
+                    //         //현재 년도 기준 만 14세 미만으로 입력이 들어오면 내친다
+                    //         // 24년 기준 11년생부터 x
+                    //         if(Number(splitArr[0]) <= (new Date().getFullYear() - 14)) {
+                    //             //윤년, 월에 따른 최대 월수를 넘기지 않았는지 확인
+                    //             if(Number(splitArr[2]) <= new Date(splitArr[0], splitArr[1], 0).getDate()) {
+                    //                 //좋은 입력
+                    //                 // 바로 switch문 탈출
+                    //                 break;
+                    //             } else {
+                    //                 //윤달 없는 년도에 윤일 입력, 윤년 아닌 2월에 29일이라던가
+                    //                 validationResult.failedReasonArray.push(new ValidationFailedReason(inpArr[i].name, "잘못된 월일 입력입니다"));
+                    //             }
+                    //         } else {
+                    //             //만 14세 미만
+                    //             validationResult.failedReasonArray.push(new ValidationFailedReason(inpArr[i].name, "만 14세 미만은 가입할 수 없습니다"));
+                    //         }
+                    //     } else {
+                    //         //정규식 실패 - 19, 20xx-MM-dd 형태를 벗어난 경우
+                    //         /*
+                    //             정확히는 아래와 같음
+                    //                 년도 - 1900 ~ 2099 외의 값
+                    //                 월 - 01 ~ 12 외의 값(0 생략 x)
+                    //                 일 - 01 ~ 31 외의 값(0 생략 x, 윤달 체크 x)
+                    //         */
+                    //         validationResult.failedReasonArray.push(new ValidationFailedReason(inpArr[i].name, "생년월일 입력 양식을 지켜주세요 (ex) 2000-01-01"));
+                    //     }
+                    //     validationResult.isSuccess = false;
+                    //     break;
+                    case "userbirth":
+                        //이제는 age(INT)로 함
+                        //숫자 형식에 부합하는지 확인
+                        if(/^\d+$/g.test(inpArr[i].value)) {
+                            //만 14세 이상인지 확인
+                            if(Number(inpArr[i].value) >= 14) {
+                                //통과
+                                break;
+                            } else {
+                                validationResult.failedReasonArray.push(new ValidationFailedReason(inpArr[i].name, "만 14세 이상이여야 합니다"));
+                            }
+                        } else {
+                            validationResult.failedReasonArray.push(new ValidationFailedReason(inpArr[i].name, "숫자만 입력해주세요"));
+                        }
+                        validationResult.isSuccess = false;
+                        break;
+                    case "tel_mobile":
+                        // 010-ddd-dddd 혹은 010-dddd-dddd
+                        if(!/^010-(\d{3,4})-(\d{4})$/g.test(inpArr[i].value)) {
+                            validationResult.isSuccess = false;
+                            validationResult.failedReasonArray.push(new ValidationFailedReason(inpArr[i].name, "휴대폰 전화번호 양식을 지켜주세요 (ex) 010-1234-1234, 010-123-1234"));
+                        }
+                        break;
+                    case "tel_sub":
+                        // 집전화 + 휴대전화 양식
+                        // 참조
+                        // https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EC%A0%84%ED%99%94%EB%B2%88%ED%98%B8_%EC%B2%B4%EA%B3%84#%EC%A7%80%EC%97%AD_%EB%B2%88%ED%98%B8_(02,_0NZ)
+                        if(!/^0((10-(\d{4})-(\d{4}))|(2|3[1-3]|4[1-4]|5[1-5]|6[1-4])-(\d{3,4})-(\d{4}))$/g.test(inpArr[i].value)) {
+                            validationResult.isSuccess = false;
+                            validationResult.failedReasonArray.push(new ValidationFailedReason(inpArr[i].name, "전화번호 양식을 지켜주세요 (ex) 02-123-1234"));
+                        }
+                        break;
+                    case "email":
+                        if(!/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]$/g.test(inpArr[i].value)) {
+                            validationResult.isSuccess = false;
+                            validationResult.failedReasonArray.push(new ValidationFailedReason(inpArr[i].name, "이메일 양식을 지켜주세요 (ex) aaa@email.com"));
+                        }
+                        break;
+                    case "zip":
+                        //숫자만, 5자리 - 01000 ~ 63999까지
+                        if(!/^(0[1-9]|[1-5][0-9]|6[0-3])(\d{3})$/g.test(inpArr[i].value)) {
+                            validationResult.isSuccess = false;
+                            validationResult.failedReasonArray.push(new ValidationFailedReason(inpArr[i].name, "우편번호 양식을 지켜주세요 (ex) 01001"));
+                        }
+                        break;
+                    case "addr":
+                    case "addrdetail":
+                    case "addretc":
+                        //임마는 어케해야될지 좀 찾아봐야겠음
+                        break;
+                    }
+                } else if(inpArr[i].type == "radio") {
+                    //radio버튼은 정규식 대신 체크된 input이 존재하는지만 체크함
+                    switch(inpArr[i].name) {
+                    case "usersex":
+                        if(!inpArr[i].checked && !inpArr[i + 1].checked) {
+                            validationResult.isSuccess = false;
+                            validationResult.failedReasonArray.push(new ValidationFailedReason(inpArr[i].name, "성별 항목을 체크해주세요"));
+                        }
+                        i++;
+                        break;
+                    case "usernational":
+                        if(!inpArr[i].checked && !inpArr[i + 1].checked) {
+                            validationResult.isSuccess = false;
+                            validationResult.failedReasonArray.push(new ValidationFailedReason(inpArr[i].name, "국적 항목을 체크해주세요"));
+                        }
+                        i++;
+                        break;
+                    }
+                }
+            }
+        } 
+        // 비밀번호 폼
+        else {
+            //password의 경우 existing_userpw는 여기서 체크하지는 않음
+            // inpArr[n].name >> n == 0 : existing_userpw, 1 : modified_userpw, 2: modified_userpw_check
+            /*
+                ^(?=.*[!@#$%^&*\-=_+])(?=.*[0-9])[a-zA-Z0-9!@#$%^&*\-=_+]{8,64}$
+                8-64문자, 공백 없이, 영/숫/특, 숫/특 각각 최소 1개
+            */
+
+            //정규식 체크
+            for(let i = 0; i < 3; i++) {
+                if(!/^(?=.*[!@#$%^&*\-=_+])(?=.*[0-9])[a-zA-Z0-9!@#$%^&*\-=_+]{8,64}$/g.test(inpArr[i].value)) {
+                    validationResult.isSuccess = false;
+                    validationResult.failedReasonArray.push(new ValidationFailedReason(inpArr[i].name, "비밀번호는 8-64자리여야 하며 숫자와 특수문자(!@#$%^&*-=_+)를 포함해야 합니다"));
+                    break;
+                }
+            }
+
+            //새 비밀번호와 비밀번호 확인이 동일한지 체크
+            if(inpArr[1].value != inpArr[2].value) {
+                validationResult.isSuccess = false;
+                validationResult.failedReasonArray.push(new ValidationFailedReason(inpArr[2].name, "비밀번호 확인은 새 비밀번호와 동일해야 합니다"));
+            }
+        }
+
+        return validationResult;
+    }
+
+    //유효성 검사 실패원인 정리용 객체 생성자
+    /**
+     * 유효성 검사의 실패원인을 저장하는 객체의 생성자
+     * @constructor
+     * @param {string} elementName - 유효성 검사를 통과하지 못한 input 요소의 name 속성값
+     * @param {string} failedReason - 유효성 검사를 통과하지 못한 이유
+    */
+    function ValidationFailedReason(elementName, failedReason) {
+        this.elementName = elementName;
+        this.failedReason = failedReason;
+    }
+
+    //===============================================================================================================
     //폼 submit 함수
     /*
         Ajax
     */
 
     //이벤트리스너 - 어느 폼이 submit을 했는지 확인해야 함
+    /*
+        오류
+        대충 뭐
+        클릭된 submit 버튼을 sumbit 버튼 id 배열과 비교해
+        동일한 경우 해당 i 값으로 form배열(getElementsByTagName()으로 끌고온)
+        에서 해당하는 form을 가져오는데
+        전번에 password-block을 추가하면서 이게 꼬임
+        전 : default > contacts > addr
+        지금 : default > password > contacts > addr
+
+        일단 제일 간단한 해결책은 submit id 배열에 순서에 맞게 (빈)요소값을 넣어주는거임
+        근데 그러면 FORM_*_BTN_ID류랑 ELE_CLASS_* 류 배열 전부 빈 요소를 넣어 순서를 맞춰줘야 함
+            uniOpenCancel.. 쪽 함수에서 다 얽혀있어서 하나만 추가해두면 꼬임
+        그냥 uniFormSubmit 쪽에 하드코딩해둠 240415
+    */
     function uniFormSubmit_btnClickEvent(event) {
-        const formArr = document.getElementsByTagName("form");
-        for(let i = 0; i < formArr.length; i++) {
+        for(let i = 0; i < 3; i++) {
             if(event.target.id === FORM_SUBMIT_BTN_ID[i]) {
-                sendJsonByAjax(jsonPacker(formArr[i]));
+                const formEle = i == 0 ? document.getElementById("update-default-info") :
+                    i == 1 ? document.getElementById("update-contacts-info") :
+                    document.getElementById("update-addr-info");
+                const valiResult = uniValidationChecker(formEle);
+                if(valiResult.isSuccess) {
+                    sendJsonByAjax(jsonPacker(formEle));
+                } else {
+                    console.log(valiResult);
+                    //임시 실패원인 출력
+                    let reasonStr = "";
+                    for(let reason of valiResult.failedReasonArray) {
+                        reasonStr += reason.failedReason + "\n";
+                    }
+                    printAlert(reasonStr);
+                }
                 break;
             }
+        }
+    }
+
+    //비밀번호 입력용 이벤트리스너
+    function pwFormSubmit_btnClickEvent(event) {
+        const valiResult = uniValidationChecker(document.getElementById("update-password-info"));
+        if(valiResult.isSuccess) {
+            sendJsonByAjax(jsonPacker(document.getElementById("update-password-info")));
+        } else {
+            console.log(valiResult);
+            //임시 실패원인 출력
+            let reasonStr = "";
+            for(let reason of valiResult.failedReasonArray) {
+                reasonStr += reason.failedReason + "\n";
+            }
+            printAlert(reasonStr);
+        }
+
+        //일단 임시로 여기에서 input:password value 값들을 지운다
+        const inpArr = document.getElementById("update-password-info").getElementsByTagName("input");
+
+        for(let inp of inpArr) {
+            inp.value = "";
         }
     }
 
@@ -643,15 +1419,27 @@
         for(let i = 0; i < inpArr.length; i++) {
             //라디오버튼 처리
             if(inpArr[i].type === "radio") {
-                //default폼 - 성별 input인 경우
-                if(inpArr[i].name === "usersex") {
-                    // 대충 남성인 경우 value=male, 여성은 value=female, 그외의 경우는 등록하지 않음
+                //default폼 - 성별-국적 처리
+                //대충 이정도로 구성
+                // 순서상 usernational input 두개 > usersex input 두개이니
+                // 첫 usernational을 잡고 i, i + 1/2/3으로 나머지에도 접근해서 처리
+                // 다 하고나서 i += 3 을 넣어준다
+                if(inpArr[i].name === "usernational") {
+                    let val = "";
+                    // 국적 체크
                     if(inpArr[i].checked)
-                        obj.inputs.push(new innerJsonPacker(inpArr[i]));
+                        val += "-K";
                     else if(inpArr[i+1].checked)
-                        obj.inputs.push(new innerJsonPacker(inpArr[i+1]));
-                    //한칸 뛰어넘기
-                    i++;
+                        val += "-F";
+                    // 성별 체크
+                    if(inpArr[i+2].checked)
+                        val = "M" + val;
+                    else if(inpArr[i+3].checked)
+                        val = "W" + val;
+                    // 삽입
+                    obj.inputs.push(new innerJsonPackerForRadio("radio", "usersex", val));
+                    // 순회 넘기기
+                    i += 3;
                 }
             } 
             //그외 input의 경우
@@ -667,9 +1455,14 @@
     //json 내부 배열 안에 들어갈 객체를 만드는 생성자
     // 각 input들과 대응됨
     function innerJsonPacker(inputElement) {
-        this.type = inputElement.type;
+        this.inputType = inputElement.type;
         this.name = inputElement.name;
         this.value = inputElement.value;
+    }
+    function innerJsonPackerForRadio(inputType, name, value) {
+        this.inputType = inputType;
+        this.name = name;
+        this.value = value;
     }
 
     //보내고 받기 - ㅇㅇ
@@ -682,20 +1475,131 @@
                     break;
                 case XMLHttpRequest.DONE:
                     if(xhr.status === 200) {
-                        console.log("receiving success");
-                        console.log("result JSON : \n" + xhr.responseText);
+                        if(xhr.responseText != null) {
+                            const resultObj = JSON.parse(xhr.responseText);
+                            if(resultObj.isSuccess) {
+                                //수정 성공 - 수정값 받기 성공
+                                console.log("receiving success");
+                                console.log("result JSON : \n" + xhr.responseText);
+                                console.log(JSON.parse(xhr.responseText));
+                                if(JSON.parse(xhr.responseText).formID != "update-password-info")
+                                    updateScreenByJson(JSON.parse(xhr.responseText));
+                                printAlert("개인정보가 수정되었습니다");
+                            } else if(resultObj.failReason == "Server") {
+                                //서버 쪽 문제로 수정 실패
+                                console.log("receiving failed");
+                                console.log("result JSON : \n" + xhr.responseText);
+                                printAlert("서버 문제로 수정을 실패했습니다");
+                            } else if(resultObj.failReason == "Validation") {
+                                //유효성 검사 실패
+                                console.log("validation check failed");
+                                console.log("result JSON : \n" + xhr.responseText);
+                                printAlert("입력값이 잘못되어 수정을 실패했습니다");
+                            } else if(resultObj.failReason == "PasswordWrong") {
+                                //비밀번호 수정 시도 - 기존 비밀번호와 입력값이 틀림
+                                console.log("password wrong failed");
+                                console.log("result JSON : \n" + xhr.responseText);
+                                printAlert("비밀번호가 잘못되었습니다");
+                            } else {
+                                //기타? - failedReason이 없거나 뭐..
+                                console.log("unknown fail");
+                                console.log("result JSON : \n" + xhr.responseText);
+                                printAlert("원인 불명의 오류로 수정을 실패했습니다");
+                            }
+                        } else {
+                            //JSON 파일이 null인 경우
+                            console.log("receiving failed : JSON respond is null");
+                            printAlert("서버 문제로 수정을 실패했습니다");
+                        }
+                    } else {
+                        //xhr.status === 404 서버에 문서가 없는 경우, 혹은 서버가 꺼져있는 경우
+                        console.log("receiving failed : there no such file or..");
+                        printAlert("서버 문제로 수정을 실패했습니다");
                     }
-                    // 백에서 온 응답 체크해서
-                    //      등록 성공/DB 기입 실패/서버 오류/입력값 잘못됨 정도로 분기처리
                     break;
             }
         }
 
-        // 성공/실패 여부 판별및 처리 이전까지는 submit 입력을 막아야 함!
-        xhr.open("POST", "/teamproject/user/userinfo-update", true);
+        // 성공/실패 여부 판별및 처리 이전까지는 추가적인 submit 입력을 막아야 함!
+        xhr.open("POST", "/update.us", true);
        	// xhr.open("POST", "/teamproject/test/ajax", true);
         xhr.setRequestHeader("Context-Type", "application/x-www-form-urlencoded; charset=UTF-8");
         xhr.send(json);
+    }
+
+    //성공시 화면을 갱신하는 함수
+    function updateScreenByJson(resJson) {
+        const formID = resJson.formID;
+        const resArr = resJson.result;
+
+        for(let obj of resArr) {
+            if(obj.inputType == "radio" && obj.name == "usersex") {
+                switch(obj.value.trim()) {
+                    case "M-K":
+                        document.getElementById("national-display").innerHTML = "내국인";
+                        document.getElementById("sex-display").innerHTML = "남성";
+                        break;
+                    case "W-K":
+                        document.getElementById("national-display").innerHTML = "내국인";
+                        document.getElementById("sex-display").innerHTML = "여성";
+                        break;
+                    case "M-F":
+                        document.getElementById("national-display").innerHTML = "외국인";
+                        document.getElementById("sex-display").innerHTML = "남성";
+                        break;
+                    case "W-F":
+                        document.getElementById("national-display").innerHTML = "외국인";
+                        document.getElementById("sex-display").innerHTML = "남성";
+                        break;
+                    default:
+                        document.getElementById("national-display").innerHTML = "??";
+                        document.getElementById("sex-display").innerHTML = "??";
+                        break;
+                }
+            } else {
+                switch(obj.name) {
+                    // case "userid":
+                    //     document.getElementById("id-display").innerHTML = obj.value;
+                    //     break;
+                    case "username":
+                        document.getElementById("name-display").innerHTML = obj.value;
+                        document.getElementById("header-text").innerHTML = "환영합니다 " + obj.value + "님";
+                        break;
+                    case "userbirth":
+                        document.getElementById("birth-display").innerHTML = obj.value;
+                        break;
+                    case "tel_mobile":
+                        document.getElementById("tel-display").innerHTML = obj.value;
+                        break;
+                    case "tel_sub":
+                        document.getElementById("telsub-display").innerHTML = obj.value;
+                        break;
+                    case "email":
+                        document.getElementById("email-display").innerHTML = obj.value;
+                        break;
+                    case "zip":
+                        document.getElementById("zip-display").innerHTML = obj.value;
+                        break;
+                    case "addr":
+                        document.getElementById("addr-display").innerHTML = obj.value;
+                        break;
+                    case "addrdetail":
+                        document.getElementById("addrdetail-display").innerHTML = obj.value;
+                        break;
+                    case "addretc":
+                        document.getElementById("addretc-display").innerHTML = obj.value;
+                        break;
+                }
+            }
+        }
+
+        // 열려있던 input 창을 닫는다
+        // 일단은 여기다 둠 - 다른데에 두기에는 좀... 애매함
+        for(let i = 0; i < 3; i++) {
+            if(formID === FORM_ID[i]) {
+                document.getElementById(FORM_CANCEL_BTN_ID[i]).click();
+            }
+        }
     }
 
     //===============================================================================================================

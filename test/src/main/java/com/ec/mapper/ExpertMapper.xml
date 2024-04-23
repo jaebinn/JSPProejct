@@ -229,4 +229,69 @@
    		from expert_file_indexes
    		where expert_idx = #{expert_idx}
    </select>
+   
+   <!-- ExpertInfo.jsp용 -->
+   		<!-- 키워드 넣기 -->
+   			<update id="updateKeyword_list" parameterType="expertonlydto">
+   				UPDATE
+   					expert
+   				SET
+   					keyword_list = #{keyword_list}
+   				WHERE
+   					expert_idx = #{expert_idx}
+   			</update>
+   		<!-- 파일DTO 가져오기 -->
+   			<select id="selectProfile" resultType="expertfiledto" parameterType="long">
+   				SELECT *
+   				FROM expert_file_indexes
+   				WHERE
+   					expert_idx = #{expert_idx}
+   			</select>
+   		<!-- 파일 삭제 -->
+   			<delete id="deleteProfile" parameterType="long">
+   				DELETE from expert_file_indexes
+   				WHERE
+   					expert_idx = #{expert_idx}
+   			</delete>
+		<!-- user_id로 한 행 잡아서 ExpertOnlyDTO로 가져오기 -->
+			<select id="getExpertFull" resultType="expertonlydto" parameterType="string">
+				SELECT *
+				FROM
+					expert
+				WHERE
+					user_id= #{user_id}
+			</select>
+		
+		<!-- main block 수정 -->
+			<update id="updateMain" parameterType="expertonlydto">
+				UPDATE 
+					expert
+				SET
+					is_drivable = #{is_drivable},
+					account = #{account},
+					cost = #{cost}
+				WHERE
+					user_id = #{user_id}
+			</update>
+		
+		<!-- resume block 수정 -->
+			<update id="updateResume" parameterType="expertonlydto">
+				UPDATE 
+					expert
+				SET
+					resume = #{resume}
+				WHERE
+					user_id = #{user_id}
+			</update>
+		
+		<!-- etcinfo block 수정 -->
+			<update id="updateEtcinfo" parameterType="expertonlydto">
+				UPDATE
+					expert
+				SET
+					location = #{location},
+					available_time = #{available_time}
+				WHERE	
+					user_id = #{user_id}
+			</update>
 </mapper>

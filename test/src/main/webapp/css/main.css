@@ -5243,7 +5243,7 @@ input, select, textarea {
 	}
 	
 
-	/* 1:1 梨꾪똿諛� */
+	/* 1:1 채팅 */
 	.chat-container {
 		position: fixed;
 		bottom: 10px;
@@ -5282,12 +5282,12 @@ input, select, textarea {
       	margin-right: 20px; /* 원하는 간격으로 조정 */
       	z-index:1000;
       }
-     /*  .note-num{
+       .note-num{
       position : absolute;
       top:0;
       right:0;
       z-index:3;
-      }  */
+      }  
 
 		#friendslist{
 		position:absolute;
