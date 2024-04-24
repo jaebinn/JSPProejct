@@ -47,6 +47,17 @@ public class UserDAO {
 	public Long SelectboardIdx(String userid) {
 		return ss.selectOne("User.select_board_idx",userid);
 	}
+	public boolean deleteReview(String userid) {
+		return ss.delete("User.delete_review",userid) == 1;
+	}
+	public boolean deleteReviewIdx(Long expertIdx) {
+		return ss.delete("User.delete_review_idx",expertIdx) == 1;
+		//
+	}
+	public String selectReviewUser(String userid) {
+		return ss.selectOne("User.select_review_user",userid);
+	}
+	
 	
 	//트랜잭션
 	// 서비스 클래스에서 SqlSession을 받아 사용함
@@ -97,7 +108,7 @@ public class UserDAO {
 	public boolean updateContactsForm(UserDTO udto) {
 		return 1 == ss.update("User.updateContacts", udto);
 	}
-
+	
 	
 }
 

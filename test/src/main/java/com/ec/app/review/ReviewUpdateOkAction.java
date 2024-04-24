@@ -32,7 +32,7 @@ public class ReviewUpdateOkAction implements Action {
            review.setDetail(detail);
            review.setUser_id(user_id);
            review.setStar(star);
-
+           
 
            ReviewDAO rdao = new ReviewDAO();
            Transfer transfer = new Transfer();

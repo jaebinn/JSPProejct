@@ -6,10 +6,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Untitled</title>
+<title>everycare</title>
 <meta charset="utf-8" />
 <meta name="viewport"
    content="width=device-width, initial-scale=1, user-scalable=no" />
+   <link rel="icon" href="${cp}/images/everycare.ico" />
 <script src="https://kit.fontawesome.com/1924b51539.js"
    crossorigin="anonymous"></script>
 <link rel="stylesheet" href="${cp}/css/main.css" />
@@ -302,9 +303,8 @@ table td>.close_btn {
                                     <c:if test="${sessionScope.loginUser == review.user_id}">
 
                                        <div class="edit-container">
-                                          <input type="button" class="open_btn" value="수정" /> <a
-                                             href="${cp}/reviewupdate.rf?review_idx=${review.review_idx}&page=${param.page}">
-                                          </a> <a
+                                          <input type="button" class="open_btn" value="수정" id="editButton">
+                                          <a
                                              href="${cp}/reviewdelete.rf?review_idx=${review.review_idx}&page=${param.page}">삭제</a>
                                        </div>
                                     </c:if>
@@ -376,7 +376,7 @@ table td>.close_btn {
                            <td class=score>
                               <div class="star_rating" data-value="${review.star}"></div>
                            </td>
-
+                           
                            <!--작성일  -->
                            <td><c:set var="now" value="${now}" /> <c:choose>
                                  <c:when
@@ -488,42 +488,34 @@ table td>.close_btn {
    <script src="${cp}/js/main.js"></script>
    <script>
       function sendit(form) {
-         var updateForm = form; // 수정 폼 요소를 가져옴
-         updateForm.submit(); // 수정 내용을 서버로 전송
-      }
-      $(document).ready(
-            function() {
-               $(".open_btn").click(
-                     function() {
-                        var editForm = $(this).closest('.contents')
-                              .find("form.updateForm"); // 수정 폼 요소를 선택
-                        editForm.fadeIn(); // 선택된 수정 폼을 보여줌
-                     });
-            });
-      // 수정 버튼 클릭 시 수정팝업 오픈
-      $(document).ready(function() {
-         $(".open_btn").click(function() {
-            $(this).closest('.contents').find("#editbox").fadeIn(); // #editbox로 변경
-         });
-      });
-
+       var updateForm = form;
+       const starScore = document.getElementById("star_score").value;
+       
+       if (starScore === "") {
+	        alert("별점을 클릭하여 평가를 진행해주세요.");
+	        return; // 리턴하여 폼 전송을 중단합니다.
+	    }
+       updateForm.submit();
+     }
       
+      
+   // 수정 버튼 클릭 시 수정 팝업 토글
+      document.querySelectorAll('.open_btn').forEach(function(button) {
+          button.addEventListener('click', function() {
+              var editbox = this.closest('.contents').querySelector('#editbox');
+              editbox.style.display = (editbox.style.display === 'none') ? 'block' : 'none';
+              
+          });
+      });
+   
+   
       // 팝업 닫기 버튼 클릭 시 수정 팝업 닫기
       $(document).ready(function() {
           $(".close_btn").click(function() {
-              $(this).closest('.modal').fadeOut(); // 수정 팝업 닫기
+             event.preventDefault(); // 폼 제출 이벤트를 막습니다.
+              $(this).closest('#editbox').fadeOut(); // 수정 팝업 닫기
           });
       });
-      
-      // 팝업 닫기 버튼 클릭 시 수정 팝업 닫기
-      $(document).ready(function() {
-          $(".close_btn").click(function(event) {
-              event.preventDefault(); // 폼 제출 이벤트를 막습니다.
-              $(this).closest('.modal').fadeOut(); // 수정 팝업 닫기
-          });
-      });
-      
-      
       
       // 제목을 클릭하면 해당 콘텐츠를 토글
       function toggleContent(event) {
@@ -535,7 +527,7 @@ table td>.close_btn {
          }
       }
       
-      var star = ${star};
+      var star = ${review.star};
          // 페이지 로드 시 실행되는 함수
          $(document).ready(function() {
              // 모든 별점 요소를 찾아서 처리
@@ -544,13 +536,13 @@ table td>.close_btn {
                 var starValue = parseInt(element.getAttribute('data-value'));
                  starUpdate(element, starValue); // 별점 업데이트 함수 호출
              });
-      
-             // 1부터 star까지의 별을 활성화하도록 설정
-             $('.modal .starupdate > .star:nth-child(-n+' + star + ')')
-                 .addClass('fas').removeClass('far');
+      		 
+            /* // 1부터 star까지의 별을 활성화하도록 설정
+             $('.modal .starupdate > .star:nth-child(-n+' +star + ')')
+              .addClass('fas').removeClass('far');  */
          });
-		
-		
+
+
       // 별점 업데이트
       function starUpdate(element, starValue) {
          // 별 아이콘을 추가할 div 요소를 가져옴
@@ -605,7 +597,11 @@ table td>.close_btn {
                         // 별점 값 hidden input에 설정
                         $(this).closest('.modal').find('#star_score')
                               .val(starValue);
+                        
+
+                	    
                      });
+                  
             });
    </script>
 </body>

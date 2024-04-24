@@ -40,17 +40,15 @@
 						<li><a href="${cp}/faqlist.fa">FAQ게시판</a></li>
 						<li><a href="${cp}/reviewlist.rf">리뷰게시판</a></li>
 					</ul></li>
-				<c:if test="${not empty loginUser}">
-					<li class="mypage"><a href="${cp}/"
-						class="icon solid fa-angle-down" style="pointer-events: none;">마이페이지</a>
-						<ul class="drop_menu">
-							<li class="mypage"><a href="${cp}/userinfo.us">유저 정보</a></li>
-							<c:if test="${not empty expertSession}">
-								<li class="expertpage"><a href="${cp}/expertinfo.ep">전문가
-										정보</a></li>
-							</c:if>
-						</ul></li>
-				</c:if>
+				<li class="mypage"><a href="${cp}/userinfo.us"
+					class="icon solid fa-angle-down" style="pointer-events: none;">마이페이지</a>
+					<ul class="drop_menu">
+						<li class="mypage"><a href="${cp}/userinfo.us">유저 정보</a></li>
+						<c:if test="${not empty expertSession}">
+							<li class="expertpage"><a href="${cp}/expertinfo.ep">전문가
+									정보</a></li>
+						</c:if>
+					</ul></li>
 				<c:if test="${not empty sessionScope.loginUser}">
 					<!-- 세션이 있을 때 (로그인된 상태) -->
 					<c:choose>

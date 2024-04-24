@@ -114,6 +114,16 @@
 				addr_etc = #{addr_etc}
 			WHERE user_id = #{user_id}
 		</update>
+		<select id="select_review_user" parameterType="string" resultType="string">
+			select expert_name from review where user_id = #{user_id}
+		</select>
+		
+		<delete id="delete_review" parameterType="string" >
+			delete from review where user_id = #{user_id}
+		</delete>
+		<delete id="delete_review_idx" parameterType="long" >
+			delete from review where expert_idx = #{expert_idx}
+		</delete>
 </mapper>
 
 

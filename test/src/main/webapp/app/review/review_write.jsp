@@ -8,6 +8,7 @@
 <meta charset="utf-8" />
 <meta name="viewport"
    content="width=device-width, initial-scale=1, user-scalable=no" />
+   <link rel="icon" href="${cp}/images/everycare.ico" />
 <script src="https://kit.fontawesome.com/1924b51539.js"
    crossorigin="anonymous"></script>
 <link rel="stylesheet" href="${cp}/css/main.css" />
@@ -277,11 +278,17 @@ table td {
    <script src="${cp}/js/main.js"></script>
 
    <script>
-      function sendit() {
-         const reviewForm = document.reviewForm;
-         //유효성 검사
-         reviewForm.submit();
-      }
+   function sendit() {
+	    const reviewForm = document.reviewForm;
+	    const starScore = document.getElementById("star_score").value;
+
+	    if (starScore === "") {
+	        alert("별점을 클릭하여 평가를 진행해주세요.");
+	        return; // 리턴하여 폼 전송을 중단합니다.
+	    }
+
+	    reviewForm.submit();
+	}
       $(".star_rating .star").on("click", function() {
           // 클릭한 별의 값 가져오기
           const value = $(this).attr("value");
@@ -291,11 +298,7 @@ table td {
           $("#star_score").attr("value", value);
       });
       
-      
-       $(document).ready(function() {
-              // 페이지 로드 시 첫 번째 별을 활성화로 설정
-              $('.star_rating .star:first-child').addClass('fas').removeClass('far');
-          });
+     
           
           $(document).ready(function() {
               $('.star_rating > .star').click(function() {

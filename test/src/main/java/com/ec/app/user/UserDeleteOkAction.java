@@ -12,10 +12,12 @@ import com.ec.action.Action;
 import com.ec.action.Transfer;
 import com.ec.model.dao.UserDAO;
 import com.ec.model.dto.UserDTO;
-
 import com.ec.model.dao.U_boardDAO;
 import com.ec.model.dao.U_FileDAO;
 import com.ec.model.dto.U_FileDTO;
+
+
+
 
 public class UserDeleteOkAction implements Action {
 	
@@ -28,8 +30,9 @@ public class UserDeleteOkAction implements Action {
 		String userpw = req.getParameter("pw");
 		System.out.println("=============================");
 		System.out.println("유저 비밀번호 ::"+userpw);
+		HttpSession session = req.getSession();
 		// ---------------------------------------------------------------
-
+		
 
 		U_boardDAO bdao = new U_boardDAO();
 		U_FileDTO fdto = new U_FileDTO();
@@ -46,6 +49,9 @@ public class UserDeleteOkAction implements Action {
 		// 일반 유저인지 전문가 유저인지 판별
 		UserDTO temp = udao.getUserById(userid);
 		Long Expert_idx = udao.SelectExpertIdx(userid);
+		
+		System.out.println("Expert_idx ::"+Expert_idx);
+		
 		fdto.setSystem_name(fdao.getUFiles(Expert_idx));
 		if(Expert_idx == null || Expert_idx ==0) {
 			System.out.println("일반유저 입니다.");
@@ -65,6 +71,8 @@ public class UserDeleteOkAction implements Action {
 
 			out.print("location.replace('" + req.getContextPath() + "./user-delete.jsp')");
 			out.print("</script>");
+//			Transfer transfer = new Transfer();
+			
 			
 //===============================================================================================
 		} 
@@ -76,9 +84,37 @@ public class UserDeleteOkAction implements Action {
 				System.out.println("=============================");
 				System.out.println("일반유저 정보삭제 로직 시작");
 				Long board_idx = udao.SelectboardIdx(userid);
-				System.out.println("board_idx ::"+board_idx);
-				List<U_FileDTO> files = fdao.getFiles(board_idx);
 				
+				System.out.println("board_idx ::"+board_idx);
+//				List<U_FileDTO> files = fdao.getFiles(board_idx);
+				if(board_idx == null) {
+					//Long RE_idx = udao.selectReviewExpertIdx(userid);
+					
+					Long RE_idx = (Long)session.getAttribute("expertSession");								//Long board_idx = (Long)session.getAttribute("expertSession");
+					
+					System.out.println("해당 유저와 관련된 board_idx 를 찾을 수 없습니다.");
+					udao.deleteReview(userid);
+					System.out.println("리뷰 삭제 완료");
+					udao.deleteReviewIdx(RE_idx);
+					udao.deleteUser(userid);
+					udao.deleteExpert(userid);
+
+					session.removeAttribute("loginUser");
+					
+					session.setAttribute("loginUser", null);
+					out.print("<script>");
+					out.print("alert('회원 탈퇴 처리가 완료되었습니다.');");
+					out.print("location.replace('" + req.getContextPath() + "./index.jsp')");
+					out.print("</script>");
+					System.out.println("=============================");
+					System.out.println("(게시글 없는)일반유저 정보 삭제 완료.");
+//					transfer.setRedirect(false);
+//					transfer.setPath("/index.jsp");
+					
+					
+				}
+				else{
+					List<U_FileDTO> files = fdao.getFiles(board_idx);
 					for(U_FileDTO fdto1 : files) {
 						File file_e = new File(saveFolder, ((U_FileDTO) fdto1).getSystem_name());
 						if(!file_e.exists()) {
@@ -87,92 +123,148 @@ public class UserDeleteOkAction implements Action {
 						if(file_e.exists()) {
 							
 							file_e.delete();
-							System.out.println("파일 삭제 완료");
+							System.out.println("일반유저의 게시판 파일 삭제 완료");
 						}
 						else {
 							System.out.println("파일 삭제 실패 / 파일이 없습니다");
 						}
 					}
-				
+					// 리뷰 지우는 로직 --------------------------------------------------
+					udao.deleteReview(userid);
+					Long RE_idx = (Long)session.getAttribute("expertSession");	
+					udao.deleteReviewIdx(RE_idx);	
+					
+					//리뷰 로직 끝---------------------------------------------------------------------------
+					
 				udao.deleteUser(userid);
 				
 				udao.deleteExpert(userid);
-
+				session.removeAttribute("loginUser");
+				
+				session.setAttribute("loginUser", null);
 				out.print("<script>");
 				out.print("alert('회원 탈퇴 처리가 완료되었습니다.');");
 
 				out.print("location.replace('" + req.getContextPath() + "./index.jsp')");
 				out.print("</script>");
 				System.out.println("=============================");
-				System.out.println("일반유저 정보 삭제 완료.");
+				System.out.println("(게시판 파일이 있는)일반유저 정보 삭제 완료.");
+//				transfer.setRedirect(false);
+//				transfer.setPath("/index.jsp");
+				
+				}
 			} 
-			
+			//일반유저 로직 끝
 			
 			
 			
 			if (temp == null) {
 				out.print("<script>");
 				out.print("alert('아이디 / 비밀번호가 일치하지 않습니다. ');");
-
+				
 				out.print("location.replace('" + req.getContextPath() + "./user-delete.jsp')");
 				out.print("</script>");
 			} 
+			//전문가유저 로직 시작
+			System.out.println("전문가 번호 :: "+Expert_idx);
 			if (temp.getPw().equals(userpw)) {
-				
+				System.out.println("전문가 번호 :: "+Expert_idx);
 				if(!(Expert_idx == null)) {
 				
+				System.out.println("전문가 번호 :: "+Expert_idx);
+
 
 				fdto.setSystem_name(fdao.getUFiles(Expert_idx));
 				Long board_idx = udao.SelectboardIdx(userid);
-				List<U_FileDTO> files = fdao.getFiles(board_idx);
+//				List<U_FileDTO> files = fdao.getFiles(board_idx);
 				
 				
 				if(board_idx == null || board_idx == 0) {
-					System.out.println("board_idx가 존재하지 않습니다");
-					
-					File file_u = new File(saveFolder, fdto.getSystem_name());
-					if(file_u == null || !file_u.exists()) {
-						System.out.println("file_u가 존재하지 않습니다");
-					}
-					
-					else if(!(files==null)) {
-						for(U_FileDTO fdto1 : files) {
-							File file_e = new File(saveFolder, ((U_FileDTO) fdto1).getSystem_name());
-							if(!file_e.exists()) {
-								System.out.println("file(이)가 없습니다.");
-							}
-							if(file_e.exists()) {
-								
-								file_e.delete();
-								System.out.println("파일 삭제 완료");
-							}
-							else {
-								System.out.println("파일 삭제 실패 / 파일이 없습니다");
-							}
-						}
-						file_u.delete();
-						System.out.println("file_u 삭제");
-						System.out.println("게시판의 파일을 찾을 수 없어 프로필 파일만 삭제했습니다.");
-					}
-					udao.deleteUser(userid);
+					try {
+						System.out.println("board_idx가 존재하지 않습니다");
+//					List<U_FileDTO> files = fdao.getFiles(board_idx);
+						System.out.println(fdto.getSystem_name());
+						File file_u = new File(saveFolder, fdto.getSystem_name());  //null point
+						
+						
+							file_u.delete();
+							System.out.println("file_u 삭제");
+							System.out.println("게시판의 파일을 찾을 수 없어 프로필 파일만 삭제했습니다.");
+						
+						// 리뷰 지우는 로직 ------------------------------------------------
+						udao.deleteReview(userid);
+						Long RE_idx = (Long)session.getAttribute("expertSession");	
+						udao.deleteReviewIdx(RE_idx);
+						//리뷰 로직 끝----------------------------------------------------------------------------
+						udao.deleteUser(userid);
 
-					udao.deleteExpert(userid);
+						udao.deleteExpert(userid);
 //					
-					out.print("<script>");
-					out.print("alert('회원 탈퇴 처리가 완료되었습니다.');");
-					HttpSession session = req.getSession();
+						session.removeAttribute("loginUser");
+						
+						session.setAttribute("loginUser", null);
+						out.print("<script>");
+						out.print("alert('회원 탈퇴 처리가 완료되었습니다.');");
+						session.removeAttribute("loginUser");
 
-					session.removeAttribute("loginUser");
+						session.setAttribute("loginUser", null);
+						out.print("location.replace('" + req.getContextPath() + "./index.jsp')");
+						out.print("</script>");
+						System.out.println("(게시판 정보가 없는)전문가 유저 정보 삭제 완료.");
 
-					session.setAttribute("loginUser", null);
+						
+						if(file_u == null || !file_u.exists()) {
+							System.out.println("전문가 유저가 올린 파일(이)가 존재하지 않습니다");
+							List<U_FileDTO> files = fdao.getFiles(board_idx);
+						if(files.equals(null) || files == null) {
+							System.out.println("files 가 존재하지 않습니다");
+						}
+						
+						 if(!(files==null)) {
+							for(U_FileDTO fdto1 : files) {
+								File file_e = new File(saveFolder, ((U_FileDTO) fdto1).getSystem_name());
+								if(!file_e.exists()) {
+									System.out.println("file(이)가 없습니다.");
+								}
+								if(file_e.exists()) {
+									
+									file_e.delete();
+									System.out.println("파일 삭제 완료");
+								}
+								else {
+									System.out.println("파일 삭제 실패 / 파일이 없습니다");
+								}
+							}
+							file_u.delete();
+							System.out.println("file_u 삭제");
+							System.out.println("게시판의 파일을 찾을 수 없어 프로필 파일만 삭제했습니다.");
+						}
+						}
+						// 리뷰 지우는 로직 ------------------------------------------------
+						udao.deleteReview(userid);
+						
+						udao.deleteReviewIdx(RE_idx);
+						//리뷰 로직 끝----------------------------------------------------------------------------
+						udao.deleteUser(userid);
+
+						udao.deleteExpert(userid);
+//					
+						session.removeAttribute("loginUser");
+						
+						session.setAttribute("loginUser", null);
+						out.print("<script>");
+						out.print("alert('회원 탈퇴 처리가 완료되었습니다.');");
+						out.print("location.replace('" + req.getContextPath() + "./index.jsp')");
+						out.print("</script>");
+						System.out.println("전문가 유저 정보 삭제 완료.");
+//					transfer.setRedirect(false);
+//					transfer.setPath("/index.jsp");
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 					
-					out.print("location.replace('" + req.getContextPath() + "./index.jsp')");
-					out.print("</script>");
-					System.out.println("전문가 유저 정보 삭제 완료.");
 				}
 				else {
-					
-				
 				System.out.println("board_idx ::"+board_idx);
 				List<U_FileDTO> files1 = fdao.getFiles(board_idx);
 				fdto.setSystem_name(fdao.getUFiles(Expert_idx));
@@ -219,17 +311,27 @@ public class UserDeleteOkAction implements Action {
 							file_u.delete();
 							System.out.println("file_u 삭제");
 						}
-
+						// 리뷰 지우는 로직-----------------------------------------
+						udao.deleteReview(userid);
+						Long RE_idx = (Long)session.getAttribute("expertSession");	
+						udao.deleteReviewIdx(RE_idx);
+						//리뷰 로직 끝------------------------------------------------------------------
 						udao.deleteUser(userid);
 
 						udao.deleteExpert(userid);
+
+						session.removeAttribute("loginUser");
 						
+						session.setAttribute("loginUser", null);
 						out.print("<script>");
 						out.print("alert('회원 탈퇴 처리가 완료되었습니다.');");
-
 						out.print("location.replace('" + req.getContextPath() + "./index.jsp')");
 						out.print("</script>");
+						
 						System.out.println("전문가 유저 정보 삭제 완료.");
+//						transfer.setRedirect(false);
+//						transfer.setPath("/index.jsp");
+						
 						}
 				
 				// ---------------------------------------
@@ -243,9 +345,6 @@ public class UserDeleteOkAction implements Action {
 				out.print("</script>");
 			}
 		
-
-
-
 		return null;
 
 	}
