@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Chat">
+   <insert id="insert" parameterType="chatdto">
+      insert into chat (user_id,expert_idx)
+      values(#{user_id},#{expert_idx})
+   </insert>
+   <insert id="sendReservation" parameterType="long">
+      insert into chat_detail(chat_idx,type,contents)
+      values(#{chat_idx},'er','')
+   </insert>
+   <!-- 채팅 디테일 입력 -->
+   <insert id="insertDetail" parameterType="chatdetaildto">
+      insert into chat_detail(chat_idx,type,contents)
+      values(#{chat_idx},#{type},#{contents})
+   </insert>
+   <select id="getIdx" parameterType="chatdto" resultType="long">
+      SELECT chat_idx
+      FROM chat
+      WHERE user_id = #{user_id} AND expert_idx = #{expert_idx}
+   </select>
+   <select id="checkChatRoom" parameterType="chatdto" resultType="long">
+      select count(*)
+      from chat
+      where user_id = #{user_id} AND expert_idx = #{expert_idx}
+   </select>
+   <select id="getChatList" parameterType="string" resultType="chatdto">
+      select *
+      from chat
+      where user_id = #{user_id}
+   </select>
+   <select id="getNotReadCnt" parameterType="long" resultType="int">
+      select count(*)
+      from chat_detail
+      where (type='e' or type='er') and chat_idx = #{chat_idx} and is_read ='x'
+   </select>
+   <select id="getChatDetail" parameterType="long" resultType="chatdetaildto">
+      SELECT chat_detail.*, expert_file_indexes.original_name
+	  FROM chat_detail
+	  JOIN chat ON chat.chat_idx = chat_detail.chat_idx
+	  JOIN expert_file_indexes ON expert_file_indexes.expert_idx = chat.expert_idx
+	  WHERE chat_detail.chat_idx = #{chat_idx};
+   </select>
+   <select id="getLastChat_detail" parameterType="chatdetaildto" resultType="chatdetaildto">
+      SELECT * FROM chat_detail
+      WHERE chat_idx = #{chat_idx}
+      ORDER BY chat_detail_num DESC
+      LIMIT 1;
+   </select>
+   <select id="getExpertChatList" parameterType="long" resultType="tempchatdto">
+      SELECT c.chat_idx, c.user_id, c.expert_idx, u.name AS user_name, COUNT(CASE WHEN cd.type = 'u' THEN cd.chat_idx ELSE NULL END) AS notReadCnt
+      FROM chat c
+      JOIN user u ON c.user_id = u.user_id
+      LEFT JOIN chat_detail cd ON c.chat_idx = cd.chat_idx AND cd.is_read = 'x'
+      WHERE c.expert_idx = ${expert_idx}
+      GROUP BY c.chat_idx, c.user_id, c.expert_idx, u.name;
+   </select>
+   <select id="getUserIdByChatIdx" parameterType="string" resultType="string">
+      select user_id
+      from chat
+      where chat_idx = #{chat_idx}
+   </select>
+   <update id="UpdateIsRead" parameterType="long">
+      UPDATE chat_detail
+      SET is_read = 'o'
+      WHERE (type='e' or type='er') AND chat_idx = #{chat_idx} AND is_read = 'x';
+   </update>
+   <update id="expertIsReadUpdate" parameterType="long">
+      UPDATE chat_detail
+      SET is_read = 'o'
+      WHERE chat_idx = #{chat_idx} AND type = 'u' AND is_read = 'x';
+   </update>
+   <select id="getChatInfo" parameterType="long" resultType="chatdto">
+   		select * from chat where chat_idx = #{chat_idx}
+   </select>
+   <select id="getExpertName" parameterType="long" resultType="string">
+   		select user.name
+   		from chat
+   		join expert on chat.expert_idx = expert.expert_idx
+   		join user on user.user_id = expert.user_id
+   		where chat_idx = #{chat_idx} 
+   </select>
+</mapper>
+

@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+#header.alt > .logo {
+	top: 0 !important;
+	left: 2rem;
+}
+
+#header.alt > nav {
+	top: 0 !important;
+	right: 1rem;
+}
+button{
+    color: #fff !important;
+}
+.profile-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 24px;
+    padding: 25px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    margin: 0 auto;
+}
+.profile-card::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 15%;
+    width: 100%;
+    border-radius: 24px 24px 0 0;
+    background-color: #1bcea5;
+}
+
+.image{
+    position: relative;
+    height: 170px;
+    width: 170px;
+    border-radius: 50%;
+    background-color: #1bcea5;
+    padding: 3px;
+    margin-bottom: 30px;
+}
+.image .profile-img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #fff;
+}
+
+.profile-card .text-data{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 14px;
+}
+.text-data .name{
+    font-size: 22px;
+    font-weight: 500;
+}
+.text-data .age{
+    font-size: 22px;
+    font-weight: 500;
+}
+.profile-card .media-buttons{
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+.media-buttons .link{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+    height: 34px;
+    width: 34px;
+    border-radius: 50%;
+    margin: 0 8px;
+    background-color: #4080f4;
+    text-decoration: none;
+}
+.media-buttons .link:hover{
+	color: #fff !important;
+	transform: scale(1.2); 
+    transition: transform 0.3s ease; 
+}
+
+.profile-card .chat_btn,
+.profile-card .review_btn{
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+}
+.btns{
+	display:flex;
+}
+.chat_btn .chatting{
+   background-color:#1bcea5 !important;
+   color:white !important;
+}
+
+.chat_btn .chating:hover,
+.chat_btn .chatting:hover
+{
+    background-color: #81F7D8;
+}
+.review_btn .review_write{
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    border: none;
+    border-radius: 24px;
+    background-color: #1bcea5;
+    cursor: pointer;
+    transform: all 0.3s ease;
+}
+
+.review_btn .review_write:hover{
+    background-color: #81F7D8;
+}
+
+.profile-card .analytics{
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.analytics .data{
+    display: flex;
+    align-items: center;
+    color: #333;
+    padding: 0 20px;
+    border-right: 2px solid #e7e7e7;
+}
+.data i{
+    font-size: 18px;
+    margin-right: 6px;
+    cursor: pointer;
+}
+.data:last-child{
+    border-right: none;
+}
+

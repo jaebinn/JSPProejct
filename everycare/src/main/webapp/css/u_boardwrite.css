@@ -1,0 +1,40 @@
+@charset "UTF-8";
+.main{
+	margin-top:5%;
+}
+.file-area{
+	float:right; 
+	margin-right:100px;
+}
+.btn-area{
+	width:100%;
+	height:100px;
+	display:flex;
+	justify-content: center;
+    align-items: center;
+}
+.btn-area > tbody{
+	width:50%;
+}
+.btn-area > tbody > tr{
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	gap:10%;
+	background-color:#fff !important;
+	border:none;
+}
+.thumbnail {
+    width: 100px; 
+    height: 100px; 
+    object-fit: cover; 
+    margin-left:50px;
+}
+#th-file{
+	text-align: center;
+}
+.main > table tr th{
+	text-align: center !important;
+}
+
+

@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Expert">
+	<!-- 좋아요 순 상위 3명의 전문가 -->
+	<select id="topThree" resultType="expertdto">
+		select expert.*, user.name, expert_career_list.career_name,expert_file_indexes.original_name
+		from expert 
+		join user on expert.user_id = user.user_id
+        join expert_career_list on expert.expert_idx = expert_career_list.expert_idx
+		join expert_file_indexes on expert.expert_idx = expert_file_indexes.expert_idx
+		WHERE expert_career_list.career_name IS NOT NULL and expert_career_list.career_name != ""
+		order by expert.totalCnt desc 
+		limit 3;
+	</select>
+	<!-- 전체 전문가 수  -->
+	<select id="getExpertCnt" parameterType="long" resultType="long">
+		select count(*) from expert 
+	</select>
+	<!-- 검색된 전문가  -->
+	<select id="getSearchKeywordCnt" parameterType="string" resultType="long">
+		SELECT COUNT(*)
+    FROM expert
+    WHERE 
+        (
+            keyword_list LIKE CONCAT('%', '${keyword}', '%') 
+            OR 
+            cost LIKE CONCAT('%', '${keyword}', '%')
+            OR
+            location LIKE CONCAT('%', '${keyword}', '%')
+            OR 
+            available_time LIKE CONCAT('%', '${keyword}', '%')
+        )
+        OR 
+        EXISTS (
+            SELECT 1 
+            FROM user 
+            WHERE user.user_id = expert.user_id 
+            AND name LIKE CONCAT('%', '${keyword}', '%')
+        )
+        OR 
+        EXISTS (
+            SELECT 1 
+            FROM expert_career_list 
+            WHERE expert.expert_idx = expert_career_list.expert_idx 
+            AND career_name LIKE CONCAT('%', '${keyword}', '%')
+        );
+	</select>
+	<select id="getExpertKeywordCnt" parameterType="string" resultType="long">
+		select count(*) 
+		from expert
+		where keyword_list like CONCAT('%', '${keyword}', '%')
+	</select>
+	<!-- 전문가 정렬 -->
+	<select id="getList" parameterType="hashmap" resultType="expertdto">
+		SELECT DISTINCT expert.*, user.name, user.age, expert_career_list.career_name, expert_file_indexes.original_name
+		FROM expert
+		JOIN user ON expert.user_id = user.user_id 
+		JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx JOIN expert_file_indexes ON expert.expert_idx = expert_file_indexes.expert_idx
+		WHERE expert_career_list.career_name IS NOT NULL and expert_career_list.career_name != ""
+		ORDER BY expert_idx limit #{startRow}, #{pageSize};
+	</select>
+	<!-- 등록순 정 -->
+	<select id="getExpertSortByRegister" parameterType="hashmap" resultType="expertdto">
+		SELECT DISTINCT expert.*, user.name, user.age, expert_career_list.career_name, expert_file_indexes.original_name
+		FROM expert
+		JOIN user ON expert.user_id = user.user_id
+		JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
+		JOIN expert_file_indexes ON expert.expert_idx = expert_file_indexes.expert_idx
+		WHERE expert_career_list.career_name IS NOT NULL AND expert_career_list.career_name != ""
+		ORDER BY expert_idx DESC
+        LIMIT #{startRow}, #{pageSize}
+	</select>
+	<!-- 좋아요순 정렬 -->
+	<select id="getExpertSortByLike" parameterType="hashmap" resultType="expertdto">
+		SELECT DISTINCT expert.*, user.name, user.age, expert_career_list.career_name, expert_file_indexes.original_name
+		FROM expert
+		JOIN user ON expert.user_id = user.user_id
+		JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
+		JOIN expert_file_indexes ON expert.expert_idx = expert_file_indexes.expert_idx
+		WHERE expert_career_list.career_name IS NOT NULL AND expert_career_list.career_name != ""
+		ORDER BY totalCnt DESC
+        LIMIT #{startRow}, #{pageSize}
+	</select>
+	<!--  -->
+	<select id="getExpertSortByLowCost" parameterType="hashmap" resultType="expertdto">
+		SELECT DISTINCT expert.*, user.name, user.age, expert_career_list.career_name, expert_file_indexes.original_name
+		FROM expert
+		JOIN user ON expert.user_id = user.user_id
+		JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
+		JOIN expert_file_indexes ON expert.expert_idx = expert_file_indexes.expert_idx
+		WHERE expert_career_list.career_name IS NOT NULL AND expert_career_list.career_name != ""
+		ORDER BY cost ASC
+        LIMIT #{startRow}, #{pageSize}
+	</select>
+	<select id="getExpertSortByHighCost" parameterType="hashmap" resultType="expertdto">
+		SELECT DISTINCT expert.*, user.name, user.age, expert_career_list.career_name, expert_file_indexes.original_name
+		FROM expert
+		JOIN user ON expert.user_id = user.user_id
+		JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
+		JOIN expert_file_indexes ON expert.expert_idx = expert_file_indexes.expert_idx
+		WHERE expert_career_list.career_name IS NOT NULL AND expert_career_list.career_name != ""
+		ORDER BY cost DESC
+        LIMIT #{startRow}, #{pageSize}
+	</select>
+	<select id="getExpertById" parameterType="long" resultType="expertdto">
+		SELECT DISTINCT expert.*, user.name, user.age, expert_career_list.career_name, expert_file_indexes.original_name
+		FROM expert
+		JOIN user ON expert.user_id = user.user_id 
+		JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx JOIN expert_file_indexes ON expert.expert_idx = expert_file_indexes.expert_idx
+		where expert.expert_idx = #{expert_idx} and expert_career_list.career_name IS NOT NULL and expert_career_list.career_name != ""
+	</select>
+	
+	<select id="getExpertSortByKeyword" resultType="expertdto" parameterType="hashmap">
+	    SELECT DISTINCT expert.*, user.name, user.age, expert_career_list.career_name, expert_file_indexes.original_name
+	    FROM expert
+	    JOIN user ON expert.user_id = user.user_id
+	    JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
+	    JOIN expert_file_indexes ON expert.expert_idx = expert_file_indexes.expert_idx
+	    WHERE keyword_list LIKE CONCAT('%', #{keyword}, '%') 
+	    and expert_career_list.career_name IS NOT NULL and expert_career_list.career_name != "" 
+	    LIMIT #{startRow}, #{pageSize}
+	</select>
+	<insert id="insertExpert" parameterType="expertdto">
+  		insert into
+  		expert(user_id, resume, is_drivable, location, keyword_list, available_time, cost, account)
+  		values(#{user_id},#{resume},#{is_drivable},#{location},#{keyword_list},#{available_time},#{cost},#{account})
+  	</insert>
+  	<select id="selectExpertInfo" parameterType="String" resultType="expertdto">
+  		select * from expert where user_id = #{user_id};
+  	</select>
+    
+    <!-- 자격증 삽입 -->
+	<insert id="insertLicense" parameterType="expertls">
+  		insert into expert_license_list(expert_idx, license_name, acquire_date)
+  		values(#{expert_idx},#{license_name},#{acquire_date})
+  	</insert>
+	<!-- 경력 삽입 -->
+	<insert id="insertCareer" parameterType="expertca">
+  		insert into expert_career_list(expert_idx, career_name, start_time, end_time)
+  		values(#{expert_idx},#{career_name},#{start_time},#{end_time})
+  	</insert>
+  	<select id="getExpertCntWithKey" resultType="long">  	
+		SELECT count(*)
+		FROM expert
+		JOIN user ON expert.user_id = user.user_id
+		JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
+		WHERE 
+		    (
+		        keyword_list LIKE CONCAT('%', #{keyword}, '%') 
+		        OR 
+		        cost LIKE CONCAT('%', #{keyword}, '%')
+		        OR
+		        location LIKE CONCAT('%', #{keyword}, '%')
+		        OR 
+		        available_time LIKE CONCAT('%', #{keyword}, '%')
+		        OR 
+		        name LIKE CONCAT('%', #{keyword}, '%')
+		        OR 
+		        career_name LIKE CONCAT('%', #{keyword}, '%')
+		    )
+  	</select>
+  	<select id="getExpertList" resultType="expertdto" parameterType="hashmap">
+		select * from expert order by expert_idx desc limit #{startRow},#{pageSize}
+	</select>
+	<select id="getExpertSearchKeyword" resultType="expertdto" parameterType="hashmap">
+	    SELECT DISTINCT expert.*, user.name, user.age, expert_career_list.career_name, expert_file_indexes.original_name
+    FROM expert
+    JOIN user ON expert.user_id = user.user_id
+    JOIN expert_career_list ON expert.expert_idx = expert_career_list.expert_idx
+    JOIN expert_file_indexes ON expert.expert_idx = expert_file_indexes.expert_idx
+    WHERE 
+        expert_career_list.career_name IS NOT NULL AND expert_career_list.career_name != "" 
+        AND (
+            expert.keyword_list LIKE CONCAT('%', #{keyword}, '%')
+            OR expert.cost LIKE CONCAT('%', #{keyword}, '%')
+            OR expert.location LIKE CONCAT('%', #{keyword}, '%')
+            OR expert.available_time LIKE CONCAT('%', #{keyword}, '%')
+            OR user.name LIKE CONCAT('%', #{keyword}, '%')
+            OR expert_career_list.career_name LIKE CONCAT('%', #{keyword}, '%')
+        )
+    LIMIT #{startRow}, #{pageSize};
+	</select>
+	<insert id="insertExpert_file_indexes" parameterType="expertfiledto">
+  		insert into
+  		expert_file_indexes(system_name, original_name, expert_idx)
+  		values(#{system_name},#{original_name},#{expert_idx})
+  	</insert>
+	<select id="totalScore" parameterType="long" resultType="long">
+	    SELECT SUM(star)
+	    FROM review
+	    WHERE expert_idx = #{expert_idx}
+	</select>
+	<select id="getExpertCntByRatingUser" resultType="int" parameterType="long">
+		select count(*) from review where expert_idx = #{expert_idx};
+	</select>
+	<select id="getLocation" parameterType="long" resultType="string">
+		select location from expert where expert_idx = #{expert_idx} 
+	</select>
+	<select id="getUser_nameByExpert_idx" parameterType="long" resultType="string">
+      SELECT user.name
+         FROM expert
+         JOIN user ON expert.user_id = user.user_id
+         where expert_idx = #{expert_idx}
+   </select>
+     <select id="getExpertIdxByName" resultType="long" parameterType="string">
+      select * from expert 
+      join user on expert.user_id= user.user_id
+      where user.name = #{expert_name};
+   </select>
+   <select id="getExpertInfoByChat" resultType="expertdto" parameterType="long">
+   		select * from expert
+   		join chat on chat.expert_idx = expert.expert_idx
+   		where chat_idx = #{chat_idx}
+   </select>
+   <select id="getExpertPhone" resultType="string" parameterType="expertdto">
+      select user.tel_mobile 
+      from expert
+      join user on user.user_id = expert.user_id 
+      where expert_idx = #{expert_idx};
+   </select>
+   <select id="getAvailableTime" resultType="string" parameterType="long">
+   		select available_time from expert
+   		where expert_idx = #{expert_idx}
+   </select>
+   <select id="getProfile" resultType="string" parameterType="long">
+   		select original_name
+   		from expert_file_indexes
+   		where expert_idx = #{expert_idx}
+   </select>
+   
+   <!-- ExpertInfo.jsp용 -->
+   		<!-- 키워드 넣기 -->
+   			<update id="updateKeyword_list" parameterType="expertonlydto">
+   				UPDATE
+   					expert
+   				SET
+   					keyword_list = #{keyword_list}
+   				WHERE
+   					expert_idx = #{expert_idx}
+   			</update>
+   		<!-- 파일DTO 가져오기 -->
+   			<select id="selectProfile" resultType="expertfiledto" parameterType="long">
+   				SELECT *
+   				FROM expert_file_indexes
+   				WHERE
+   					expert_idx = #{expert_idx}
+   			</select>
+   		<!-- 파일 삭제 -->
+   			<delete id="deleteProfile" parameterType="long">
+   				DELETE from expert_file_indexes
+   				WHERE
+   					expert_idx = #{expert_idx}
+   			</delete>
+		<!-- user_id로 한 행 잡아서 ExpertOnlyDTO로 가져오기 -->
+			<select id="getExpertFull" resultType="expertonlydto" parameterType="string">
+				SELECT *
+				FROM
+					expert
+				WHERE
+					user_id= #{user_id}
+			</select>
+		
+		<!-- main block 수정 -->
+			<update id="updateMain" parameterType="expertonlydto">
+				UPDATE 
+					expert
+				SET
+					is_drivable = #{is_drivable},
+					account = #{account},
+					cost = #{cost}
+				WHERE
+					user_id = #{user_id}
+			</update>
+		
+		<!-- resume block 수정 -->
+			<update id="updateResume" parameterType="expertonlydto">
+				UPDATE 
+					expert
+				SET
+					resume = #{resume}
+				WHERE
+					user_id = #{user_id}
+			</update>
+		
+		<!-- etcinfo block 수정 -->
+			<update id="updateEtcinfo" parameterType="expertonlydto">
+				UPDATE
+					expert
+				SET
+					location = #{location},
+					available_time = #{available_time}
+				WHERE	
+					user_id = #{user_id}
+			</update>
+</mapper>

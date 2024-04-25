@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Like">
+
+	<insert id="insert" parameterType="hashmap">
+    	INSERT INTO like_cnt (user_id, expert_idx, isLike) VALUES (#{user_id}, #{expert_idx}, #{likeStatus})
+	</insert>
+
+	<update id="updateTotalCnt" parameterType="hashmap">
+        UPDATE expert
+        SET totalCnt = #{totalCnt}
+        WHERE expert_idx = #{expert_idx}
+    </update>
+    <select id="isExpertLike" parameterType="map" resultType="int">
+    	select count(*) from like_cnt where user_id = #{user_id} and expert_idx = #{expert_idx}
+    </select>
+    <select id="getLike" parameterType="hashmap" resultType="likecntdto">
+        select * from like_cnt where user_id = #{user_id} and expert_idx = #{expert_idx}
+    </select>
+    <delete id="delete" parameterType="hashmap">
+    	delete from like_cnt where user_id = #{user_id} and expert_idx = #{expert_idx}
+    </delete>
+
+</mapper>

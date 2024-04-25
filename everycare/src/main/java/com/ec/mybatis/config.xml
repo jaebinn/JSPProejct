@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <typeAliases>
+  	<typeAlias type="com.ec.model.dto.FaqDTO" alias="faqdto"/>
+  	<typeAlias type="com.ec.model.dto.U_boardDTO" alias="u_boarddto"/>  	
+  	<typeAlias type="com.ec.model.dto.U_FileDTO" alias="u_filedto"/>  	  	
+  	<typeAlias type="com.ec.model.dto.U_replyDTO" alias="u_replydto"/>  	  	
+  	<typeAlias type="com.ec.model.dto.UserDTO" alias="userdto"/>  	  	
+  	<typeAlias type="com.ec.model.dto.ExpertDTO" alias="expertdto"/>  	  	
+  	<typeAlias type="com.ec.model.dto.Like_cntDTO" alias="likecntdto"/>  	  	
+  	<typeAlias type="com.ec.model.dto.ExpertLicenseListDTO" alias="expertls"/>  	  	
+  	<typeAlias type="com.ec.model.dto.ExpertCareerListDTO" alias="expertca"/>  	
+  	<typeAlias type="com.ec.model.dto.Expert_file_indexesDTO" alias="expertfiledto"/>  	
+  	<typeAlias type="com.ec.model.dto.ChatDTO" alias="chatdto"/>  	
+  	<typeAlias type="com.ec.model.dto.Chat_detailDTO" alias="chatdetaildto"/>  	
+  	<typeAlias type="com.ec.model.dto.TempChatDTO" alias="tempchatdto"/>  	
+  	<typeAlias type="com.ec.model.dto.ReviewDTO" alias="reviewdto"/>  	
+  	<typeAlias type="com.ec.model.dto.PaymentDTO" alias="paymentdto"/>
+	<typeAlias type="com.ec.model.dto.ExpertOnlyDTO" alias="expertonlydto"/>
+	<typeAlias type="com.ec.model.dto.ExpertCareerListUpdateDTO" alias="expertcludto"/>  	
+	<typeAlias type="com.ec.model.dto.ExpertLicenseListUpdateDTO" alias="expertlludto"/> 
+  	  	
+  </typeAliases>
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/project"/>
+        <property name="username" value="root"/>
+        <property name="password" value="rootroot"/>
+      </dataSource>
+    </environment>
+  </environments>
+  <mappers>
+    <mapper resource="com/ec/mapper/FaqMapper.xml"/>
+    <mapper resource="com/ec/mapper/U_boardMapper.xml"/>    
+    <mapper resource="com/ec/mapper/U_FileMapper.xml"/>    
+    <mapper resource="com/ec/mapper/U_replyMapper.xml"/>    
+    <mapper resource="com/ec/mapper/UserMapper.xml"/>    
+    <mapper resource="com/ec/mapper/ExpertMapper.xml"/>    
+    <mapper resource="com/ec/mapper/Like_cntMapper.xml"/>    
+    <mapper resource="com/ec/mapper/ChatMapper.xml"/>    
+    <mapper resource="com/ec/mapper/PaymentMapper.xml"/>   
+    <mapper resource="com/ec/mapper/ReviewMapper.xml"/>   
+	<mapper resource="com/ec/mapper/Expert_career_listMapper.xml"/>    
+	<mapper resource="com/ec/mapper/Expert_license_listMapper.xml"/> 
+  </mappers>
+</configuration>
+
+

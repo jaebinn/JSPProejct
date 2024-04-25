@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="User">
+	<insert id="insert" parameterType="userdto">
+		insert into user(user_id, pw, name, tel_mobile, tel_sub, email, gender, age, zipcode, addr, addr_detail, addr_etc, user_etc) 
+		values(#{user_id},#{pw},#{name},#{tel_mobile},#{tel_sub},#{email},#{gender},#{age},#{zipcode}, #{addr},#{addr_detail},#{addr_etc},#{user_etc})
+	</insert>
+	
+	<select id="select" parameterType="string" resultType="userdto">
+		select * from user where user_id = #{user_id}
+	</select>
+	<select id="select_expert" parameterType="string" resultType="userdto">
+		select user_id from expert where user_id = #{user_id}
+	</select>
+	<select id="select_expert_idx" parameterType="string" resultType="long">
+		select expert_idx from expert where user_id = #{user_id}
+	</select>
+	<delete id="delete-user"  parameterType="string">
+		delete from user where user_id = #{user_id}
+	</delete>
+	<delete id="delete-expert"  parameterType="string">
+		delete from expert where user_id = #{user_id}
+	</delete>
+	<select id="userCnt" resultType="long">
+		select count(*) from user;
+	</select>
+	<select id="select_board_idx" parameterType="string" resultType="long">
+		select board_idx from u_board where user_id = #{user_id}
+	</select>
+	
+	<!-- userinfo.jsp Ajax 수정용 -->
+		<!-- update-default-info 업데이트 -->
+		<update id="update_DefaultBlock" parameterType="userdto">
+			UPDATE user
+			SET
+				name=#{name},
+				gender=#{gender},
+				age=#{age}
+			WHERE user_id=#{user_id}
+		</update>
+		
+		<!-- update-contacts-info 업데이트 -->
+		<update id="update_ContactsBlock" parameterType="userdto">
+			UPDATE user
+			SET
+				tel_mobile = #{tel_mobile},
+				tel_sub = #{tel_sub},
+				email = #{email}
+			WHERE user_id=#{user_id}
+		</update>
+		
+		<!-- update-addr-info 업데이트 -->
+		<update id="update_AddrBlock" parameterType="userdto">
+			UPDATE user
+			SET
+				zipcode = #{zipcode},
+				addr = #{addr},
+				addr_detail = #{addr_detail},
+				addr_etc = #{addr_etc}
+			WHERE user_id = #{user_id}
+		</update>
+		
+		<!-- update-password-info 업데이트 -->
+		<update id="update_PasswordBlock" parameterType="userdto">
+			UPDATE user
+			SET
+				pw = #{pw}
+			WHERE user_id = #{user_id}
+		</update>
+		
+		<!-- user.user_etc 업데이트 -->
+		<update id="update_UserEtc" parameterType="userdto">
+			UPDATE user
+			SET
+				user_etc = #{user_etc}
+			WHERE user_id = #{user_id}
+		</update>
+		
+	<!-- Expertinfo.jsp 수정 -->
+	
+		<!-- main block 업데이트 -->
+		<update id="updateMain" parameterType="userdto">
+			UPDATE user
+			SET 
+				name = #{name},
+				gender = #{gender},
+				age = #{age}
+			WHERE user_id = #{user_id}
+		</update>
+		
+		<!-- main block + PW 업데이트 -->
+		<update id="updateMainPlusPW" parameterType="userdto">
+			UPDATE user
+			SET 
+				pw = #{pw},
+				name = #{name},
+				gender = #{gender},
+				age = #{age}
+			WHERE user_id = #{user_id}
+		</update>
+		
+		<!-- contacts block 업데이트 -->
+		<update id="updateContacts" parameterType="userdto">
+			UPDATE user
+			SET
+				tel_mobile = #{tel_mobile},
+				tel_sub = #{tel_sub},
+				email = #{email},
+				zipcode = #{zipcode},
+				addr = #{addr},
+				addr_detail = #{addr_detail},
+				addr_etc = #{addr_etc}
+			WHERE user_id = #{user_id}
+		</update>
+		<select id="select_review_user" parameterType="string" resultType="string">
+			select expert_name from review where user_id = #{user_id}
+		</select>
+		
+		<delete id="delete_review" parameterType="string" >
+			delete from review where user_id = #{user_id}
+		</delete>
+		<delete id="delete_review_idx" parameterType="long" >
+			delete from review where expert_idx = #{expert_idx}
+		</delete>
+</mapper>
+
+
+
+
+
+
+
+

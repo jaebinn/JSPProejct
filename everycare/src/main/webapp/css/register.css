@@ -1,0 +1,121 @@
+#banner {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+.content primary {
+    box-sizing: border-box !important;
+    padding: 0px !important;
+    margin: 0px !important;
+}
+.content {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+input, textarea{
+    background-color: transparent !important;
+}
+textarea {
+    resize: none !important;
+  }
+#resume {
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+#is_drivable_yes, #is_drivable_no {
+    width: 200px !important;
+}
+#is_drivable_yes {
+    margin-right: 20px !important;
+}
+#is_drivable_no {
+    margin-left: 20px !important;
+}
+#info_box {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+}
+table tbody tr:nth-child(2n + 1) {
+     background-color: transparent !important;
+}
+#e_id_value {
+    width: 100% !important;
+}
+.btn_area {
+    text-align: right !important;
+    padding-right: 10px !important;
+}
+#careerAdd, #licenseAdd, #careerDelete, #licenseDelete {
+    width: 250px;
+}
+#careerAdd, #licenseAdd {
+    margin-right: 20px !important;
+}
+#keyword {
+	text-align: center !important;
+    vertical-align: middle !important;
+}
+#info_box {
+	text-align: center !important;
+}
+#imgArea {
+	width: 120px !important;
+	height: 120px !important;
+	border: 1px solid white !important;
+	text-align: center !important;
+	line-height: 120px !important;
+	color: gray !important;
+	border-radius: 50% !important;
+	margin: 0 auto !important;
+	cursor: pointer !important;
+	background-image: url(/images/basic.png);
+	background-size: cover !important;
+	background-position: center !important;
+}
+#fileArea {
+	display: none !important;
+}
+.box2 {
+    background-color: #E2E2E2;
+    border-radius: 50px 50px 50px 50px / 50px 50px 50px 50px !important;
+    padding: 50px 30px 0px 30px;
+}
+#addbutton {
+    margin: 10px 0px 0px 0px !important;
+}
+#complete {
+	margin: 0px 0px 40px 0px;
+}
+#is_drivable_yes, #is_drivable_no, #addbutton, #careerAdd, #careerDelete,
+#licenseAdd, #licenseDelete, #complete, #keyword1, #keyword2, #keyword3,
+#keyword4, #keyword5 {
+	box-shadow: none;
+	border: 2px solid #1bcea5;
+}
+h2 {
+	padding: 50px 0px 0px 0px;
+}
+#is_drivable_yes.selected,
+#is_drivable_no.selected {
+  background-color: #BAB8B6 !important;
+}
+.choice {
+	background-color: #BAB8B6 !important;
+}
+#keywordinfo {
+    text-align: center !important;
+    border: none;
+}
+#resume_value.has-text {
+	background-color: lightblue;
+}
+#available_time {
+	vertical-align: middle !important;
+	text-align: center !important;
+}
+
+
+
+
+

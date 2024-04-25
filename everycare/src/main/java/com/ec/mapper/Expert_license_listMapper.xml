@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="Expert_license_list">
+  	<insert id="insert" parameterType="expertls">
+  		insert into expert_license_list(expert_idx, license_name, acquire_date)
+  		values(#{expert_idx},#{license_name},#{acquire_date})
+  	</insert>
+  	
+  	<!-- expertinfo.jsp 서 쓸 list getter -->
+  	<select id="getRowsListByIdx" parameterType="long" resultType="expertls">
+  		SELECT
+  			*
+  		FROM
+  			expert_license_list
+  		WHERE
+  			expert_idx = #{expert_idx}
+  	</select>
+  	
+  	<!-- expertinfo.jsp 자격증 -->
+  		<!-- create -->
+  			<insert id="insertRow" parameterType="expertlludto">
+  				INSERT INTO expert_license_list
+  					(expert_idx, license_name, acquire_date)
+  				VALUES
+  					(#{expert_idx},#{license_name},#{acquire_date})
+  			</insert>
+  		<!-- update -->
+  			<update id="updateRow" parameterType="expertlludto">
+  				UPDATE
+  					expert_license_list
+  				SET
+					license_name = #{new_license_name},
+					acquire_date = #{acquire_date}
+				WHERE
+					expert_idx = #{expert_idx}
+				AND
+					license_name = #{license_name}
+  			</update>
+		<!-- update - name 빼고 -->
+  			<update id="updateRowButNotName" parameterType="expertlludto">
+  				UPDATE
+  					expert_license_list
+  				SET
+					acquire_date = #{acquire_date}
+				WHERE
+					expert_idx = #{expert_idx}
+				AND
+					license_name = #{license_name}
+  			</update>
+		<!-- delete -->
+			<delete id="deleteRow" parameterType="expertlludto">
+				DELETE
+				FROM
+					expert_license_list
+				WHERE
+					expert_idx = #{expert_idx}
+				AND
+					license_name = #{license_name}
+			</delete>
+  </mapper>

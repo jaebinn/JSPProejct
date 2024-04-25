@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="U_board">
+	<insert id="insert" parameterType="u_boarddto">
+		insert into u_board(title,contents,user_id)
+		values(#{title},#{contents},#{user_id})
+	</insert>
+	
+	<select id="getList" resultType="u_boarddto" parameterType="hashmap">
+		SELECT u_board.*, user.name
+		FROM u_board
+		JOIN user ON u_board.user_id = user.user_id
+		order by board_idx desc limit #{startRow},#{pageSize}		
+	</select>
+	
+	<select id="getU_boardCnt" resultType="long">
+		select count(*) from u_board
+	</select>
+	<select id="getLastNum" parameterType="string" resultType="long">
+		select max(board_idx) from u_board where user_id=#{userid}
+	</select>
+	<select id="getboardbynum" parameterType="long" resultType="u_boarddto">
+		SELECT u_board.*, user.name
+		FROM u_board
+		JOIN user ON u_board.user_id = user.user_id
+		where board_idx = #{board_idx}	
+	</select>
+	<update id="updateReadCount" parameterType="long">
+		update u_board
+		set readcount = readcount+1
+		where board_idx = #{board_idx}
+	</update>
+	<update id="update" parameterType="u_boarddto">
+		update u_board
+		set title=#{title}, contents=#{contents}, updatedate=now()
+		where board_idx=#{board_idx}
+	</update>
+	<delete id="delete" parameterType="long">
+		delete from u_board where board_idx = #{board_idx}; 
+	</delete>
+</mapper>
+
+
