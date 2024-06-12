@@ -39,7 +39,8 @@ Everycare는 사용자들이 돌봄 서비스를 전문가를 고용하여 받�
 
 
 everycare 인덱스 화면 
-![Uploading 에브리케어 인덱스.png…]()
+![에브리케어 인덱스](https://github.com/jaebinn/JSPProejct/assets/108271458/4619285f-5f14-4b5f-9297-328a0b9d5be4)
+
 
 
 everycare 전문가리스트 화면
